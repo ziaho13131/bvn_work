@@ -73,7 +73,7 @@ package {
 			GameInterface.instance = new GameInterfaceManager();
 			
 			GameData.I.config.keyInputMode = 1;
-			GameData.I.config.quality = GameQuality.LOW;
+			GameData.I.config.quality = GameQuality.MEDIUM;
 			GameData.I.config.fighterHP = 2;
 			GameData.I.config.AI_level = 6;
 			GameData.I.config.fightTime = -1;
