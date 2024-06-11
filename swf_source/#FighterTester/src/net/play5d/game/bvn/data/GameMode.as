@@ -64,6 +64,16 @@ package net.play5d.game.bvn.data {
 				currentMode == SINGLE_WATCH;
 		}
 		
+	public static function isDuoMode():Boolean {
+		return currentMode == PARTNER_2V2||currentMode == PARTNER_2V2CPU||	
+	    currentMode == PARTNER_2V2WATCH;
+	}
+	
+	public static function isThreeMode():Boolean {
+		return currentMode == PARTNER_3V3||currentMode == PARTNER_3V3CPU||	
+			currentMode == PARTNER_3V3WATCH;
+	}
+		
 		public static function isVsPeople():Boolean {
 			return currentMode == TEAM_VS_PEOPLE || 
 				currentMode == SINGLE_VS_PEOPLE||
