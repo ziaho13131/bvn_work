@@ -49,7 +49,12 @@ package net.play5d.game.bvn.data {
 			return currentMode == TEAM_ACRADE || 
 				currentMode == TEAM_VS_PEOPLE || 
 				currentMode == TEAM_VS_CPU || 
-				currentMode == TEAM_WATCH;
+				currentMode == TEAM_WATCH||
+				currentMode == PARTNER_2V2CPU|| 
+				currentMode == PARTNER_3V3CPU|| 
+				currentMode == PARTNER_2V2WATCH|| 
+				currentMode == PARTNER_3V3WATCH;
+				
 		}
 		
 		public static function isSingleMode():Boolean {
