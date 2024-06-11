@@ -274,8 +274,8 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 			addFighter(p2, 2);
 			if(p1_1 != null)addFighter(p1_1,2);
 			if(p1_2 != null)addFighter(p1_2,2);
-			if(p2_1 != null)addFighter(p2_1,2);
-			if(p2_1 != null)addFighter(p2_2,3);
+			if(p2_1 != null)addFighter(p2_1,3);
+			if(p2_1 != null)addFighter(p2_2,2);
 			map.initlize();
 			
 			gameState.initFight(gameRunData.p1FighterGroup, gameRunData.p2FighterGroup, map);
