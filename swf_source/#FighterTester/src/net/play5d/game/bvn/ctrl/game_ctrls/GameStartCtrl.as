@@ -137,10 +137,26 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 					break;
 				case 1:
 					if(!GameMode.isDuoMode()&&!GameMode.isTeamMode())_state.cameraFocusOne(_p1.getDisplay());
+					else if(GameMode.isDuoMode()) {
+						_state.camera.focus([_p1.getDisplay(),_p1_1.getDisplay()]);
+						_state.camera.setZoom(2.6);
+					}
+					else if(GameMode.isThreeMode()) {
+						_state.camera.focus([_p1.getDisplay(),_p1_1.getDisplay(),_p1_2.getDisplay()]);
+						_state.camera.setZoom(1.5);
+					}
 					initStep = 1;
 					break;
 				case 2:
 					if(!GameMode.isDuoMode()&&!GameMode.isTeamMode())_state.cameraFocusOne(_p2.getDisplay());
+					else if(GameMode.isDuoMode()) {
+						_state.camera.focus([_p2.getDisplay(),_p2_1.getDisplay()]);
+						_state.camera.setZoom(2.6);
+					}
+					else if(GameMode.isThreeMode()) {
+						_state.camera.focus([_p2.getDisplay(),_p2_1.getDisplay(),_p2_2.getDisplay()]);
+						_state.camera.setZoom(1.5);
+					}  
 					initStep = 2;
 			}
 			

@@ -48,7 +48,7 @@ package net.play5d.game.bvn.interfaces {
 					txt: "2v2WATCH", 	
 					cn:   "搭档观战"
 				},{
-					txt: "2v2WATCH", 	
+					txt: "3v3WATCH", 	
 					cn:   "搭档观战"
 				}]
 			},{	
