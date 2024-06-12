@@ -145,7 +145,51 @@ package net.play5d.game.bvn.stage {
 			
 			_cameraFocus = [];
 			var p1:FighterMain = p1group.currentFighter;
+			var p1_1:FighterMain = p1group.getNextFighter();
+			var p1_2:FighterMain;
 			var p2:FighterMain = p2group.currentFighter;
+			var p2_1:FighterMain = p2group.getNextFighter();
+			var p2_2:FighterMain;
+			if(GameMode.isDuoMode()||GameMode.isThreeMode()) {
+				if (p1_1) {
+					GameLogic.resetFighterHP(p1_1);
+					
+					p1_1.x = _map.p1pos.x+25;
+					p1_1.y = _map.p1pos.y;
+					p1_1.direct = 1;
+					p1_1.updatePosition();
+				}
+				if (p2_1) {
+					GameLogic.resetFighterHP(p2_1);
+					
+					p2_1.x = _map.p2pos.x-25;
+					p2_1.y = _map.p2pos.y;
+					p2_1.direct = 1;
+					p2_1.updatePosition();
+				}
+			}
+			if(GameMode.isThreeMode()) {
+				if(p1_1 != p1group.fighter2)p1_2 = p1group.fighter2;
+				if(p1_1 != p1group.fighter3)p1_2 = p1group.fighter3;
+				if(p2_1 != p2group.fighter2)p2_2 = p2group.fighter2;	
+				if(p2_1 != p2group.fighter3)p2_2 = p2group.fighter3;	
+				if (p1_2) {
+					GameLogic.resetFighterHP(p1_2);
+		
+					p1_2.x = _map.p1pos.x+35;
+					p1_2.y = _map.p1pos.y;
+					p1_2.direct = 1;
+					p1_2.updatePosition();
+				}
+				if (p2_2) {
+					GameLogic.resetFighterHP(p2_2);
+					
+					p2_2.x = _map.p2pos.x-35;
+					p2_2.y = _map.p2pos.y;
+					p2_2.direct = 1;
+					p2_2.updatePosition();
+				}
+			}
 			if (p1) {
 				GameLogic.resetFighterHP(p1);
 				

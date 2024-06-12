@@ -311,8 +311,7 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 			switch (_step) {
 				case 0:
 					if (_introTeamId == -1 || _introTeamId == 1) {
-						_state.camera.focus([_p1.getDisplay(),_p1_1.getDisplay(),_p1_2.getDisplay()]);
-						_state.camera.setZoom(1.5);
+						
 						_holdFrame = 0.5 * GameConfig.FPS_GAME;
 						_step = 1;
 						break;
@@ -328,8 +327,6 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 					break;
 				case 2:
 					if (_introTeamId == -1 || _introTeamId == 2) {
-						_state.camera.focus([_p2.getDisplay(),_p2_1.getDisplay(),_p2_2.getDisplay()]);
-						_state.camera.setZoom(1.5);
 						_holdFrame = 0.5 * GameConfig.FPS_GAME;
 						_step = 3;
 						break;
