@@ -243,7 +243,10 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 			 if(p1_1 != gameRunData.p1FighterGroup.fighter3)p1_2 = gameRunData.p1FighterGroup.fighter3;
 			 if(p2_1 != gameRunData.p2FighterGroup.fighter2)p2_2 = gameRunData.p2FighterGroup.fighter2;	
 			 if(p2_1 != gameRunData.p2FighterGroup.fighter3)p2_2 = gameRunData.p2FighterGroup.fighter3;	
+<<<<<<< HEAD
 
+=======
+>>>>>>> bvnwork/master
 			}
 			
 			var map:MapMain = gameRunData.map;
@@ -277,7 +280,11 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 			if(p1_1 != null)addFighter(p1_1,1,true);
 			if(p1_2 != null)addFighter(p1_2,1,true);
 			if(p2_1 != null)addFighter(p2_1,2,true);
+<<<<<<< HEAD
 			if(p2_1 != null)addFighter(p2_2,2,true);
+=======
+			if(p2_2 != null)addFighter(p2_2,2,true);
+>>>>>>> bvnwork/master
 			map.initlize();
 			
 			gameState.initFight(gameRunData.p1FighterGroup, gameRunData.p2FighterGroup, map);

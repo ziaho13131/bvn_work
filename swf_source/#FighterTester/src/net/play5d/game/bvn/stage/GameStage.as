@@ -176,7 +176,11 @@ package net.play5d.game.bvn.stage {
 				if (p1_2) {
 					GameLogic.resetFighterHP(p1_2);
 		
+<<<<<<< HEAD
 					p1_2.x = _map.p1pos.x+35;
+=======
+					p1_2.x = _map.p1pos.x+45;
+>>>>>>> bvnwork/master
 					p1_2.y = _map.p1pos.y;
 					p1_2.direct = 1;
 					p1_2.updatePosition();
@@ -184,7 +188,11 @@ package net.play5d.game.bvn.stage {
 				if (p2_2) {
 					GameLogic.resetFighterHP(p2_2);
 					
+<<<<<<< HEAD
 					p2_2.x = _map.p2pos.x-35;
+=======
+					p2_2.x = _map.p2pos.x-45;
+>>>>>>> bvnwork/master
 					p2_2.y = _map.p2pos.y;
 					p2_2.direct = 1;
 					p2_2.updatePosition();
