@@ -354,8 +354,12 @@ package net.play5d.game.bvn.stage {
 		private function initSelecterP1():void {
 			_p1Slt = SelectUIFactory.createSelecter(1);
 			_p1Slt.isSelectAssist = _selectState == SELECT_STATE_ASSIST;
-			_p1Slt.selectTimesCount = GameMode.isTeamMode() && !_p1Slt.isSelectAssist ? 3 : 1;
-			
+			if(GameMode.isDuoMode()) {
+			   _p1Slt.selectTimesCount = GameMode.isTeamMode()&& !_p1Slt.isSelectAssist ? 2 : 1;
+			}
+			else{
+			    _p1Slt.selectTimesCount = GameMode.isTeamMode() && !_p1Slt.isSelectAssist ? 3 : 1;	
+			}
 			_ui.addChild(_p1Slt.ui);
 			_ui.addChild(_p1Slt.group);
 			
@@ -365,8 +369,12 @@ package net.play5d.game.bvn.stage {
 		private function initSelecterP2():void {
 			_p2Slt = SelectUIFactory.createSelecter(2);
 			_p2Slt.isSelectAssist = _selectState == SELECT_STATE_ASSIST;
-			
-			_p2Slt.selectTimesCount = GameMode.isTeamMode() && !_p2Slt.isSelectAssist ? 3 : 1;
+			if(GameMode.isDuoMode()) {
+				_p2Slt.selectTimesCount = GameMode.isTeamMode()&& !_p2Slt.isSelectAssist ? 2 : 1;
+			}
+			else{
+				_p2Slt.selectTimesCount = GameMode.isTeamMode() && !_p2Slt.isSelectAssist ? 3 : 1;	
+			}
 			_ui.addChild(_p2Slt.ui);
 			_ui.addChild(_p2Slt.group);
 			
