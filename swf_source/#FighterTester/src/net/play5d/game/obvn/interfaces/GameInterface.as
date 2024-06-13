@@ -1,5 +1,6 @@
 /**
  * 已重建完成
+ * 2024/6/14 完全移植所有旧版模式开关
  */
 package net.play5d.game.obvn.interfaces {
 	
@@ -29,7 +30,29 @@ package net.play5d.game.obvn.interfaces {
 					cn : "观战电脑"
 				}
 				]
-			}, {
+			},{
+				txt   :"PARTNER PLAY",
+				cn    : "搭档模式",
+				children: [{
+					txt: "2v2",
+					cn : "搭档对战"					
+				},{
+					txt:  "3v3",
+					cn:   "搭档对战"
+				},{
+					txt: "2v2CPU", 	
+					cn:   "搭档电脑"
+				},{
+					txt:   "3v3CPU",
+					cn:    "搭档电脑"
+				},{
+					txt: "2v2WATCH", 	
+					cn:   "搭档观战"
+				},{
+					txt: "3v3WATCH", 	
+					cn:   "搭档观战"
+				}]
+			},{	
 				txt     : "SINGLE PLAY",
 				cn      : "单人模式",
 				children: [{
@@ -41,6 +64,9 @@ package net.play5d.game.obvn.interfaces {
 				}, {
 					txt: "SINGLE VS CPU",
 					cn : "对战电脑"
+				}, {
+					txt: "SURVIVOR",
+					cn : "生存模式"
 				}, {
 					txt: "SINGLE WATCH",
 					cn : "观战电脑"
@@ -56,8 +82,8 @@ package net.play5d.game.obvn.interfaces {
 				txt: "CREDITS",
 				cn : "制作组"
 			}, {
-				txt: "MORE GAMES",
-				cn : "更多游戏"
+				txt: "UPDATA",
+				cn : "检查更新"
 			}
 			];
 		}

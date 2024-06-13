@@ -1,5 +1,6 @@
 /**
  * 已重建完成
+ * 2024/6/14 更改了生存模式的1p选人数量
  */
 package net.play5d.game.obvn.stage {
 	import com.greensock.TweenLite;
@@ -354,7 +355,13 @@ package net.play5d.game.obvn.stage {
 		private function initSelecterP1():void {
 			_p1Slt = SelectUIFactory.createSelecter(1);
 			_p1Slt.isSelectAssist = _selectState == SELECT_STATE_ASSIST;
-			_p1Slt.selectTimesCount = GameMode.isTeamMode() && !_p1Slt.isSelectAssist ? 3 : 1;
+			if (GameMode.currentMode == 30) {
+				_p1Slt.selectTimesCount = GameMode.isTeamMode() && !_p1Slt.isSelectAssist ? 1 : 1;
+			}
+			else {
+			   _p1Slt.selectTimesCount = GameMode.isTeamMode() && !_p1Slt.isSelectAssist ? 3 : 1;	
+			}
+			
 			
 			_ui.addChild(_p1Slt.ui);
 			_ui.addChild(_p1Slt.group);

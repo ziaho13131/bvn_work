@@ -1,5 +1,6 @@
 /**
  * 已重建完成
+ * 2024/6/14 移植了旧版所有模式条件 完全移植生存模式
  */
 package net.play5d.game.obvn.ui {
 	import com.greensock.TweenLite;
@@ -8,7 +9,9 @@ package net.play5d.game.obvn.ui {
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
-	
+	import flash.net.URLRequest;
+	import flash.net.navigateToURL
+		
 	import net.play5d.game.obvn.GameConfig;
 	import net.play5d.game.obvn.MainGame;
 	import net.play5d.game.obvn.ctrl.GameRender;
@@ -17,7 +20,7 @@ package net.play5d.game.obvn.ui {
 	import net.play5d.game.obvn.input.GameInputType;
 	import net.play5d.game.obvn.input.GameInputer;
 	import net.play5d.game.obvn.interfaces.GameInterface;
-	
+
 	/**
 	 * 主菜单按钮组类
 	 */
@@ -249,6 +252,42 @@ package net.play5d.game.obvn.ui {
 						MainGame.I.goSelect();
 					};
 					break;
+				case "2v2":
+					func = function ():void {
+						GameMode.currentMode = GameMode.PARTNER_2V2;
+						MainGame.I.goSelect();
+					};
+					break;
+				case "3v3":
+					func = function ():void {
+						GameMode.currentMode = GameMode.PARTNER_3V3;
+						MainGame.I.goSelect();
+					};
+					break;
+				case "2v2CPU":
+					/*func = function ():void {
+						GameMode.currentMode = GameMode.PARTNER_2V2CPU;
+						MainGame.I.goSelect();
+					};*/
+					break;
+				case "3v3CPU":
+					/*func = function ():void {
+						GameMode.currentMode = GameMode.PARTNER_3V3CPU;
+						MainGame.I.goSelect();
+					};*/
+					break;	
+				case "2v2WATCH":
+					/*func = function ():void {
+						GameMode.currentMode = GameMode.PARTNER_2V2WATCH;
+						MainGame.I.goSelect();
+					};*/
+					break;
+				case "3v3WATCH":
+					/*func = function ():void {
+						GameMode.currentMode = GameMode.PARTNER_3V3WATCH;
+						MainGame.I.goSelect();
+					};*/
+					break;	
 				case "SINGLE ACRADE":
 					func = function ():void {
 						GameMode.currentMode = GameMode.SINGLE_ACRADE;
@@ -279,13 +318,13 @@ package net.play5d.game.obvn.ui {
 						MainGame.I.goSelect();
 					};
 					break;
-//				case "SURVIVOR":
-//					func = function ():void {
-//						GameMode.currentMode = 30;
-//						MessionModel.I.reset();
-//						MainGame.I.goSelect();
-//					};
-//					break;
+				case "SURVIVOR":
+					func = function ():void {
+						GameMode.currentMode = 30;
+						MessionModel.I.reset();
+						MainGame.I.goSelect();
+					};
+					break;
 				case "OPTION":
 					func = function ():void {
 						MainGame.I.goOption();
@@ -302,10 +341,11 @@ package net.play5d.game.obvn.ui {
 						MainGame.I.goCredits();
 					};
 					break;
-				case "MORE GAMES":
-//					func = function ():void {
-//						MainGame.moreGames();
-//					};
+				case "UPDATA":
+					func = function ():void {
+						var wy:URLRequest = new URLRequest("https://space.bilibili.com/355885808");
+						navigateToURL(wy);
+					};
 			}
 			
 			return func;

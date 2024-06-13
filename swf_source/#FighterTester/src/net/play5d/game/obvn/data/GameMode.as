@@ -14,12 +14,19 @@ package net.play5d.game.obvn.data {
 		public static const TEAM_VS_CPU:int = 12;				// 小队与CPU对战
 		public static const TEAM_WATCH:int = 13;				// 小队观战
 		
-		public static const SINGLE_ACRADE:int = 20;				// 单人冒险
+		public static const SINGLE_ACRADE:int = 20;			// 单人冒险
 		public static const SINGLE_VS_PEOPLE:int = 21;			// 单人与2p对战
 		public static const SINGLE_VS_CPU:int = 22;				// 单人与CPU对战
 		public static const SINGLE_WATCH:int = 23;				// 单人观战
 		
-//		public static const SURVIVOR:int = 30;
+		public static const PARTNER_2V2:int = 24;            // 搭档模式2v2 
+		public static const PARTNER_3V3:int = 25;            // 搭档模式3v3 
+		public static const PARTNER_2V2CPU:int = 26;         // 搭档电脑2v2
+		public static const PARTNER_3V3CPU:int = 27;         // 搭档电脑3v3
+		public static const PARTNER_2V2WATCH:int = 28;       // 搭档观战2v2
+		public static const PARTNER_3V3WATCH:int = 29;       // 搭档观战3v3
+		
+		public static const SURVIVOR:int = 30;                // 生存模式
 		
 		public static const TRAINING:int = 40;					// 练习模式
 		
@@ -42,7 +49,8 @@ package net.play5d.game.obvn.data {
 			return currentMode == TEAM_ACRADE || 
 				currentMode == TEAM_VS_PEOPLE || 
 				currentMode == TEAM_VS_CPU || 
-				currentMode == TEAM_WATCH;
+				currentMode == TEAM_WATCH || 
+			    currentMode == SURVIVOR;
 		}
 		
 		public static function isSingleMode():Boolean {
@@ -50,6 +58,16 @@ package net.play5d.game.obvn.data {
 				currentMode == SINGLE_VS_PEOPLE || 
 				currentMode == SINGLE_VS_CPU || 
 				currentMode == SINGLE_WATCH;
+		}
+		
+		public static function isDuoMode():Boolean {
+			return currentMode == PARTNER_2V2||currentMode == PARTNER_2V2CPU||	
+				currentMode == PARTNER_2V2WATCH;
+		}
+		
+		public static function isThreeMode():Boolean {
+			return currentMode == PARTNER_3V3||currentMode == PARTNER_3V3CPU||	
+				currentMode == PARTNER_3V3WATCH;
 		}
 		
 		public static function isVsPeople():Boolean {
@@ -71,7 +89,7 @@ package net.play5d.game.obvn.data {
 		}
 		
 		public static function isAcrade():Boolean {
-			return currentMode == TEAM_ACRADE || currentMode == SINGLE_ACRADE/* || currentMode == SURVIVOR*/;
+			return currentMode == TEAM_ACRADE || currentMode == SINGLE_ACRADE|| currentMode == SURVIVOR;
 		}
 	}
 }
