@@ -63,6 +63,7 @@ package net.play5d.game.bvn.data {
 			return currentMode == SINGLE_ACRADE || 
 				currentMode == SINGLE_VS_PEOPLE || 
 				currentMode == SINGLE_VS_CPU || 
+			    currentMode == SURVIVOR|| 
 				currentMode == SINGLE_WATCH;
 		}
 		
