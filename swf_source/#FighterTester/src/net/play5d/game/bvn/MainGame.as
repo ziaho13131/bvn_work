@@ -31,7 +31,7 @@ package net.play5d.game.bvn {
 	
 	public class MainGame {
 		
-		public static const VERSION:String = "V3.4 小幻神修改版 Debug";		// 版本
+		public static const VERSION:String = "V3.x Debug";			// 版本
 //		public static const VERSION_DATE:String = "2019.3.32";		// 版本日期
 		public static var UPDATE_INFO:String;
 		

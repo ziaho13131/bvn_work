@@ -223,24 +223,13 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 		
 		private function buildGame():void {
 			var p1:FighterMain = gameRunData.p1FighterGroup.currentFighter;
-			var p1_1:FighterMain;
-			var p1_2:FighterMain;
 			var p2:FighterMain = gameRunData.p2FighterGroup.currentFighter;
-			var p2_1:FighterMain;
-			var p2_2:FighterMain;
+			
 			if (GameMode.currentMode == GameMode.TRAINING) {
 				_trainingCtrl = new TrainingCtrler();
 				_trainingCtrl.initlize([p1, p2]);
 				
 				gameRunData.gameTimeMax = -1;
-			}
-			if(GameMode.currentMode == GameMode.isDuoMode()) {
-			   p1_1 = gameRunData.p1FighterGroup.getNextFighter();
-			   p2_1 = gameRunData.p2FighterGroup.getNextFighter();
-			}
-			if(GameMode.currentMode == GameMode.isThreeMode()){
-			   p1_2 = gameRunData.p1FighterGroup.fighter3;
-			   p2_2 = gameRunData.p2FighterGroup.fighter3;	
 			}
 			
 			var map:MapMain = gameRunData.map;
@@ -252,30 +241,16 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 			if (p1.data.id == p2.data.id) {
 				var ct:ColorTransform = new ColorTransform();
 				ct.greenOffset = -85;
+				
 				p2.colorTransform = ct;
-				if(GameMode.currentMode == GameMode.isDuoMode()) {
-				 if(p1_1.data.id == p2_1.data.id) {
-					 p2_1.colorTransform = ct;
-				  }
-				}
-				if(GameMode.currentMode == GameMode.isThreeMode()) {
-					if(p1_2.data.id == p2_2.data.id) {
-						p2_2.colorTransform = ct;
-					}
-				}
 			}
 			else {
 				p2.colorTransform = new ColorTransform();
-				if(p2_1 != null)p2_1.colorTransform = new ColorTransform();
-				if(p2_2 != null)p2_2.colorTransform = new ColorTransform();
 			}
 			
 			addFighter(p1, 1);
 			addFighter(p2, 2);
-			if(p1_1 != null)addFighter(p1_1,2);
-			if(p1_2 != null)addFighter(p1_2,2);
-			if(p2_1 != null)addFighter(p2_1,3);
-			if(p2_1 != null)addFighter(p2_2,2);
+			
 			map.initlize();
 			
 			gameState.initFight(gameRunData.p1FighterGroup, gameRunData.p2FighterGroup, map);
@@ -290,20 +265,10 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 				GameUI.I.fadIn();
 				SoundCtrl.I.playFightBGM("map");
 			}
-			else if(GameMode.currentMode == GameMode.isDuoMode()) {
-				_startCtrl = new GameStartCtrl(gameState);
-				actionEnable = false;
-				_startCtrl.start2v2(p1,p2,p1_1,p2_1);
-			}
-			else if(GameMode.currentMode == GameMode.isThreeMode()) {
-				_startCtrl = new GameStartCtrl(gameState);
-				actionEnable = false;
-				_startCtrl.start3v3(p1,p2,p1_1,p1_2,p2_1,p2_2);
-			}
 			else {
 				_startCtrl = new GameStartCtrl(gameState);
 				actionEnable = false;
-				_startCtrl.start1v1(p1,p2);
+				_startCtrl.start1v1(p1, p2);
 			}
 			
 			GameInterface.instance.afterBuildGame();

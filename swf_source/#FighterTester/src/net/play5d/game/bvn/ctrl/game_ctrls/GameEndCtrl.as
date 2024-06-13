@@ -16,7 +16,7 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 	public class GameEndCtrl {
 	
 		private var _winner:FighterMain;				// 胜利者
-		private var _loser:FighterMain;				// 失败者
+		private var _loser:FighterMain;					// 失败者
 		
 		private var _step:int;
 		private var _holdFrame:int;
@@ -106,7 +106,7 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 					
 					var rundata:GameRunDataVO = GameCtrl.I.gameRunData;
 					var winner:FighterMain = rundata.lastWinner;
-					if (GameMode.isTeamMode()||GameMode.currentMode == 30) {
+					if (GameMode.isTeamMode()) {
 						var timeRate:Number = 
 							rundata.gameTime == -1 
 							? 1 

@@ -55,7 +55,7 @@ package net.play5d.game.bvn.fighter {
 		public var bishaSUPERQi:int = 300;
 		public var bishaAIRQi:int = 100;
 		
-		private var _cdObj:Object = {};
+//		private var _cdObj:Object = {};
 		
 		public function clear():void {
 			clearState();
@@ -110,25 +110,20 @@ package net.play5d.game.bvn.fighter {
 		}
 		
 		public function render():void {
-			for (var i:String in _cdObj) {
-				if (--_cdObj[i] <= 0) {
-					delete _cdObj[i];
-				}
-		}
-		}
-		
-  		public function setCD(id:String, time:int):void {
-			_cdObj[id] = time / GameConfig.FPS_GAME;
-			trace(_cdObj[id]);
+//			for (var i:String in _cdObj) {
+//				if (--_cdObj[i] <= 0) {
+//					delete _cdObj[i];
+//				}
+//			}
 		}
 		
-		public function getCD(id:String):int
-		{
-			return _cdObj[id];
-		}
-	
-		public function CDOK(id:String):Boolean {
-			return !_cdObj[id];
-		}
+//		public function setCD(id:String, time:int):void {
+//			_cdObj[id] = time / GameConfig.FPS_GAME;
+//			trace(_cdObj[id]);
+//		}
+//		
+//		public function CDOK(id:String):Boolean {
+//			return !_cdObj[id];
+//		}
 	}
 }

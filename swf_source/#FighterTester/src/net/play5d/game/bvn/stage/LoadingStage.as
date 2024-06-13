@@ -258,6 +258,14 @@ package net.play5d.game.bvn.stage {
 		}
 		
 		private static function render():void {
+			if (GameInputer.back(1)) {
+				if (GameUI.showingDialog()) {
+					GameUI.closeConfrim();
+				}
+				else {
+					GameUI.confirm("BACK TITLE?", "返回到主菜单？", MainGame.I.goMenu);
+				}
+			}
 		}
 		
 		private function loadNext():void {

@@ -17,8 +17,6 @@ package net.play5d.game.bvn.ui {
 	import net.play5d.game.bvn.input.GameInputType;
 	import net.play5d.game.bvn.input.GameInputer;
 	import net.play5d.game.bvn.interfaces.GameInterface;
-	import flash.net.URLRequest;
-	import flash.net.navigateToURL
 	
 	/**
 	 * 主菜单按钮组类
@@ -251,42 +249,6 @@ package net.play5d.game.bvn.ui {
 						MainGame.I.goSelect();
 					};
 					break;
-				case "2v2":
-					func = function ():void {
-						GameMode.currentMode = GameMode.PARTNER_2V2;
-						MainGame.I.goSelect();
-					};
-				break;
-				case "3v3":
-					func = function ():void {
-						GameMode.currentMode = GameMode.PARTNER_3V3;
-						MainGame.I.goSelect();
-					};
-				break;
-				case "2v2CPU":
-					func = function ():void {
-						GameMode.currentMode = GameMode.PARTNER_2V2CPU;
-						MainGame.I.goSelect();
-					};
-				break;
-				case "3v3CPU":
-					func = function ():void {
-						GameMode.currentMode = GameMode.PARTNER_3V3CPU;
-						MainGame.I.goSelect();
-					};
-				break;	
-				case "2v2WATCH":
-					func = function ():void {
-						GameMode.currentMode = GameMode.PARTNER_2V2WATCH;
-						MainGame.I.goSelect();
-					};
-				break;
-				case "3v3WATCH":
-					func = function ():void {
-						GameMode.currentMode = GameMode.PARTNER_3V3WATCH;
-						MainGame.I.goSelect();
-					};
-				break;	
 				case "SINGLE ACRADE":
 					func = function ():void {
 						GameMode.currentMode = GameMode.SINGLE_ACRADE;
@@ -317,13 +279,13 @@ package net.play5d.game.bvn.ui {
 						MainGame.I.goSelect();
 					};
 					break;
-				case "SURVIVOR":
-					func = function ():void {
-						GameMode.currentMode = 30;
-						MessionModel.I.reset();
-						MainGame.I.goSelect();
-					};
-					break;
+//				case "SURVIVOR":
+//					func = function ():void {
+//						GameMode.currentMode = 30;
+//						MessionModel.I.reset();
+//						MainGame.I.goSelect();
+//					};
+//					break;
 				case "OPTION":
 					func = function ():void {
 						MainGame.I.goOption();
@@ -340,12 +302,10 @@ package net.play5d.game.bvn.ui {
 						MainGame.I.goCredits();
 					};
 					break;
-			case "UPDATA":
-				func = function ():void {
-						var wy:URLRequest = new URLRequest("https://space.bilibili.com/355885808");
-						navigateToURL(wy);
-					};
-					break;		
+				case "MORE GAMES":
+//					func = function ():void {
+//						MainGame.moreGames();
+//					};
 			}
 			
 			return func;
