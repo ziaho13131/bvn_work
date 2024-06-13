@@ -32,9 +32,10 @@ if not %error% == 0 (
 	goto :ERROR
 )
 
-exit
+goto :END
 
 :: If an error occurs, prompt and exit.
 :ERROR
 pause >nul
+:END
 exit

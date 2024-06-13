@@ -20,4 +20,11 @@
 		<nature>com.adobe.flexbuilder.project.apollonature</nature>
 		<nature>com.adobe.flexbuilder.project.actionscriptnature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>bin-debug</name>
+			<type>2</type>
+			<locationURI>PARENT-2-PROJECT_LOC/swf_output</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>

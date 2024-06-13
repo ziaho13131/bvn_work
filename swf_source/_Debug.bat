@@ -1,12 +1,26 @@
 @echo off
 
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
 :: Set console title.
-title Bleach vs. Naruto Fetter - Console
+title Bleach vs. Naruto Kizuna - Console
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :: Check the operating system language.
 chcp | find "936" >nul || (
 	echo The operating system language must be Chinese! && goto :ERROR
 )
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :: Finds the parent directory of the current directory.
 for %%a in ("..") do (
@@ -19,6 +33,12 @@ set path=%path%;%toolPath%\Python34
 set dbgmain=%toolPath%\dbgmain.py
 set adlExe=%toolPath%\adl.exe
 set gameData=%parent%\swf_output
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 python -B %dbgmain% %adlExe% %gameData%
 
@@ -36,3 +56,5 @@ goto :END
 pause >nul
 :END
 exit
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::

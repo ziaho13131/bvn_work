@@ -9,29 +9,29 @@ package {
 	import flash.text.TextFieldType;
 	import flash.text.TextFormat;
 	
-	import net.play5d.game.bvn.Debugger;
-	import net.play5d.game.bvn.GameConfig;
-	import net.play5d.game.bvn.GameQuality;
-	import net.play5d.game.bvn.MainGame;
-	import net.play5d.game.bvn.ctrl.GameLogic;
-	import net.play5d.game.bvn.ctrl.StateCtrl;
-	import net.play5d.game.bvn.ctrl.game_ctrls.GameCtrl;
-	import net.play5d.game.bvn.ctrl.game_ctrls.TrainingCtrler;
-	import net.play5d.game.bvn.data.GameData;
-	import net.play5d.game.bvn.data.GameMode;
-	import net.play5d.game.bvn.data.GameRunDataVO;
-	import net.play5d.game.bvn.data.MapModel;
-	import net.play5d.game.bvn.data.SelectVO;
-	import net.play5d.game.bvn.fighter.FighterMain;
-	import net.play5d.game.bvn.fighter.ctrler.FighterCtrler;
-	import net.play5d.game.bvn.fighter.ctrler.FighterEffectCtrl;
-	import net.play5d.game.bvn.fighter.ctrler.FighterVoice;
-	import net.play5d.game.bvn.fighter.events.FighterEvent;
-	import net.play5d.game.bvn.fighter.events.FighterEventDispatcher;
-	import net.play5d.game.bvn.fighter.models.HitVO;
-	import net.play5d.game.bvn.interfaces.GameInterface;
-	import net.play5d.game.bvn.interfaces.GameInterfaceManager;
-	import net.play5d.game.bvn.stage.LoadingStage;
+	import net.play5d.game.obvn.Debugger;
+	import net.play5d.game.obvn.GameConfig;
+	import net.play5d.game.obvn.GameQuality;
+	import net.play5d.game.obvn.MainGame;
+	import net.play5d.game.obvn.ctrl.GameLogic;
+	import net.play5d.game.obvn.ctrl.StateCtrl;
+	import net.play5d.game.obvn.ctrl.game_ctrls.GameCtrl;
+	import net.play5d.game.obvn.ctrl.game_ctrls.TrainingCtrler;
+	import net.play5d.game.obvn.data.GameData;
+	import net.play5d.game.obvn.data.GameMode;
+	import net.play5d.game.obvn.data.GameRunDataVO;
+	import net.play5d.game.obvn.data.MapModel;
+	import net.play5d.game.obvn.data.SelectVO;
+	import net.play5d.game.obvn.fighter.FighterMain;
+	import net.play5d.game.obvn.fighter.ctrler.FighterCtrler;
+	import net.play5d.game.obvn.fighter.ctrler.FighterEffectCtrl;
+	import net.play5d.game.obvn.fighter.ctrler.FighterVoice;
+	import net.play5d.game.obvn.fighter.events.FighterEvent;
+	import net.play5d.game.obvn.fighter.events.FighterEventDispatcher;
+	import net.play5d.game.obvn.fighter.models.HitVO;
+	import net.play5d.game.obvn.interfaces.GameInterface;
+	import net.play5d.game.obvn.interfaces.GameInterfaceManager;
+	import net.play5d.game.obvn.stage.LoadingStage;
 	import net.play5d.kyo.display.ui.KyoSimpButton;
 	
 	[SWF(frameRate="30", backgroundColor="#000000", width="1000", height="600")]
@@ -78,7 +78,7 @@ package {
 			GameData.I.config.AI_level = 6;
 			GameData.I.config.fightTime = -1;
 			
-			_mainGame = new MainGame();
+			_mainGame = new MainGame(); 
 			_mainGame.initlize(_gameSprite, stage, initBackHandler, initFailHandler);
 			
 			StateCtrl.I.transEnabled = false;
@@ -268,8 +268,9 @@ package {
 			var hv:HitVO = new HitVO();
 			hv.owner = p1;
 			
+			var p2hp:Number = p2.hp;
 			p2.hurtHit = hv;
-			p2.loseHp(p2.hp);
+			p2.loseHp(p2hp);
 			
 			var p2Ctrler:FighterCtrler = p2.getCtrler();
 			p2Ctrler.getMcCtrl().idle();
@@ -284,7 +285,7 @@ package {
 //			p2EffectCtrl.endShake();
 			
 			if (GameLogic.checkFighterDie(p2)) {
-				Debugger.errorMsg("");
+				Debugger.errorMsg("LoseHp : " + p2hp);
 				
 				FighterEventDispatcher.dispatchEvent(p2, FighterEvent.DIE);
 				p2.isAlive = false;

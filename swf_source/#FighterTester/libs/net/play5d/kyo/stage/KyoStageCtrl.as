@@ -7,7 +7,7 @@ package net.play5d.kyo.stage {
 	import flash.utils.getQualifiedClassName;
 	import flash.utils.setTimeout;
 	
-	import net.play5d.game.bvn.Debugger;
+	import net.play5d.game.obvn.Debugger;
 	import net.play5d.kyo.stage.events.KyoStageEvent;
 	
 	/**
