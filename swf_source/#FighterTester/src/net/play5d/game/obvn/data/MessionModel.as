@@ -1,5 +1,6 @@
 /**
  * 已重建完成
+ * 2024/6/14 新增获取当前闯关场次的函数
  */
 package net.play5d.game.obvn.data {
 	import net.play5d.game.obvn.ctrl.GameLogic;
@@ -98,5 +99,12 @@ package net.play5d.game.obvn.data {
 		public function missionAllComplete():Boolean {
 			return _curStageId >= _curMession.stageList.length - 1;
 		}
+		
+		public function get getCurrentMissionNumb():int{
+		if(!_curStage)return 0;
+		else if(_curStageId <= _curMession.stageList.length - 1)return _curStageId;
+		else return _curMession.stageList.length - 1;
+		}
+		
 	}
 }

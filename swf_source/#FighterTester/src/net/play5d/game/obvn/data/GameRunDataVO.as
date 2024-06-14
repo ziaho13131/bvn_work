@@ -1,7 +1,9 @@
 /**
  * 已重建完成
+ * 2024/6/14 新增上一局胜者血量的条件 当不处于生存模式才会重置
  */
 package net.play5d.game.obvn.data {
+	import net.play5d.game.obvn.data.GameMode;
 	import net.play5d.game.obvn.fighter.FighterMain;
 	import net.play5d.game.obvn.map.MapMain;
 	
@@ -47,12 +49,12 @@ package net.play5d.game.obvn.data {
 			p2Wins = 0;
 			round = 1;
 			lastWinnerTeam = null;
-			lastWinner = null;
+			if(GameMode.currentMode != 30)lastWinner = null;
 			lastLoserData = null;
 			lastLoserQi = 0;
 			isTimerOver = false;
 			isDrawGame = false;
-			lastWinnerHp = GameData.I.config.fighterHP;
+			if(GameMode.currentMode != 30)lastWinnerHp = GameData.I.config.fighterHP;
 			gameTimeMax = GameData.I.config.fightTime;
 			gameTime = gameTimeMax;
 			continueLoser = null;

@@ -1,5 +1,6 @@
 /**
  * 已重建完成
+ * 2024/6/14 新增生存模式继承血量机制
  */
 package net.play5d.game.obvn.ctrl.game_ctrls {
 	import flash.events.DataEvent;
@@ -247,7 +248,11 @@ package net.play5d.game.obvn.ctrl.game_ctrls {
 			
 			_mainLogicCtrl = new GameMainLogicCtrler();
 			_mainLogicCtrl.initlize(gameState, _teamMap, map);
-			
+			//如果是生存模式 则继承上一局对局血量
+			if(GameMode.currentMode == 30&&MessionModel.I.getCurrentMissionNumb != 0&&gameRunData.lastWinnerHp != 1000) {	
+			p1.hp = gameRunData.lastWinnerHp;
+			trace("buildGame.survival :: ("+gameRunData.lastWinnerHp+") hp inherit Succeed");
+			}
 			if (GameMode.currentMode == GameMode.TRAINING) {
 				actionEnable = true;
 				GameUI.I.fadIn();

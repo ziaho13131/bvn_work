@@ -1,5 +1,6 @@
 /**
  * 已重建完成
+ * 2024/6/14 移植了旧版所有模式的变量和检测变量集合的函数
  */
 package net.play5d.game.obvn.data {
 	import net.play5d.game.obvn.input.GameInputType;

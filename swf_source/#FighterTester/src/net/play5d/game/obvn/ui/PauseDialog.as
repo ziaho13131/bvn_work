@@ -5,7 +5,6 @@
 package net.play5d.game.obvn.ui {
 	import flash.display.Sprite;
 	import flash.events.DataEvent;
-	import net.play5d.game.obvn.Debugger;
 	import net.play5d.game.obvn.ctrl.game_ctrls.GameCtrl;
 	import net.play5d.game.obvn.data.GameData;
 	import net.play5d.game.obvn.GameConfig;
@@ -234,7 +233,7 @@ package net.play5d.game.obvn.ui {
 			AiCtrl.AILevel = AiLevel;
 			AiCtrl.fighter = Fighter;
 			Fighter.setActionCtrl(AiCtrl);
-			Debugger.log("PauseDialog.setAICtrl ::  "+Fighter.team.name+" Ai Ctrl Start..")
+			trace("PauseDialog.setAICtrl ::  "+Fighter.team.name+" Ai Ctrl Start..")
 		}
 		
 		public function setPlayerCtrl(v:Boolean = false):void {
@@ -243,7 +242,7 @@ package net.play5d.game.obvn.ui {
 			key.inputType = Fighter.team.name;
 			key.classicMode = GameData.I.config.keyInputMode == 1;
 			Fighter.setActionCtrl(key);
-			Debugger.log("PauseDialog.setPlayerCtrl ::  "+Fighter.team.name+" Play Ctrl Start..")
+			trace("PauseDialog.setPlayerCtrl ::  "+Fighter.team.name+" Play Ctrl Start..")
 		}
 		
 	}
