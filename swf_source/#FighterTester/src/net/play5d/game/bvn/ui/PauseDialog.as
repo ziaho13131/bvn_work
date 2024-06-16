@@ -169,7 +169,7 @@ package net.play5d.game.bvn.ui {
 					_btnGroup.keyEnable = false;	
 					GameUI.confirm("SET AI TEAM", "设置AI队伍", function ():void {
 						if(GameMode.currentMode!= 40){
-							GameUI.alert("notes","不支持在该模式下设置AI");	
+							GameUI.alert("notes","不支持在该模式下设置AI",function():void{_btnGroup.keyEnable = true});	
 							return;	
 						}
 						MainGame.I.stage.dispatchEvent(new DataEvent(
@@ -183,7 +183,7 @@ package net.play5d.game.bvn.ui {
 						GameCtrl.I.resume(true);	
 					}, function ():void {
 						if(GameMode.currentMode!= 40){
-							GameUI.alert("notes","不支持在该模式下设置AI");	
+							GameUI.alert("notes","不支持在该模式下设置AI",function():void{_btnGroup.keyEnable = true});	
 							return;	
 						}	
 						MainGame.I.stage.dispatchEvent(new DataEvent(

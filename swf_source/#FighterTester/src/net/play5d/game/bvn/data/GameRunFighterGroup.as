@@ -1,5 +1,6 @@
 ﻿/**
  * 已重建完成
+ * 2024/6/16 新增了额外的两个当前角色 和修改了删除角色的函数
  */
 package net.play5d.game.bvn.data {
 	import net.play5d.game.bvn.fighter.Assister;
@@ -73,16 +74,21 @@ package net.play5d.game.bvn.data {
 		
 		public function removeCurrentFighter():void {
 			disposeFighter(currentFighter);
+			if(currentFighter2)disposeFighter(currentFighter2);
+			if(currentFighter3)disposeFighter(currentFighter3);
 		}
 		
 		private function disposeFighter(f:FighterMain):void {
 			if (!f) {
 				return;
 			}
-			if (f == currentFighter) {
+			if (f == (currentFighter||currentFighter2||currentFighter3)) {
 				currentFighter = null;
+				if(GameMode.isDuoMode()||GameMode.isThreeMode()) {
+					currentFighter2 = null;
+				if(GameMode.isThreeMode())currentFighter3 = null; 
+				}
 			}
-			
 			f.destory(true);
 			switch (f) {
 				case fighter1:
