@@ -19,6 +19,7 @@ package net.play5d.game.bvn.stage {
 	import net.play5d.game.bvn.ctrl.game_ctrls.GameCtrl;
 	import net.play5d.game.bvn.data.FighterModel;
 	import net.play5d.game.bvn.data.FighterVO;
+	import net.play5d.game.bvn.data.GameMode;
 	import net.play5d.game.bvn.data.GameData;
 	import net.play5d.game.bvn.data.GameRunFighterGroup;
 	import net.play5d.game.bvn.data.MapModel;
@@ -338,7 +339,15 @@ package net.play5d.game.bvn.stage {
 			p2group.fighter3 = getCacheFighter("p2", sort2[2]);
 			
 			p1group.currentFighter = p1group.fighter1;
+			if(GameMode.isDuoMode())p1group.currentFighter2 = p1group.fighter2;
+			else p1group.currentFighter2 = null;
+			if(GameMode.isThreeMode())p1group.currentFighter3 = p1group.fighter3;
+			else p1group.currentFighter3 = null;
 			p2group.currentFighter = p2group.fighter1;
+			if(GameMode.isDuoMode())p2group.currentFighter2 = p2group.fighter2;
+			else p2group.currentFighter2 = null;
+			if(GameMode.isThreeMode())p2group.currentFighter3 = p2group.fighter3;
+			else p2group.currentFighter3 = null;
 			
 			MainGame.I.stage.dispatchEvent(new DataEvent(
 				"5d_message",

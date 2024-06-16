@@ -218,12 +218,14 @@ package net.play5d.game.bvn.stage {
 			
 			// 相同人物变色
 			if (p1.data && p2.data && p1.data.id == p2.data.id) {
-				if(GameMode.isDuoMode()||GameMode.isThreeMode()) {
-				   if(p1_1.data.id && p2_1.data.id && p1_1.data.id == p2_1.data.id)MCUtils.changeColor(p2_1);
-				     if(GameMode.isThreeMode()) {
-						 if(p1_2.data.id && p2_2.data.id && p1_2.data.id == p2_2.data.id)MCUtils.changeColor(p2_2); 
-					 }
 					 MCUtils.changeColor(p2);
+				}
+			
+			//搭档模式相同人物变色
+			if(GameMode.isDuoMode()||GameMode.isThreeMode()) {
+				if(p1_1.data.id && p2_1.data.id && p1_1.data.id == p2_1.data.id)MCUtils.changeColor(p2_1);
+				if(GameMode.isThreeMode()) {
+					if(p1_2.data.id && p2_2.data.id && p1_2.data.id == p2_2.data.id)MCUtils.changeColor(p2_2); 
 				}
 			}
 			

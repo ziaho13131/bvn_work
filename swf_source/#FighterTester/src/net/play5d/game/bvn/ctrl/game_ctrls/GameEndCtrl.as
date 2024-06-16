@@ -106,7 +106,7 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 					
 					var rundata:GameRunDataVO = GameCtrl.I.gameRunData;
 					var winner:FighterMain = rundata.lastWinner;
-					if (GameMode.isTeamMode()) {
+					if (GameMode.isTeamMode()&&(!GameMode.isDuoMode()&&!GameMode.isThreeMode())) {
 						var timeRate:Number = 
 							rundata.gameTime == -1 
 							? 1 

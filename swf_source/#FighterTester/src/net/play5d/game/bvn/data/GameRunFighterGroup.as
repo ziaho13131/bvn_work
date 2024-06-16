@@ -16,6 +16,8 @@ package net.play5d.game.bvn.data {
 		public var fuzhu:Assister;
 		
 		public var currentFighter:FighterMain;
+		public var currentFighter2:FighterMain;
+		public var currentFighter3:FighterMain;
 		
 //		public function getFighterDatas():Vector.<FighterVO> {
 //			var vec:Vector.<FighterVO> = new Vector.<FighterVO>();
