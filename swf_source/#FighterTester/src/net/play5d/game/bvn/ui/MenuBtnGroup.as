@@ -265,28 +265,28 @@ package net.play5d.game.bvn.ui {
 					};
 					break;
 				case "2v2CPU":
-					/*func = function ():void {
+					func = function ():void {
 						GameMode.currentMode = GameMode.PARTNER_2V2CPU;
 						MainGame.I.goSelect();
-					};*/
+					};
 					break;
 				case "3v3CPU":
-					/*func = function ():void {
+					func = function ():void {
 						GameMode.currentMode = GameMode.PARTNER_3V3CPU;
 						MainGame.I.goSelect();
-					};*/
+					};
 					break;	
 				case "2v2WATCH":
-					/*func = function ():void {
+					func = function ():void {
 						GameMode.currentMode = GameMode.PARTNER_2V2WATCH;
 						MainGame.I.goSelect();
-					};*/
+					};
 					break;
 				case "3v3WATCH":
-					/*func = function ():void {
+					func = function ():void {
 						GameMode.currentMode = GameMode.PARTNER_3V3WATCH;
 						MainGame.I.goSelect();
-					};*/
+					};
 					break;	
 				case "SINGLE ACRADE":
 					func = function ():void {

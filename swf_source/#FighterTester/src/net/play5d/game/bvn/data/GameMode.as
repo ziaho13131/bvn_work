@@ -51,7 +51,13 @@ package net.play5d.game.bvn.data {
 				currentMode == TEAM_VS_PEOPLE || 
 				currentMode == TEAM_VS_CPU || 
 				currentMode == TEAM_WATCH || 
-			    currentMode == SURVIVOR;
+			    currentMode == SURVIVOR ||
+				currentMode == PARTNER_2V2||
+				currentMode == PARTNER_2V2CPU||	
+				currentMode == PARTNER_2V2WATCH||
+				currentMode == PARTNER_3V3||
+				currentMode == PARTNER_3V3CPU||	
+				currentMode == PARTNER_3V3WATCH;
 		}
 		
 		public static function isSingleMode():Boolean {
@@ -73,20 +79,29 @@ package net.play5d.game.bvn.data {
 		
 		public static function isVsPeople():Boolean {
 			return currentMode == TEAM_VS_PEOPLE || 
-				currentMode == SINGLE_VS_PEOPLE;
+				currentMode == SINGLE_VS_PEOPLE ||
+				currentMode == PARTNER_2V2 ||
+				currentMode == PARTNER_3V3;
 		}
 		
 		public static function isVsCPU(includeTraining:Boolean = true):Boolean {
 			return currentMode == TEAM_VS_CPU || 
-				currentMode == SINGLE_VS_CPU || 
+				currentMode == SINGLE_VS_CPU ||
+				currentMode == PARTNER_2V2CPU ||
+				currentMode == PARTNER_3V3CPU ||
 				includeTraining && currentMode == TRAINING || 
 				currentMode == TEAM_WATCH || 
-				currentMode == SINGLE_WATCH;
+				currentMode == SINGLE_WATCH ||
+				currentMode == PARTNER_2V2WATCH ||
+				currentMode == PARTNER_3V3WATCH; 
+				
 		}
 		
 		public static function isWatch():Boolean {
 			return currentMode == TEAM_WATCH || 
-				currentMode == SINGLE_WATCH;
+				currentMode == SINGLE_WATCH || 
+				currentMode == PARTNER_2V2WATCH ||
+				currentMode == PARTNER_3V3WATCH; 
 		}
 		
 		public static function isAcrade():Boolean {

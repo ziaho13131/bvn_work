@@ -44,6 +44,17 @@ package net.play5d.game.bvn.data {
 			return null;
 		}
 		
+		public function getNextFighterByMain(fighter:FighterMain):FighterMain {
+			switch (fighter) {
+				case fighter1:
+					return fighter2;
+				case fighter2:
+					return fighter3;
+					default:
+					return null;
+			}
+		}
+			
 		public function destoryFighters(expect:FighterMain):void {
 			if (fighter1 && fighter1 != expect) {
 				disposeFighter(fighter1);

@@ -225,6 +225,15 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 			var p1:FighterMain = gameRunData.p1FighterGroup.currentFighter;
 			var p2:FighterMain = gameRunData.p2FighterGroup.currentFighter;
 			
+			if (GameMode.isDuoMode()||GameMode.isThreeMode()) {
+				var p1_1:FighterMain = gameRunData.p1FighterGroup.getNextFighter();
+				var p2_1:FighterMain = gameRunData.p2FighterGroup.getNextFighter();
+				if (GameMode.isThreeMode()) {
+					var p1_2:FighterMain = gameRunData.p1FighterGroup.getNextFighterByMain(p1_1);
+					var p2_2:FighterMain = gameRunData.p2FighterGroup.getNextFighterByMain(p2_1);
+				}
+			}
+			
 			if (GameMode.currentMode == GameMode.TRAINING) {
 				_trainingCtrl = new TrainingCtrler();
 				_trainingCtrl.initlize([p1, p2]);
@@ -237,9 +246,13 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 				throw new Error("Game creation failed!");
 			}
 			
-			addFighter(p1, 1);
-			addFighter(p2, 2);
-			
+			    addFighter(p1,1);
+		if(p1_1)addFighter(p1_1,1,true);
+		if(p1_2)addFighter(p1_2,1,true);
+			    addFighter(p2,2);
+		if(p2_1)addFighter(p2_1,2,true);
+		if(p2_2)addFighter(p2_2,2,true);
+
 			map.initlize();
 			
 			gameState.initFight(gameRunData.p1FighterGroup, gameRunData.p2FighterGroup, map);
@@ -248,6 +261,7 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 			
 			_mainLogicCtrl = new GameMainLogicCtrler();
 			_mainLogicCtrl.initlize(gameState, _teamMap, map);
+			
 			//如果是生存模式 则继承上一局对局血量
 			if(GameMode.currentMode == 30&&MessionModel.I.getCurrentMissionNumb != 0&&gameRunData.lastWinnerHp != 1000) {	
 			p1.hp = gameRunData.lastWinnerHp;
@@ -258,6 +272,16 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 				GameUI.I.fadIn();
 				SoundCtrl.I.playFightBGM("map");
 			}
+			else if (GameMode.isDuoMode()) {
+				_startCtrl = new GameStartCtrl(gameState);
+				actionEnable = false;
+				_startCtrl.start2v2(p1,p2,p1_1,p2_1);
+			}
+			else if (GameMode.isThreeMode()) {
+				_startCtrl = new GameStartCtrl(gameState);
+				actionEnable = false;
+				_startCtrl.start3v3(p1,p2,p1_1,p1_2,p2_1,p2_2);
+			}
 			else {
 				_startCtrl = new GameStartCtrl(gameState);
 				actionEnable = false;
@@ -267,7 +291,7 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 			GameInterface.instance.afterBuildGame();
 		}
 		
-		private function addFighter(fighter:FighterMain, team:int):void {
+		private function addFighter(fighter:FighterMain, team:int,isAI:Boolean = false):void {
 			if (!fighter) {
 				return;
 			}
@@ -275,7 +299,7 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 			var ctrl:IFighterActionCtrl;
 			switch (team) {
 				case 1:
-					if (GameMode.isWatch()) {
+					if (GameMode.isWatch()||isAI) {
 						ctrl = new FighterAICtrl();
 						(ctrl as FighterAICtrl).AILevel = MessionModel.I.AI_LEVEL;
 						(ctrl as FighterAICtrl).fighter = fighter;
@@ -287,7 +311,7 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 					(ctrl as FighterKeyCtrl).classicMode = GameData.I.config.keyInputMode == 1;
 					break;
 				case 2:
-					if (GameMode.isVsCPU(false) || GameMode.isAcrade()) {
+					if (GameMode.isVsCPU(false) || GameMode.isAcrade()||isAI) {
 						ctrl = new FighterAICtrl();
 						(ctrl as FighterAICtrl).AILevel = MessionModel.I.AI_LEVEL;
 						(ctrl as FighterAICtrl).fighter = fighter;
@@ -323,7 +347,7 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 		}
 		
 		private function doBuildNextRound(isTeamMode:Boolean):void {
-			gameState.resetFight(gameRunData.p1FighterGroup, gameRunData.p2FighterGroup);
+			gameState.resetFight(gameRunData.p1FighterGroup,gameRunData.p2FighterGroup);
 			
 			_startCtrl = new GameStartCtrl(gameState);
 			if (isTeamMode) {
@@ -335,12 +359,11 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 				if (gameRunData.lastWinnerTeam) {
 					loseTeam = gameRunData.lastWinnerTeam.id == 1 ? 2 : 1;
 				}
-				
-				_startCtrl.start1v1(
-					gameRunData.p1FighterGroup.currentFighter,
-					gameRunData.p2FighterGroup.currentFighter,
-					loseTeam
-				);
+					_startCtrl.start1v1(
+						gameRunData.p1FighterGroup.currentFighter,
+						gameRunData.p2FighterGroup.currentFighter,
+						loseTeam
+					);	
 			}
 			else {
 				_startCtrl.startNextRound();
@@ -593,7 +616,7 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 			trace("GameMode.currentMode :: " + GameMode.currentMode);
 			
 			gameRunData.nextRound();
-			if (GameMode.isTeamMode()) {
+			if (GameMode.isTeamMode()&&!GameMode.isDuoMode()&&!GameMode.isThreeMode()) {
 				if (startNextTeamFight()) {
 					buildNextRound(true);
 					gameRunData.lastWinner = null;
