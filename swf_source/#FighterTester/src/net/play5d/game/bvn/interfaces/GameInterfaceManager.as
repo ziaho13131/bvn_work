@@ -4,9 +4,11 @@
 package net.play5d.game.bvn.interfaces {
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
+	import flash.filesystem.File;
 	
 	import net.play5d.game.bvn.data.ConfigVO;
 	import net.play5d.game.bvn.input.GameKeyInput;
+	import net.play5d.game.bvn.utils.FileUtils;
 	
 	public class GameInterfaceManager implements IGameInterface {
 		
@@ -21,10 +23,21 @@ package net.play5d.game.bvn.interfaces {
 		
 //		public function showRank():void {}
 		
-		public function saveGame(data:Object):void {}
+		public function saveGame(data:Object):void {
+			var _loc2_:String = JSON.stringify(data);
+			var _loc3_:File = File.applicationStorageDirectory.resolvePath("bvnsave.sav");
+			FileUtils.writeFile(_loc3_.nativePath,_loc2_);
+			trace("saveData",_loc2_);	
+		}
 		
 		public function loadGame():Object {
-			return null;
+			var _loc2_:File = File.applicationStorageDirectory.resolvePath("bvnsave.sav");
+			var _loc1_:String = FileUtils.readTextFile(_loc2_.nativePath);
+			if(!_loc1_)
+			{
+				return null;
+			}
+			return JSON.parse(_loc1_);
 		}
 		
 //		public function getFighterCtrl(player:int):IFighterActionCtrl {

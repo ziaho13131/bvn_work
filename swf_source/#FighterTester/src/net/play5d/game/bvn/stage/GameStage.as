@@ -302,7 +302,7 @@ package net.play5d.game.bvn.stage {
 		}
 	
 		public function addCamera(focus:DisplayObject):void {
-			if(_cameraFocus.indexOf(focus) != -1){
+			if(_cameraFocus.indexOf(focus) == -1){
 				 _cameraFocus.push(focus);
 			      trace("addCamera:聚焦对象("+focus+")添加成功");
 				  camera.focus(_cameraFocus);
@@ -319,7 +319,7 @@ package net.play5d.game.bvn.stage {
 				trace("addCamera:聚焦对象("+focus+")删除成功");
 				return;
 			}
-			return trace("addCamera:聚焦对象("+focus+")已存在");
+			return trace("addCamera:聚焦对象("+focus+")不存在");
 		}
 		
 		public function get getCamera():Array {
