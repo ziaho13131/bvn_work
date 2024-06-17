@@ -300,6 +300,31 @@ package net.play5d.game.bvn.stage {
 			
 			camera.tweenSpd = 2.5 / GameConfig.SPEED_PLUS_DEFAULT;
 		}
+	
+		public function addCamera(focus:DisplayObject):void {
+			if(_cameraFocus.indexOf(focus) != -1){
+				 _cameraFocus.push(focus);
+			      trace("addCamera:聚焦对象("+focus+")添加成功");
+				  camera.focus(_cameraFocus);
+				  return;
+		   }
+			return trace("addCamera:聚焦对象("+focus+")已存在");
+		}
+		
+		public function removeCamera(focus:DisplayObject):void {
+			var index:int = _cameraFocus.indexOf(focus);
+			if(index != -1){
+				_cameraFocus.splice(index,1);
+				camera.focus(_cameraFocus);
+				trace("addCamera:聚焦对象("+focus+")删除成功");
+				return;
+			}
+			return trace("addCamera:聚焦对象("+focus+")已存在");
+		}
+		
+		public function get getCamera():Array {
+			return _cameraFocus;
+		}
 		
 		private function initCamera():void {
 			if (camera) {
@@ -314,7 +339,8 @@ package net.play5d.game.bvn.stage {
 			camera.setStageBounds(new Rectangle(0, -1000, stageSize.x, stageSize.y));
 			camera.autoZoom = true;
 			camera.autoZoomMin = 1;
-			camera.autoZoomMax = 2.5;
+			if(!GameMode.isThreeMode())camera.autoZoomMax = 2.5;
+			else camera.autoZoomMax = 1.8;
 			camera.tweenSpd = 2.5 / GameConfig.SPEED_PLUS_DEFAULT;
 			
 			var startX:Number = stageSize.x / 2 * 2 - 350;
