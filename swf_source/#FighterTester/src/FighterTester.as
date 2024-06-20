@@ -34,12 +34,14 @@ package {
 	import net.play5d.game.bvn.stage.LoadingStage;
 	import net.play5d.kyo.display.ui.KyoSimpButton;
 	
-	[SWF(frameRate="30", backgroundColor="#000000", width="1000", height="600")]
+	
 	/**
 	 * 游戏主类
 	 */
+	
+	[SWF(frameRate="30", backgroundColor="#000000", width="1000", height="600")]
+	
 	public class FighterTester extends Sprite {
-		
 		private var _mainGame:MainGame;
 		private var _gameSprite:Sprite;
 		private var _testUI:Sprite;
@@ -85,7 +87,7 @@ package {
 		}
 		
 		private function initBackHandler():void {
-			buildTestUI();
+			if(Debugger.MODE_DEBUG)buildTestUI();
 		}
 		
 		private function initFailHandler(msg:String):void {}
@@ -94,7 +96,7 @@ package {
 			_testUI = new Sprite();
 			_testUI.x = 810;
 			
-			_testUI.graphics.beginFill(0x333333, 1);
+			_testUI.graphics.beginFill(0xae292d, 1);
 			_testUI.graphics.drawRect(-10, 0, 200, 600);
 			_testUI.graphics.endFill();
 			
@@ -139,7 +141,7 @@ package {
 			_debugText = addLabel("Error Message Text", yy, 0);
 			_debugText.width = 190;
 			_debugText.height = 200;
-			_debugText.textColor = 0xFF0000;
+			_debugText.textColor = 0xe3f050;
 			_debugText.multiline = true;
 			
 			addButton("Start Test", 500, 25, 140, 35, testGame);
@@ -149,7 +151,7 @@ package {
 		private function addLabel(txt:String, y:Number = 0, x:Number = 0):TextField {
 			var tf:TextFormat = new TextFormat();
 			tf.size = 14;
-			tf.color = 0xFFFFFF;
+			tf.color = 0xe86c13;
 			
 			var label:TextField = new TextField();
 			label.defaultTextFormat = tf;

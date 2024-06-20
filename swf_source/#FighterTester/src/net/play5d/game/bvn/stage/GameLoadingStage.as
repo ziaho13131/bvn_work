@@ -7,6 +7,7 @@ package net.play5d.game.bvn.stage {
 	import net.play5d.game.bvn.Debugger;
 	import net.play5d.game.bvn.ctrl.AssetManager;
 	import net.play5d.game.bvn.data.GameData;
+	import net.play5d.game.bvn.ctrl.StateCtrl;
 	import net.play5d.game.bvn.utils.ResUtils;
 	import net.play5d.kyo.stage.IStage;
 	

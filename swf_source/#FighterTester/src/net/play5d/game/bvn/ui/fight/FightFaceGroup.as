@@ -5,6 +5,7 @@ package net.play5d.game.bvn.ui.fight {
 	import flash.display.DisplayObject;
 	
 	import net.play5d.game.bvn.data.GameRunFighterGroup;
+	import net.play5d.game.bvn.data.GameMode;
 	
 	import flash.display.MovieClip;
 	
@@ -38,7 +39,6 @@ package net.play5d.game.bvn.ui.fight {
 			if (fighterGroup.currentFighter) {
 				_face1.setData(fighterGroup.currentFighter.data);
 			}
-			
 			switch (fighterGroup.currentFighter) {
 				case fighterGroup.fighter1:
 					_face2.setData(

@@ -247,16 +247,14 @@ package net.play5d.game.bvn.stage {
 			var p1:FighterMain = p1group.currentFighter;
 			var p2:FighterMain = p2group.currentFighter;
 			_cameraFocus = [];
-			
-			if (GameMode.isDuoMode()||GameMode.isThreeMode()) {
-				var p1_1:FighterMain = p1group.getNextFighter();
-				var p2_1:FighterMain = p2group.getNextFighter();
-				if (GameMode.isThreeMode()) {
-					var p1_2:FighterMain = p1group.getNextFighterByMain(p1_1);
-					var p2_2:FighterMain = p2group.getNextFighterByMain(p2_1);
-				}
+			if(GameMode.isDuoMode()||GameMode.isThreeMode()) {
+			var p1_1:FighterMain = p1group.currentFighter2;
+			var p2_1:FighterMain = p2group.currentFighter2;
+			 if(GameMode.isThreeMode()) {
+				 var p1_2:FighterMain = p1group.currentFighter3;
+				 var p2_2:FighterMain = p2group.currentFighter3;
+			 }
 			}
-			
 			if (p1) {
 				GameLogic.resetFighterHP(p1);
 				
@@ -267,7 +265,24 @@ package net.play5d.game.bvn.stage {
 				p1.updatePosition();
 				_cameraFocus.push(p1.getDisplay());
 			}
-			
+			if (p1_1) {
+				GameLogic.resetFighterHP(p1_1);
+				
+				p1_1.x = _map.p1pos.x+25;
+				p1_1.y = _map.p1pos.y;
+				p1_1.direct = 1;
+				p1_1.idle();
+				p1_1.updatePosition();
+			}
+			if (p1_2) {
+				GameLogic.resetFighterHP(p1_2);
+				
+				p1_2.x = _map.p1pos.x+55;
+				p1_2.y = _map.p1pos.y;
+				p1_2.direct = 1;
+				p1_2.idle();
+				p1_2.updatePosition();
+			}
 			if (p2) {
 				GameLogic.resetFighterHP(p2);
 				
@@ -277,6 +292,24 @@ package net.play5d.game.bvn.stage {
 				p2.idle();
 				p2.updatePosition();
 				_cameraFocus.push(p2.getDisplay());
+			}
+			if (p2_1) {
+				GameLogic.resetFighterHP(p2_1);
+				
+				p2_1.x = _map.p2pos.x-25;
+				p2_1.y = _map.p2pos.y;
+				p2_1.direct = -1;
+				p2_1.idle();
+				p2_1.updatePosition();
+			}
+			if (p2_2) {
+				GameLogic.resetFighterHP(p2_2);
+				
+				p2_2.x = _map.p2pos.x-55;
+				p2_2.y = _map.p2pos.y;
+				p2_2.direct = -1;
+				p2_2.idle();
+				p2_2.updatePosition();
 			}
 			
 			// 相同人物变色

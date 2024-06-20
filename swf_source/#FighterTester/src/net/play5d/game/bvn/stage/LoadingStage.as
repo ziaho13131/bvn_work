@@ -339,12 +339,12 @@ package net.play5d.game.bvn.stage {
 			p2group.fighter3 = getCacheFighter("p2", sort2[2]);
 			
 			p1group.currentFighter = p1group.fighter1;
-			if(GameMode.isDuoMode())p1group.currentFighter2 = p1group.fighter2;
+			if(GameMode.isDuoMode()||GameMode.isThreeMode())p1group.currentFighter2 = p1group.getNextFighter();
 			else p1group.currentFighter2 = null;
-			if(GameMode.isThreeMode())p1group.currentFighter3 = p1group.fighter3;
+			if(GameMode.isThreeMode())p1group.currentFighter3 = p1group.getNextFighterByMain(p1group.getNextFighter());
 			else p1group.currentFighter3 = null;
 			p2group.currentFighter = p2group.fighter1;
-			if(GameMode.isDuoMode())p2group.currentFighter2 = p2group.fighter2;
+			if(GameMode.isDuoMode()||GameMode.isThreeMode())p2group.currentFighter2 = p2group.getNextFighter();
 			else p2group.currentFighter2 = null;
 			if(GameMode.isThreeMode())p2group.currentFighter3 = p2group.fighter3;
 			else p2group.currentFighter3 = null;

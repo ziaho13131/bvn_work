@@ -7,6 +7,7 @@ package net.play5d.game.bvn {
 	import flash.events.DataEvent;
 	import flash.geom.Rectangle;
 	
+	import net.play5d.game.bvn.Debugger;
 	import net.play5d.game.bvn.ctrl.GameRender;
 	import net.play5d.game.bvn.ctrl.game_ctrls.GameCtrl;
 	import net.play5d.game.bvn.data.EffectModel;
@@ -92,6 +93,7 @@ package net.play5d.game.bvn {
 			}
 			function loadGameBack():void {
 				EffectModel.I.initlize();
+				if(!Debugger.MODE_DEBUG)goMenu();
 				if (initBack != null) {
 					initBack();
 				}

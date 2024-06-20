@@ -379,7 +379,7 @@ package net.play5d.game.bvn.ui.fight {
 						
 						showWinner(winner);
 						
-						if (GameMode.isSingleMode()) {
+						if (GameMode.isSingleMode()||GameMode.isDuoMode()||GameMode.isThreeMode()) {
 							showWins(winner, GameCtrl.I.gameRunData.getWins(winner));
 						}
 						

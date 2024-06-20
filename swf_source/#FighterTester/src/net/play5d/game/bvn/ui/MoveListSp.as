@@ -27,7 +27,7 @@ package net.play5d.game.bvn.ui {
 			_pic = new _picClass();
 			
 			_pic.width = GameConfig.GAME_SIZE.x;
-			_pic.height = GameConfig.GAME_SIZE.y;
+			_pic.height = GameConfig.GAME_SIZE.y; 
 			
 			addChild(_pic);
 			

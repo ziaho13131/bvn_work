@@ -359,11 +359,33 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 				if (gameRunData.lastWinnerTeam) {
 					loseTeam = gameRunData.lastWinnerTeam.id == 1 ? 2 : 1;
 				}
-					_startCtrl.start1v1(
+                if(GameMode.isDuoMode()) {
+					_startCtrl.start2v2(
+						gameRunData.p1FighterGroup.currentFighter,
+						gameRunData.p2FighterGroup.currentFighter,
+						gameRunData.p1FighterGroup.currentFighter2,
+						gameRunData.p2FighterGroup.currentFighter2,
+						loseTeam
+					);	
+				}
+				else if(GameMode.isThreeMode()) {
+					_startCtrl.start3v3(
+						gameRunData.p1FighterGroup.currentFighter,
+						gameRunData.p2FighterGroup.currentFighter,
+						gameRunData.p1FighterGroup.currentFighter2,
+						gameRunData.p1FighterGroup.currentFighter3,
+						gameRunData.p2FighterGroup.currentFighter2,
+						gameRunData.p2FighterGroup.currentFighter3,
+						loseTeam
+					);
+				}
+				else{
+					   _startCtrl.start1v1(
 						gameRunData.p1FighterGroup.currentFighter,
 						gameRunData.p2FighterGroup.currentFighter,
 						loseTeam
 					);	
+				}
 			}
 			else {
 				_startCtrl.startNextRound();
@@ -626,6 +648,20 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 			
 			if (GameMode.isSingleMode()) {
 				if (gameRunData.p1Wins < 2 && gameRunData.p2Wins < 2) {
+					buildNextRound(false);
+					gameRunData.lastWinner = null;
+					return;
+				}
+			}
+			if (GameMode.isDuoMode()) {
+				if (gameRunData.p1Wins < 2 && gameRunData.p2Wins < 2) {
+					buildNextRound(false);
+					gameRunData.lastWinner = null;
+					return;
+				}
+			}
+			if (GameMode.isThreeMode()) {
+				if (gameRunData.p1Wins < 3 && gameRunData.p2Wins < 3) {
 					buildNextRound(false);
 					gameRunData.lastWinner = null;
 					return;

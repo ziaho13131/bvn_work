@@ -15,6 +15,7 @@ package net.play5d.game.bvn.ui.fight {
 	public class FightFaceUI {
 		
 		private var _ui:MovieClip;
+		public var _face:DisplayObject;
 		
 		public function FightFaceUI(ui:MovieClip) {
 			_ui = ui;
