@@ -375,10 +375,9 @@ package net.play5d.game.bvn.ui.fight {
 				if (_showWinnerDelay <= 0) {
 					var winner:FighterMain = _endParam.winner;
 					var rundata:GameRunDataVO = GameCtrl.I.gameRunData;
-	
-					if (winner.team.id == 1) {
-						if(!GameMode.isDuoMode()&&!GameMode.isThreeMode())GameCtrl.I.gameState.cameraFocusOne(winner.getDisplay());
-						else if(winner.team.id == -1)  {
+					
+					if(!GameMode.isDuoMode()&&!GameMode.isThreeMode())GameCtrl.I.gameState.cameraFocusOne(winner.getDisplay());					
+					else if (winner.team.id == 1) {
 							if(GameMode.isDuoMode())GameCtrl.I.gameState.camera.focus([
 								 winner.getDisplay(),rundata.p1FighterGroup.currentFighter2.getDisplay()]);	
 							if(GameMode.isThreeMode())GameCtrl.I.gameState.camera.focus([
@@ -392,7 +391,6 @@ package net.play5d.game.bvn.ui.fight {
 							 if(GameMode.isThreeMode())GameCtrl.I.gameState.camera.focus([
 								 winner.getDisplay(),rundata.p2FighterGroup.currentFighter2.getDisplay(),
 								 rundata.p2FighterGroup.currentFighter3.getDisplay()]);
-							 GameCtrl.I.gameState.camera.setZoom(1.4);
 						 }
 						showWinner(winner);
 						
@@ -403,7 +401,6 @@ package net.play5d.game.bvn.ui.fight {
 						if (_endParam) {
 							_endParam.finishBack();
 						}
-					}
 					
 					_renderEnd = false;
 					_endParam = null;
@@ -411,7 +408,6 @@ package net.play5d.game.bvn.ui.fight {
 				
 				return;
 			}
-			
 			var loser:FighterMain = _endParam.loser;
 			if (loser) {
 				if (loser.actionState == FighterActionState.HURT_FLYING) {
