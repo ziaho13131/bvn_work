@@ -16,6 +16,7 @@ package net.play5d.game.bvn.ui.fight {
 	import net.play5d.game.bvn.ctrl.game_ctrls.GameCtrl;
 	import net.play5d.game.bvn.data.GameData;
 	import net.play5d.game.bvn.data.GameMode;
+	import net.play5d.game.bvn.data.GameRunDataVO;
 	import net.play5d.game.bvn.data.GameRunFighterGroup;
 	import net.play5d.game.bvn.events.GameEvent;
 	import net.play5d.game.bvn.fighter.FighterActionState;
@@ -373,10 +374,26 @@ package net.play5d.game.bvn.ui.fight {
 				
 				if (_showWinnerDelay <= 0) {
 					var winner:FighterMain = _endParam.winner;
-					
-					if (winner) {
-						GameCtrl.I.gameState.cameraFocusOne(winner.getDisplay());
-						
+					var rundata:GameRunDataVO = GameCtrl.I.gameRunData;
+	
+					if (winner.team.id == 1) {
+						if(!GameMode.isDuoMode()&&!GameMode.isThreeMode())GameCtrl.I.gameState.cameraFocusOne(winner.getDisplay());
+						else if(winner.team.id == -1)  {
+							if(GameMode.isDuoMode())GameCtrl.I.gameState.camera.focus([
+								 winner.getDisplay(),rundata.p1FighterGroup.currentFighter2.getDisplay()]);	
+							if(GameMode.isThreeMode())GameCtrl.I.gameState.camera.focus([
+								 winner.getDisplay(),rundata.p1FighterGroup.currentFighter2.getDisplay(),
+								  rundata.p1FighterGroup.currentFighter3.getDisplay()]);
+							GameCtrl.I.gameState.camera.setZoom(1.4);
+						 }
+						 else {
+							 if(GameMode.isDuoMode())GameCtrl.I.gameState.camera.focus([
+								 winner.getDisplay(),rundata.p2FighterGroup.currentFighter2.getDisplay()]);	
+							 if(GameMode.isThreeMode())GameCtrl.I.gameState.camera.focus([
+								 winner.getDisplay(),rundata.p2FighterGroup.currentFighter2.getDisplay(),
+								 rundata.p2FighterGroup.currentFighter3.getDisplay()]);
+							 GameCtrl.I.gameState.camera.setZoom(1.4);
+						 }
 						showWinner(winner);
 						
 						if (GameMode.isSingleMode()||GameMode.isDuoMode()||GameMode.isThreeMode()) {

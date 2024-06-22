@@ -100,12 +100,36 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 					if (!FighterActionState.isAllowWinState(_winner.actionState)) {
 						return false;
 					}
+					var rundata:GameRunDataVO = GameCtrl.I.gameRunData;
+					var winner:FighterMain = rundata.lastWinner;
 					_winner.win();
+				if(GameMode.isDuoMode()||GameMode.isThreeMode()) {	
+					if (winner.team.id == 1) {
+						 if(GameMode.isDuoMode()||GameMode.isThreeMode()) {
+							 rundata.p1FighterGroup.currentFighter2.win();
+							 if(rundata.p2FighterGroup.currentFighter2.isAlive)rundata.p2FighterGroup.currentFighter2.lose();
+						 }
+						 if(GameMode.isThreeMode()) {
+							 rundata.p1FighterGroup.currentFighter3.win();
+							 if(rundata.p2FighterGroup.currentFighter3.isAlive)rundata.p2FighterGroup.currentFighter3.lose();
+						 }
+						 
+					}
+					else {
+						if(GameMode.isDuoMode()||GameMode.isThreeMode()) {
+							rundata.p2FighterGroup.currentFighter2.win();
+							if(rundata.p1FighterGroup.currentFighter2.isAlive)rundata.p1FighterGroup.currentFighter2.lose();
+						}
+						if(GameMode.isThreeMode()) {
+							rundata.p2FighterGroup.currentFighter3.win();
+							if(rundata.p1FighterGroup.currentFighter3.isAlive)rundata.p1FighterGroup.currentFighter3.lose();
+ 						
+						}
+					}
+				}
 					_holdFrame = 3 * GameConfig.FPS_GAME;
 					_step = 2;
 					
-					var rundata:GameRunDataVO = GameCtrl.I.gameRunData;
-					var winner:FighterMain = rundata.lastWinner;
 					if (GameMode.isTeamMode()&&(!GameMode.isDuoMode()&&!GameMode.isThreeMode())) {
 						var timeRate:Number = 
 							rundata.gameTime == -1 
