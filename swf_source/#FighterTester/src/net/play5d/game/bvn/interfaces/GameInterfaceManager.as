@@ -25,8 +25,8 @@ package net.play5d.game.bvn.interfaces {
 		
 		public function saveGame(data:Object):void {
 			var _loc2_:String = JSON.stringify(data);
-			var _loc3_:File = File.applicationStorageDirectory.resolvePath("bvnsave.sav");
-			FileUtils.writeFile(_loc3_.nativePath,_loc2_);
+			var _loc3_:File = File.applicationDirectory.resolvePath("bvnsave.sav");
+			FileUtils.writeFile(_loc3_.nativePath,_loc2_)
 			trace("saveData",_loc2_);	
 		}
 		

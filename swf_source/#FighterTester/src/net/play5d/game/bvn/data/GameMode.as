@@ -107,5 +107,44 @@ package net.play5d.game.bvn.data {
 		public static function isAcrade():Boolean {
 			return currentMode == TEAM_ACRADE || currentMode == SINGLE_ACRADE|| currentMode == SURVIVOR;
 		}
+		
+		public function getModeName(mode:int):String {
+			switch(mode) {
+				case TEAM_ACRADE:
+				  return "小队闯关";
+				case TEAM_VS_PEOPLE:
+				  return "小队对战玩家";
+				case TEAM_VS_CPU:
+					return "小队对战电脑";
+				case TEAM_WATCH:
+					return "小队观战电脑";
+				case SINGLE_ACRADE:
+					return "单人闯关";   
+				case SINGLE_VS_PEOPLE:
+					return "单人对战玩家"; 	
+				case SINGLE_VS_CPU:
+					return "单人对战电脑"; 	
+				case SINGLE_WATCH:
+					return "单人观战电脑"; 	
+				case PARTNER_2V2:
+					return "搭档模式2v2对战玩家";
+				case PARTNER_2V2CPU:
+					return "搭档模式2v2对战电脑";
+				case PARTNER_2V2WATCH:
+					return "搭档模式2v2观战电脑";
+				case PARTNER_3V3:
+					return "搭档模式3v3对战玩家";
+				case PARTNER_3V3CPU:
+					return "搭档模式3v3对战电脑";
+				case PARTNER_3V3WATCH:
+					return "搭档模式3v3观战电脑";
+				case SURVIVOR:
+					return "生存模式";	
+				case TRAINING:
+					return "生存模式";	
+				default:
+				  return "未知模式";
+			}
+		}
 	}
 }
