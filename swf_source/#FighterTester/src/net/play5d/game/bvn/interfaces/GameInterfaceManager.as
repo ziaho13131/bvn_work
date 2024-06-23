@@ -31,7 +31,7 @@ package net.play5d.game.bvn.interfaces {
 		}
 		
 		public function loadGame():Object {
-			var _loc2_:File = File.applicationStorageDirectory.resolvePath("bvnsave.sav");
+			var _loc2_:File = File.applicationDirectory.resolvePath("bvnsave.sav");
 			var _loc1_:String = FileUtils.readTextFile(_loc2_.nativePath);
 			if(!_loc1_)
 			{

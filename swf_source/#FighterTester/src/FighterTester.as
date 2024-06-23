@@ -240,7 +240,7 @@ package {
 		
 		private static function loadGame():void {
 			var ls:LoadingStage = new LoadingStage();
-			MainGame.stageCtrl.goStage(ls);
+			MainGame.stageCtrl.goStage(ls,true);
 		}
 		
 		private function killP2(...params):void {
