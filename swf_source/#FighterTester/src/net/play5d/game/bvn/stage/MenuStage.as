@@ -81,6 +81,9 @@ package net.play5d.game.bvn.stage {
 		}
 		
 		private function render():void {
+			if (_destroyed) {
+				return;
+			}
 			if (GameInputer.anyKey(1)&&!GameInputer.back()) {
 				showBtns();
 			}	

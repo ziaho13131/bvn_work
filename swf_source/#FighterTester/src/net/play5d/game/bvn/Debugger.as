@@ -21,7 +21,7 @@ package net.play5d.game.bvn {
 		
 //		public static const DRAW_AREA:Boolean = false;			// 绘制区域
 //		public static const SAFE_MODE:Boolean = false;			// 安全模式
-		public static var MODE_DEBUG:Boolean = false;		// 是否启用 DEBUG
+		public static var MODE_DEBUG:Boolean = true;		// 是否启用 DEBUG
 //		public static const HIDE_MAP:Boolean = false;			// 隐藏地图
 //		public static const HIDE_HITEFFECT:Boolean = false;		// 隐藏攻击特效
 		
