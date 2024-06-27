@@ -11,6 +11,7 @@ package net.play5d.game.bvn.ui {
 	import flash.geom.Point;
 	import flash.net.URLRequest;
 	import flash.net.navigateToURL
+	import flash.desktop.NativeApplication
 		
 	import net.play5d.game.bvn.GameConfig;
 	import net.play5d.game.bvn.MainGame;
@@ -345,6 +346,11 @@ package net.play5d.game.bvn.ui {
 					func = function ():void {
 						var wy:URLRequest = new URLRequest("https://space.bilibili.com/355885808");
 						navigateToURL(wy);
+					};
+					break;
+				case "EXIT":
+					func = function ():void {
+						NativeApplication.nativeApplication.exit();
 					};
 			}
 			

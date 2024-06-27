@@ -39,7 +39,7 @@ package {
 	 * 游戏主类
 	 */
 	
-	[SWF(frameRate="30", backgroundColor="#000000", width="1000", height="600")]
+	[SWF(frameRate="30", backgroundColor="#000000", width="800", height="600")]
 	
 	public class FighterTester extends Sprite {
 		private var _mainGame:MainGame;

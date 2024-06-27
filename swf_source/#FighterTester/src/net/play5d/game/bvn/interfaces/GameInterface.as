@@ -84,6 +84,9 @@ package net.play5d.game.bvn.interfaces {
 			}, {
 				txt: "UPDATA",
 				cn : "检查更新"
+			}, {
+				txt: "EXIT",
+				cn : "退出游戏?"
 			}
 			];
 		}

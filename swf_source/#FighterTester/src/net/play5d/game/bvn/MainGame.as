@@ -93,7 +93,7 @@ package net.play5d.game.bvn {
 			}
 			function loadGameBack():void {
 				EffectModel.I.initlize();
-				if(!Debugger.MODE_DEBUG)goMenu();
+				if(!Debugger.MODE_DEBUG)goLogo();
 				if (initBack != null) {
 					initBack();
 				}
@@ -118,7 +118,7 @@ package net.play5d.game.bvn {
 		
 		public function goLogo():void {
 			stageCtrl.goStage(new LogoStage());
-			setFPS(30);
+			setFPS(60);
 		}
 		
 		public function goMenu():void {
@@ -132,18 +132,17 @@ package net.play5d.game.bvn {
 			resetDefault();
 			stageCtrl.goStage(new MenuStage());
 			
-			setFPS(30);
+			setFPS(60);
 		}
 		
 		public function goHowToPlay():void {
 			stageCtrl.goStage(new HowToPlayStage());
 			
-			setFPS(30);
+			setFPS(60);
 		}
 		
 		public function goSelect():void {
 			stageCtrl.goStage(new SelectFighterStage());
-			
 			setFPS(30);
 		}
 		
@@ -151,7 +150,7 @@ package net.play5d.game.bvn {
 			var ls:LoadingStage = new LoadingStage();
 			stageCtrl.goStage(ls, true);
 			
-			setFPS(30);
+			setFPS(60);
 		}
 		
 		public function goGame():void {
@@ -165,7 +164,7 @@ package net.play5d.game.bvn {
 		public function goOption():void {
 			stageCtrl.goStage(new SettingStage());
 			
-			setFPS(30);
+			setFPS(60);
 		}
 		
 		public function goContinue():void {
@@ -173,7 +172,7 @@ package net.play5d.game.bvn {
 			stg.showContinue();
 			stageCtrl.goStage(stg);
 			
-			setFPS(30);
+			setFPS(60);
 		}
 		
 //		public function goGameOver():void {

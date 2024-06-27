@@ -313,6 +313,7 @@ package net.play5d.game.bvn.ui {
 			}
 			
 			addBtn("APPLY", "应用");
+			addBtn("CANCEL", "取消");
 		}
 		
 		private function addBtn(label:String, cn:String, options:Array = null):SetBtn {

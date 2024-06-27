@@ -72,6 +72,9 @@ package net.play5d.game.bvn.stage {
 					GameData.I.config.applyConfig();
 					GameInputer.updateConfig();
 					MainGame.I.goMenu();
+					break;
+				case "CANCEL":
+					MainGame.I.goMenu();	
 			}
 		}
 		

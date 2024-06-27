@@ -34,6 +34,7 @@ package net.play5d.game.bvn.stage {
 		private var _btnGroup:MenuBtnGroup;
 		private var _versionTxt:TextField;
 		private var _destroyed:Boolean = false;
+		private var _isBackTitleCd:Boolean = false;
 		
 		public function get display():DisplayObject {
 			return _ui;
@@ -80,19 +81,26 @@ package net.play5d.game.bvn.stage {
 		}
 		
 		private function render():void {
+			if (GameInputer.anyKey(1)&&!GameInputer.back()) {
+				showBtns();
+			}	
+		}
+		
+		private function backRender():void {
 			if (_destroyed) {
 				return;
 			}
-			
-			if (GameInputer.anyKey(1)) {
-				showBtns();
+			if (GameInputer.back()&&!_isBackTitleCd) {
+				closeBtns();
 			}
+			
 		}
 		
 		private function showBtns(...params):void {
 			_ui.removeEventListener(MouseEvent.CLICK, showBtns);
 			
 			GameRender.remove(render);
+			GameRender.add(backRender);
 			
 			_ui.buttonMode = false;
 			_ui.useHandCursor = false;
@@ -117,8 +125,26 @@ package net.play5d.game.bvn.stage {
 			
 			setTimeout(function ():void {
 				_btnGroup.enabled = true;
+				_isBackTitleCd = false;
 			}, 400);
 		}
+		
+	private function closeBtns():void {
+		 GameRender.add(render);
+		_ui.buttonMode = true;
+		_ui.useHandCursor = true;
+		_ui.addEventListener(MouseEvent.CLICK,showBtns);
+		_ui.gotoAndPlay("back");
+		SoundCtrl.I.playSwcSound(snd_menu5);
+		GameRender.remove(backRender);
+		if (_btnGroup) {
+			_btnGroup.parent.removeChild(_btnGroup);
+			}
+		_btnGroup.destory();
+		_btnGroup = null;
+		GameInputer.enabled = true;
+		_isBackTitleCd = true
+	}
 		
 		public function destory(back:Function = null):void {
 			_destroyed = true;
