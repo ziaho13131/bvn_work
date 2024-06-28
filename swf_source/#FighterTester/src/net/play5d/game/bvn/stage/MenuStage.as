@@ -82,6 +82,7 @@ package net.play5d.game.bvn.stage {
 		
 		private function render():void {
 			if (_destroyed) {
+				GameRender.remove(render);
 				return;
 			}
 			if (GameInputer.anyKey(1)&&!GameInputer.back()) {
@@ -91,6 +92,7 @@ package net.play5d.game.bvn.stage {
 		
 		private function backRender():void {
 			if (_destroyed) {
+				GameRender.remove(backRender);
 				return;
 			}
 			if (GameInputer.back()&&!_isBackTitleCd) {
@@ -126,7 +128,7 @@ package net.play5d.game.bvn.stage {
 			_btnGroup.build();
 			_btnGroup.fadIn(0.2, 0.04);
 			
-			setTimeout(function ():void {
+			if(_isBackTitleCd)setTimeout(function ():void {
 				_btnGroup.enabled = true;
 				_isBackTitleCd = false;
 			}, 400);
