@@ -1,0 +1,9 @@
+diff a/swf_source/#FighterTester/src/net/play5d/game/bvn/stage/MenuStage.as b/swf_source/#FighterTester/src/net/play5d/game/bvn/stage/MenuStage.as	(rejected hunks)
+@@ -34,6 +34,7 @@
+ 		private var _btnGroup:MenuBtnGroup;
+ 		private var _versionTxt:TextField;
+ 		private var _destroyed:Boolean = false;
++		private var _isBackTitleCd:Boolean = false;
+ 		
+ 		public function get display():DisplayObject {
+ 			return _ui;

@@ -2,6 +2,8 @@
  * 已重建完成
  */
 package {
+	import flash.display.Bitmap;
+	import flash.display.BitmapData;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.geom.Rectangle;
@@ -13,6 +15,7 @@ package {
 	import net.play5d.game.bvn.GameConfig;
 	import net.play5d.game.bvn.GameQuality;
 	import net.play5d.game.bvn.MainGame;
+	import net.play5d.game.bvn.ui;
 	import net.play5d.game.bvn.ctrl.GameLogic;
 	import net.play5d.game.bvn.ctrl.StateCtrl;
 	import net.play5d.game.bvn.ctrl.game_ctrls.GameCtrl;
@@ -38,9 +41,10 @@ package {
 	/**
 	 * 游戏主类
 	 */
-	
+
 	[SWF(frameRate="30", backgroundColor="#000000", width="1000", height="600")]
-	
+
+
 	public class FighterTester extends Sprite {
 		private var _mainGame:MainGame;
 		private var _gameSprite:Sprite;
@@ -95,7 +99,6 @@ package {
 		private function buildTestUI():void {
 			_testUI = new Sprite();
 			_testUI.x = 810;
-			
 			_testUI.graphics.beginFill(0xae292d, 1);
 			_testUI.graphics.drawRect(-10, 0, 200, 600);
 			_testUI.graphics.endFill();

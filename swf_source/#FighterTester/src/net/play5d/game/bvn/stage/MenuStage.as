@@ -34,7 +34,7 @@ package net.play5d.game.bvn.stage {
 		private var _btnGroup:MenuBtnGroup;
 		private var _versionTxt:TextField;
 		private var _destroyed:Boolean = false;
-		private var _isBackTitleCd:Boolean = false;
+        private var _isBackTitleCd:Boolean = false;
 		
 		public function get display():DisplayObject {
 			return _ui;
@@ -52,16 +52,13 @@ package net.play5d.game.bvn.stage {
 		
 		public function afterBuild():void {
 			_ui.gotoAndPlay(2);
-			
-			setTimeout(function ():void {
-				_ui.buttonMode = true;
-				_ui.useHandCursor = true;
-				_ui.addEventListener(MouseEvent.CLICK, showBtns);
+			_ui.buttonMode = true;
+			_ui.useHandCursor = true;
+			_ui.addEventListener(MouseEvent.CLICK,showBtns);
 				
-				GameRender.add(render);
-				GameInputer.focus();
-				GameInputer.enabled = true;
-			}, 500);
+			GameRender.add(render);
+			GameInputer.focus();
+			GameInputer.enabled = true;
 			
 			_versionTxt = new TextField();
 			UIUtils.formatText(_versionTxt, {
@@ -128,7 +125,7 @@ package net.play5d.game.bvn.stage {
 			_btnGroup.build();
 			_btnGroup.fadIn(0.2, 0.04);
 			
-			if(_isBackTitleCd)setTimeout(function ():void {
+			setTimeout(function ():void {
 				_btnGroup.enabled = true;
 				_isBackTitleCd = false;
 			}, 400);
