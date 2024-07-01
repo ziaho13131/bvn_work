@@ -88,6 +88,7 @@ package net.play5d.game.bvn.stage {
 				"图片：剑jian、数字化流天、社长星<br/>" +
 				"策划：剑jian、数字化流天<br/>" +
 				"贡献：灰原·银<br/>" +
+				"修改：可爱的小幻神酱，病毒<br/>" +
 				"<br/>" +
 				"优化：OpenBVN<br/>" +
 				"版权：5DPLAY 版权所有，OpenBVN 由 5DPLAY 技术支持";

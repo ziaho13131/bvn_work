@@ -14,7 +14,7 @@ package net.play5d.game.bvn.interfaces {
 		// 获得默认菜单
 		public static function getDefaultMenu():Array {
 			return [{
-				txt     : "TEAM PLAY",
+				txt     : "TEAM MODE",
 				cn      : "小队模式",
 				children: [{
 					txt: "TEAM ACRADE",
@@ -31,7 +31,7 @@ package net.play5d.game.bvn.interfaces {
 				}
 				]
 			},{
-				txt   :"PARTNER PLAY",
+				txt   :"PARTNER MODE",
 				cn    : "搭档模式",
 				children: [{
 					txt: "2v2",
@@ -52,8 +52,26 @@ package net.play5d.game.bvn.interfaces {
 					txt: "3v3WATCH", 	
 					cn:   "搭档观战"
 				}]
+			},{
+				txt   :"STORY MODE",
+				cn    : "故事模式(画饼ing)",
+				children: [{
+                    /* 剧情模式设计概念
+					 剧情闯关则是本模式的精髓 角色之间可以切换 
+					且切换时每一位角色都带有qta
+					闯关开始会有过场动画 
+					*/
+					txt: "STORY ARCADE",
+					cn : "剧情闯关"					
+				},{
+					txt:  "STORY VS PEOPLE", 
+					cn:   "剧情对战"
+				},{
+					txt: "STORY VS CPU", 	
+					cn:   "剧情电脑"
+				}]
 			},{	
-				txt     : "SINGLE PLAY",
+				txt     : "SINGLE MODE",
 				cn      : "单人模式",
 				children: [{
 					txt: "SINGLE ACRADE",

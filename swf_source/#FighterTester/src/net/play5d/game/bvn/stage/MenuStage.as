@@ -2,9 +2,11 @@
  * 已重建完成
  */
 package net.play5d.game.bvn.stage {
+	import flash.desktop.NativeApplication;
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
+	import flash.events.DataEvent;
 	import flash.events.MouseEvent;
 	import flash.text.TextField;
 	import flash.text.TextFieldAutoSize;
@@ -15,6 +17,7 @@ package net.play5d.game.bvn.stage {
 	import net.play5d.game.bvn.ctrl.AssetManager;
 	import net.play5d.game.bvn.ctrl.GameRender;
 	import net.play5d.game.bvn.ctrl.SoundCtrl;
+	import net.play5d.game.bvn.ctrl.game_ctrls.GameCtrl;
 	import net.play5d.game.bvn.data.GameData;
 	import net.play5d.game.bvn.input.GameInputer;
 	import net.play5d.game.bvn.interfaces.GameInterface;
@@ -35,6 +38,7 @@ package net.play5d.game.bvn.stage {
 		private var _versionTxt:TextField;
 		private var _destroyed:Boolean = false;
         private var _isBackTitleCd:Boolean = false;
+		private var _isIngExitGame:Boolean = false
 		
 		public function get display():DisplayObject {
 			return _ui;
@@ -82,9 +86,19 @@ package net.play5d.game.bvn.stage {
 				GameRender.remove(render);
 				return;
 			}
-			if (GameInputer.anyKey(1)&&!GameInputer.back()) {
+			if (GameInputer.anyKey(1)&&!GameInputer.back()&&!_isIngExitGame) {
 				showBtns();
-			}	
+			}
+			else if(GameInputer.back()&&_ui.currentLabel != "back"&&!_isIngExitGame) {
+				GameInputer.enabled = false;
+				_isIngExitGame = true;
+				GameUI.confirm("EXIT GAME?", "是否退出游戏？", function ():void {
+					NativeApplication.nativeApplication.exit();
+				}, function ():void {
+					_isIngExitGame = false;
+					GameInputer.enabled = true;
+				});
+			}
 		}
 		
 		private function backRender():void {
@@ -137,6 +151,7 @@ package net.play5d.game.bvn.stage {
 		_ui.useHandCursor = true;
 		_ui.addEventListener(MouseEvent.CLICK,showBtns);
 		_ui.gotoAndPlay("back");
+		GameInputer.enabled = true;
 		SoundCtrl.I.playSwcSound(snd_menu5);
 		GameRender.remove(backRender);
 		if (_btnGroup) {
@@ -144,7 +159,6 @@ package net.play5d.game.bvn.stage {
 			}
 		_btnGroup.destory();
 		_btnGroup = null;
-		GameInputer.enabled = true;
 		_isBackTitleCd = true
 	}
 		
