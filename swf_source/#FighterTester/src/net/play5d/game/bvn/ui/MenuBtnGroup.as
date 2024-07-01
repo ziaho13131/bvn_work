@@ -301,6 +301,28 @@ package net.play5d.game.bvn.ui {
 						}
 					};
 					break;
+				case "STORY ARCADE":
+					/*
+					饼 是用来吃的 人是要有梦想的
+					func = function ():void {
+						GameMode.currentMode = GameMode.STORY_ARCADE;
+						MainGame.I.goSelect();
+					};*/
+					break;
+				case "STORY VS PEOPLE":
+					/*
+					func = function ():void {
+					GameMode.currentMode = GameMode.STORY_VS_PEOPLE;
+					MainGame.I.goSelect();
+					};*/
+					break;
+				case "STORY VS CPU":
+					/*
+					func = function ():void {
+					GameMode.currentMode = GameMode.STORY_VS_CPU;
+					MainGame.I.goSelect();
+					};*/
+					break;
 				case "SINGLE VS PEOPLE":
 					func = function ():void {
 						GameMode.currentMode = GameMode.SINGLE_VS_PEOPLE;

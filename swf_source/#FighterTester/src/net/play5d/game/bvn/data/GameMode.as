@@ -27,11 +27,16 @@ package net.play5d.game.bvn.data {
 		public static const PARTNER_2V2WATCH:int = 28;       // 搭档观战2v2
 		public static const PARTNER_3V3WATCH:int = 29;       // 搭档观战3v3
 		
-		public static const SURVIVOR:int = 30;                // 生存模式
+		public static const SURVIVOR:int = 30;               // 生存模式
 		
-		public static const TRAINING:int = 40;					// 练习模式
+		public static const TRAINING:int = 40;				  // 练习模式
 		
-		public static var currentMode:int;						// 当前模式
+		public static const STORY_ARCADE:int = 50;			 // 剧情闯关
+		public static const STORY_VS_PEOPLE:int = 51;		// 剧情2p对战
+		public static const STORY_VS_CPU:int = 52;		   // 剧情CPU对战
+
+		
+		public static var currentMode:int;				 // 当前模式
 		
 		/**
 		 * 得到队伍
