@@ -50,6 +50,7 @@ package net.play5d.game.bvn.stage {
 		private var _loadFin:Boolean;
 		private var _selectIndexUI:SelectIndexUI;
 		
+		private var _loadFighterIng:Boolean = false;
 		private var _loadedFighterCache:Object = {};
 		private var _currentLoadBack:Function;
 		
@@ -185,6 +186,7 @@ package net.play5d.game.bvn.stage {
 					params: [
 						o.id, 
 						function (fighter:FighterMain, runobj:Object):void {
+							_loadFighterIng = true;
 							cacheFighter(fighter, runobj.id, fighter.data.id);
 							loadNext();
 						}, 
@@ -211,6 +213,7 @@ package net.play5d.game.bvn.stage {
 						function (fighter:Assister, runobj:Object):void {
 							GameCtrl.I.gameRunData[runobj.group][runobj.id] = fighter;
 							loadNext();
+							_loadFighterIng = false;
 						}, 
 						loadFail, 
 						loadProcess, 
@@ -258,13 +261,16 @@ package net.play5d.game.bvn.stage {
 			setTimeout(loadNext, 1000);
 		}
 		
-		private static function render():void {
+		private function render():void {
 			if (GameInputer.back(1)) {
 				if (GameUI.showingDialog()) {
 					GameUI.closeConfrim();
 				}
-				else {
-					GameUI.confirm("BACK TITLE?", "返回到主菜单？", MainGame.I.goMenu);
+				else if(!_loadFighterIng){
+					GameUI.confirm("BACK TITLE?", "返回到主菜单？",function():void {
+					  if(!_loadFighterIng)MainGame.I.goMenu();
+					  }
+					);
 				}
 			}
 		}
