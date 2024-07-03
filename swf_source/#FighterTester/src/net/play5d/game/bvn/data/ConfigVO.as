@@ -27,7 +27,7 @@ package net.play5d.game.bvn.data {
 		public const key_p2:KeyConfigVO = new KeyConfigVO(KEY_P2);
 		
 		public var select_config:SelectStageConfigVO;
-		
+		public var isFirstRunGame :Boolean = true;
 		public var AI_level    :int = 1;
 		public var fighterHP   :Number = 1;
 		public var fightTime   :int = 60;
@@ -79,6 +79,7 @@ package net.play5d.game.bvn.data {
 			var o:Object = {};
 			o.key_p1 = key_p1.toSaveObj();
 			o.key_p2 = key_p2.toSaveObj();
+			o.isFirstRunGame = isFirstRunGame;
 			o.AI_level = AI_level;
 			o.fighterHP = fighterHP;
 			o.fightTime = fightTime;

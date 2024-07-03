@@ -75,8 +75,9 @@ package net.play5d.game.bvn.stage {
 			_versionTxt.y = GameConfig.GAME_SIZE.y - _versionTxt.height - 10;
 			
 			_ui.addChild(_versionTxt);
-			if (GameData.I.isFristRun && MainGame.UPDATE_INFO) {
-				GameData.I.isFristRun = false;
+			if (GameData.I.config.isFirstRunGame && MainGame.UPDATE_INFO) {
+				GameData.I.config.isFirstRunGame = false;
+				GameData.I.saveData();
 				GameUI.alert("UPDATE", MainGame.UPDATE_INFO);
 			}
 		}

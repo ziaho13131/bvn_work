@@ -19,9 +19,7 @@ package net.play5d.game.bvn.data {
 		public var selectMap:String;
 		public var score:int = 0;
 		public var winnerId:String;
-		
-		public var isFristRun:Boolean = true;
-		
+				
 		private const SAVE_ID:String = "bvn3.01";
 		
 		public static function get I():GameData {
