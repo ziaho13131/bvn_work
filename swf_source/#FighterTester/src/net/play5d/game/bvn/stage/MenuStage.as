@@ -75,6 +75,8 @@ package net.play5d.game.bvn.stage {
 			_versionTxt.y = GameConfig.GAME_SIZE.y - _versionTxt.height - 10;
 			
 			_ui.addChild(_versionTxt);
+			
+			//第一次运行游戏时弹出更新介绍
 			if (GameData.I.config.isFirstRunGame && MainGame.UPDATE_INFO) {
 				GameData.I.config.isFirstRunGame = false;
 				GameData.I.saveData();
