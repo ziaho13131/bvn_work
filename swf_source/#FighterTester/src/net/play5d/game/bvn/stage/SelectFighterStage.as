@@ -748,13 +748,25 @@ package net.play5d.game.bvn.stage {
 						_curStep = 2;
 						break;
 					}
-					
-					fadOutList(initAssist);
-					_curStep = 3;
+				     else if(GameMode.isStoryMode()) {
+						 fadOutList(initMap);
+						 _curStep = 5;
+				   }
+					  else {
+						 fadOutList(initAssist);
+						 _curStep = 3;	
+					  }
 					break;
 				case 2:
-					fadOutList(initAssist);
-					_curStep = 3;
+				  if (GameMode.isStoryMode()) {
+					  fadOutList(initMap);
+					  _curStep = 5;
+				  }
+					else {
+					    fadOutList(initAssist);
+					    _curStep = 3;
+				  }
+					
 					break;
 				case 3:
 					if (GameMode.isVsCPU()) {

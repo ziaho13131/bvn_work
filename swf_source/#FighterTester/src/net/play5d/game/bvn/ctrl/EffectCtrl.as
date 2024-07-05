@@ -366,7 +366,7 @@ package net.play5d.game.bvn.ctrl {
 				doEffectById("fz_naruto", fz.x, fz.y);
 			}
 			else {
-				doEffectById("fz_change", fz.x, fz.y);
+				doEffectById("fz_bleach", fz.x, fz.y);
 			}
 		}
 		

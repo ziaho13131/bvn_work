@@ -34,6 +34,7 @@ package net.play5d.game.bvn.data {
 		public static const STORY_ARCADE:int = 50;			 // 剧情闯关
 		public static const STORY_VS_PEOPLE:int = 51;		// 剧情2p对战
 		public static const STORY_VS_CPU:int = 52;		   // 剧情CPU对战
+		public static const STORY_TRAINING:int = 53;    //  剧情练习模式
 
 		
 		public static var currentMode:int;				 // 当前模式
@@ -82,11 +83,22 @@ package net.play5d.game.bvn.data {
 				currentMode == PARTNER_3V3WATCH;
 		}
 		
+		public static function isStoryMode():Boolean {
+			return currentMode == STORY_ARCADE||currentMode == STORY_VS_PEOPLE||	
+				currentMode == STORY_VS_CPU ||
+				currentMode == STORY_TRAINING;
+		}
+		
+		public static function isTraining():Boolean {
+			return currentMode == TRAINING || currentMode == STORY_TRAINING;
+		}
+		
 		public static function isVsPeople():Boolean {
 			return currentMode == TEAM_VS_PEOPLE || 
 				currentMode == SINGLE_VS_PEOPLE ||
 				currentMode == PARTNER_2V2 ||
-				currentMode == PARTNER_3V3;
+				currentMode == PARTNER_3V3 ||
+				currentMode == STORY_VS_PEOPLE;
 		}
 		
 		public static function isVsCPU(includeTraining:Boolean = true):Boolean {
@@ -94,6 +106,7 @@ package net.play5d.game.bvn.data {
 				currentMode == SINGLE_VS_CPU ||
 				currentMode == PARTNER_2V2CPU ||
 				currentMode == PARTNER_3V3CPU ||
+				currentMode == STORY_VS_CPU ||
 				includeTraining && currentMode == TRAINING || 
 				currentMode == TEAM_WATCH || 
 				currentMode == SINGLE_WATCH ||
@@ -153,6 +166,8 @@ package net.play5d.game.bvn.data {
 					return "故事对战玩家";
 				case STORY_VS_CPU:
 					return "故事对战电脑";
+				case STORY_TRAINING:
+					 return "故事训练模式";
 				default:
 				  return "未知模式";
 			}
