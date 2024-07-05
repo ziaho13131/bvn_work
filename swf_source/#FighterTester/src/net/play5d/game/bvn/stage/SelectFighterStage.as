@@ -361,6 +361,9 @@ package net.play5d.game.bvn.stage {
 			else if(GameMode.isDuoMode()) {
 				_p1Slt.selectTimesCount = GameMode.isTeamMode() && !_p1Slt.isSelectAssist ? 2 : 1;
 			}
+			else if(GameMode.isThreeMode()){
+				_p1Slt.selectTimesCount = GameMode.isTeamMode() && !_p1Slt.isSelectAssist ? 3 : 1;	
+			}
 			else {
 			   _p1Slt.selectTimesCount = GameMode.isTeamMode() && !_p1Slt.isSelectAssist ? 3 : 1;	
 			}
@@ -377,6 +380,9 @@ package net.play5d.game.bvn.stage {
 			_p2Slt.isSelectAssist = _selectState == SELECT_STATE_ASSIST;
 			if(GameMode.isDuoMode()) {
 				_p2Slt.selectTimesCount = GameMode.isTeamMode() && !_p2Slt.isSelectAssist ? 2 : 1;
+			}
+			else if(GameMode.isThreeMode()) {
+				_p2Slt.selectTimesCount = GameMode.isTeamMode() && !_p2Slt.isSelectAssist ? 3 : 1;
 			}
 			else {
 				_p2Slt.selectTimesCount = GameMode.isTeamMode() && !_p2Slt.isSelectAssist ? 3 : 1;

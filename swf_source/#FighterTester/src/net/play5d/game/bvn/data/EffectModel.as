@@ -76,6 +76,10 @@ package net.play5d.game.bvn.data {
 			_effect["fz_bleach"]       = new EffectVO("XG_fz_bleach_mc", {
 				sound: "snd_dash"
 			});
+			_effect["fz_change"]      = new EffectVO("XG_change", {
+				sound:"snd_change",
+				blendMode: BlendMode.ADD
+			});
 			_effect["fz_naruto"]       = new EffectVO("XG_fz_naruto_mc", {
 				sound: "snd_fz"
 			});

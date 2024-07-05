@@ -146,7 +146,13 @@ package net.play5d.game.bvn.data {
 				case SURVIVOR:
 					return "生存模式";	
 				case TRAINING:
-					return "生存模式";	
+					return "训练模式";
+				case STORY_ARCADE:
+					return "故事闯关"
+				case STORY_VS_PEOPLE:
+					return "故事对战玩家";
+				case STORY_VS_CPU:
+					return "故事对战电脑";
 				default:
 				  return "未知模式";
 			}
