@@ -158,7 +158,7 @@ package net.play5d.game.bvn.ctrl {
 		}
 		
 		public static function checkFighterDie(v:FighterMain):Boolean {
-			if (GameMode.currentMode == GameMode.TRAINING) {
+			if (GameMode.isTraining()) {
 				return false;
 			}
 			

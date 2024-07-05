@@ -262,7 +262,7 @@ package {
 			if (!p1 || !p2) {
 				return;
 			}
-			if (GameMode.currentMode == GameMode.TRAINING) {
+			if (GameMode.isTraining()) {
 				Debugger.errorMsg("Current mode is TRAINING!");
 				return;
 			}

@@ -317,11 +317,22 @@ package net.play5d.game.bvn.ui {
 					};*/
 					break;
 				case "STORY VS CPU":
-					/*
 					func = function ():void {
 					GameMode.currentMode = GameMode.STORY_VS_CPU;
 					MainGame.I.goSelect();
-					};*/
+					};
+					break;
+				case "STORY WATCH":
+					func = function ():void {
+					GameMode.currentMode = GameMode.STORY_WATCH;
+					MainGame.I.goSelect();
+					};
+					break;
+				case "STORY TRAINING":
+					func = function ():void {
+					GameMode.currentMode = GameMode.STORY_TRAINING;
+					MainGame.I.goSelect();
+					};
 					break;
 				case "SINGLE VS PEOPLE":
 					func = function ():void {
@@ -366,8 +377,12 @@ package net.play5d.game.bvn.ui {
 					break;
 				case "UPDATA":
 					func = function ():void {
+						GameUI.confirm("UPDATE",MainGame.UPDATE_INFO+"\n是否前往更新发布页面?(y/n)", function ():void {
 						var wy:URLRequest = new URLRequest("https://space.bilibili.com/355885808");
-						navigateToURL(wy);
+						navigateToURL(wy);	
+						},function ():void {
+							
+						});
 					};
 					break;
 				case "EXIT":

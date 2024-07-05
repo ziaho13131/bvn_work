@@ -234,7 +234,7 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 				}
 			}
 			
-			if (GameMode.currentMode == GameMode.TRAINING) {
+			if (GameMode.isTraining()) {
 				_trainingCtrl = new TrainingCtrler();
 				_trainingCtrl.initlize([p1, p2]);
 				
@@ -267,7 +267,7 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 			p1.hp = gameRunData.lastWinnerHp;
 			trace("buildGame.survival :: ("+gameRunData.lastWinnerHp+") hp inherit Succeed");
 			}
-			if (GameMode.currentMode == GameMode.TRAINING) {
+			if (GameMode.isTraining()) {
 				actionEnable = true;
 				GameUI.I.fadIn();
 				SoundCtrl.I.playFightBGM("map");

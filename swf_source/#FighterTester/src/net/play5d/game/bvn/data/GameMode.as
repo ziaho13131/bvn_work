@@ -34,7 +34,8 @@ package net.play5d.game.bvn.data {
 		public static const STORY_ARCADE:int = 50;			 // 剧情闯关
 		public static const STORY_VS_PEOPLE:int = 51;		// 剧情2p对战
 		public static const STORY_VS_CPU:int = 52;		   // 剧情CPU对战
-		public static const STORY_TRAINING:int = 53;    //  剧情练习模式
+		public static const STORY_WATCH:int = 53;		  // 剧情观战电脑
+		public static const STORY_TRAINING:int = 54;    //  剧情练习模式
 
 		
 		public static var currentMode:int;				 // 当前模式
@@ -86,6 +87,7 @@ package net.play5d.game.bvn.data {
 		public static function isStoryMode():Boolean {
 			return currentMode == STORY_ARCADE||currentMode == STORY_VS_PEOPLE||	
 				currentMode == STORY_VS_CPU ||
+		        currentMode == STORY_WATCH ||
 				currentMode == STORY_TRAINING;
 		}
 		
@@ -119,7 +121,9 @@ package net.play5d.game.bvn.data {
 			return currentMode == TEAM_WATCH || 
 				currentMode == SINGLE_WATCH || 
 				currentMode == PARTNER_2V2WATCH ||
-				currentMode == PARTNER_3V3WATCH; 
+				currentMode == PARTNER_3V3WATCH ||
+				currentMode == STORY_WATCH;
+
 		}
 		
 		public static function isAcrade():Boolean {
@@ -166,6 +170,8 @@ package net.play5d.game.bvn.data {
 					return "故事对战玩家";
 				case STORY_VS_CPU:
 					return "故事对战电脑";
+				case STORY_WATCH:
+					return "故事观战电脑";	
 				case STORY_TRAINING:
 					 return "故事训练模式";
 				default:

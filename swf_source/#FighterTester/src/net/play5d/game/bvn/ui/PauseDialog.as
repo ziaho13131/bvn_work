@@ -168,7 +168,7 @@ package net.play5d.game.bvn.ui {
 				case "AI CTRL":
 					_btnGroup.keyEnable = false;	
 					GameUI.confirm("SET AI TEAM", "设置AI队伍", function ():void {
-						if(GameMode.currentMode!= 40){
+						if(!GameMode.isTraining()){
 							GameUI.alert("notes","不支持在该模式下设置AI",function():void{_btnGroup.keyEnable = true});	
 							return;	
 						}
@@ -182,7 +182,7 @@ package net.play5d.game.bvn.ui {
 						else setPlayerCtrl(),this._p2AI = false;
 						GameCtrl.I.resume(true);	
 					}, function ():void {
-						if(GameMode.currentMode!= 40){
+						if(!GameMode.isTraining()){
 							GameUI.alert("notes","不支持在该模式下设置AI",function():void{_btnGroup.keyEnable = true});	
 							return;	
 						}	

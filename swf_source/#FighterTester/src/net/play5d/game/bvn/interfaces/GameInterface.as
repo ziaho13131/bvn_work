@@ -54,7 +54,7 @@ package net.play5d.game.bvn.interfaces {
 				}]
 			},{
 				txt   :"STORY MODE",
-				cn    : "故事模式(画饼ing)",
+				cn    : "故事模式",
 				children: [{
                     /* 剧情模式设计概念
 					 剧情闯关则是本模式的精髓 角色之间可以切换 
@@ -69,6 +69,12 @@ package net.play5d.game.bvn.interfaces {
 				},{
 					txt: "STORY VS CPU", 	
 					cn:   "剧情电脑"
+				},{
+					txt: "STORY WATCH", 	
+					cn:   "剧情观战"
+				},{
+					txt: "STORY TRAINING", 	
+					cn:   "剧情训练"
 				}]
 			},{	
 				txt     : "SINGLE MODE",
