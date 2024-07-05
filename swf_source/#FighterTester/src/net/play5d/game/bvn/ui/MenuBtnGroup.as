@@ -310,11 +310,10 @@ package net.play5d.game.bvn.ui {
 					};*/
 					break;
 				case "STORY VS PEOPLE":
-					/*
 					func = function ():void {
 					GameMode.currentMode = GameMode.STORY_VS_PEOPLE;
 					MainGame.I.goSelect();
-					};*/
+					};
 					break;
 				case "STORY VS CPU":
 					func = function ():void {
