@@ -127,7 +127,10 @@ package net.play5d.game.bvn.data {
 		}
 		
 		public static function isAcrade():Boolean {
-			return currentMode == TEAM_ACRADE || currentMode == SINGLE_ACRADE|| currentMode == SURVIVOR;
+			return currentMode == TEAM_ACRADE || 
+				currentMode == SINGLE_ACRADE||
+				currentMode == SURVIVOR ||
+				currentMode == STORY_ARCADE;
 		}
 		
 		public function getModeName(mode:int):String {
