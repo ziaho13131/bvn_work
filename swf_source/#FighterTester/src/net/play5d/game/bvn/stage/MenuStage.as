@@ -91,6 +91,7 @@ package net.play5d.game.bvn.stage {
 			}
 			if (GameInputer.anyKey(1)&&!GameInputer.back()&&!_isIngExitGame) {
 				showBtns();
+				return;
 			}
 			else if(GameInputer.back()&&_ui.currentLabel != "back"&&!_isIngExitGame) {
 				GameInputer.enabled = false;
@@ -162,7 +163,7 @@ package net.play5d.game.bvn.stage {
 			}
 		_btnGroup.destory();
 		_btnGroup = null;
-		_isBackTitleCd = true
+		_isBackTitleCd = true;
 	}
 		
 		public function destory(back:Function = null):void {
