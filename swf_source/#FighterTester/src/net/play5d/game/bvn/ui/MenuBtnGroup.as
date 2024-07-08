@@ -376,12 +376,12 @@ package net.play5d.game.bvn.ui {
 					break;
 				case "UPDATA":
 					func = function ():void {
-						GameUI.confirm("UPDATE",MainGame.UPDATE_INFO+"\n是否前往更新发布页面?(y/n)", function ():void {
+						GameUI.confirm("UPDATE",MainGame.UPDATE_INFO, function ():void {
 						var wy:URLRequest = new URLRequest("https://space.bilibili.com/355885808");
 						navigateToURL(wy);	
 						},function ():void {
 							
-						});
+						},"WEB","BACK","资源页面","返回");
 					};
 					break;
 				case "EXIT":
