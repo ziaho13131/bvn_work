@@ -53,7 +53,7 @@ package net.play5d.game.bvn.ui.dialog {
 			
 			addChild(bg);
 			
-			var box:Box = new Box(GameConfig.GAME_SIZE.x, 300, 0, 0.8);
+			var box:Box = new Box(GameConfig.GAME_SIZE.x, 400, 0, 0.8);
 			box.y = (GameConfig.GAME_SIZE.y - box.height) / 2;
 			addChild(box);
 			
