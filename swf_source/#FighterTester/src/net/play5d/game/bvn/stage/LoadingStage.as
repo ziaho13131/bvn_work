@@ -100,6 +100,7 @@ package net.play5d.game.bvn.stage {
 			SoundCtrl.I.BGM(AssetManager.I.getSound("loading"));
 			
 			_ui = ResUtils.I.createDisplayObject(ResUtils.I.fight, "loading_fight_mc");
+			_loadFighterIng = true;
 			_sltUI = _ui.sltui;
 			_selectIndexUI = new SelectIndexUI();
 			_selectIndexUI.onFinish = finish;
@@ -186,7 +187,6 @@ package net.play5d.game.bvn.stage {
 					params: [
 						o.id, 
 						function (fighter:FighterMain, runobj:Object):void {
-							_loadFighterIng = true;
 							cacheFighter(fighter, runobj.id, fighter.data.id);
 							loadNext();
 						}, 
