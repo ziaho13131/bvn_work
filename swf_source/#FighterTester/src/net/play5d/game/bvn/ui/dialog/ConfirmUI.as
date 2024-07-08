@@ -26,10 +26,17 @@ package net.play5d.game.bvn.ui.dialog {
 		private var _cnTxt:TextField;
 		private var _btnGroup:SetBtnGroup;
 		
+		public var yesString:String = "YES";
+		public var noString:String = "NO";
+		public var yesStrCn:String = "是";
+		public var noStrCn:String = "否";
 		public var yesBack:Function;
 		public var noBack:Function;
 		
-		public function ConfirmUI() {
+		public function ConfirmUI(YesStr:String = "YES",NoStr:String = "NO",
+						         YesStrCn:String = "是",NoStrCn:String = "否") {
+			yesString = YesStr; noString = NoStr; 
+			yesStrCn = YesStrCn; noStrCn = NoStrCn;
 			build();
 		}
 		
@@ -81,11 +88,11 @@ package net.play5d.game.bvn.ui.dialog {
 			_btnGroup.direct = 0;
 			_btnGroup.gap = 200;
 			_btnGroup.setBtnData([{
-				label: "YES",
-				cn   : "是"
+				label: yesString,
+				cn   : yesStrCn
 			}, {
-				label: "NO",
-				cn   : "否"
+				label: noString,
+				cn   : noStrCn
 			}], 1);
 			_btnGroup.addEventListener(SetBtnEvent.SELECT, selectHandler);
 			_btnGroup.x = (GameConfig.GAME_SIZE.x - _btnGroup.width) / 2 + 30;
@@ -101,13 +108,13 @@ package net.play5d.game.bvn.ui.dialog {
 		
 		private function selectHandler(e:SetBtnEvent):void {
 			switch (e.selectedLabel) {
-				case "YES":
+				case yesString:
 					if (yesBack != null) {
 						yesBack();
 						break;
 					}
 					break;
-				case "NO":
+				case noString:
 					if (noBack != null) {
 						noBack();
 						break;

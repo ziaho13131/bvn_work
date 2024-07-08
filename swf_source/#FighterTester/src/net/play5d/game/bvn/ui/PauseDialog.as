@@ -5,12 +5,13 @@
 package net.play5d.game.bvn.ui {
 	import flash.display.Sprite;
 	import flash.events.DataEvent;
-	import net.play5d.game.bvn.data.GameData;
+	
 	import net.play5d.game.bvn.GameConfig;
-	import net.play5d.game.bvn.data.GameMode;
-	import net.play5d.game.bvn.data.MessionModel;
 	import net.play5d.game.bvn.MainGame;
 	import net.play5d.game.bvn.ctrl.game_ctrls.GameCtrl;
+	import net.play5d.game.bvn.data.GameData;
+	import net.play5d.game.bvn.data.GameMode;
+	import net.play5d.game.bvn.data.MessionModel;
 	import net.play5d.game.bvn.events.SetBtnEvent;
 	import net.play5d.game.bvn.fighter.FighterMain;
 	import net.play5d.game.bvn.fighter.ctrler.FighterAICtrl;
@@ -167,21 +168,9 @@ package net.play5d.game.bvn.ui {
 					break;
 				case "AI CTRL":
 					_btnGroup.keyEnable = false;	
-					GameUI.confirm("SET AI TEAM", "设置AI队伍", function ():void {
-						if(!GameMode.isTraining()){
-							GameUI.alert("notes","不支持在该模式下设置AI",function():void{_btnGroup.keyEnable = true});	
-							return;	
-						}
-						MainGame.I.stage.dispatchEvent(new DataEvent(
-							"5d_message",
-							false,
-							false,
-							JSON.stringify(["set_p2_ai"])
-						));
-						if(!this._p2AI)setAICtrl(),this._p2AI = true;
-						else setPlayerCtrl(),this._p2AI = false;
-						GameCtrl.I.resume(true);	
-					}, function ():void {
+					var p1AiCnStr:String = _p1AI?"取消P1 AI控制器" : "设置P1 AI控制器";
+					var p2AiCnStr:String = _p2AI?"取消P2 AI控制器" : "设置P2 AI控制器";
+					GameUI.confirm("SET AI TEAM",p1AiCnStr+"\n"+p2AiCnStr, function ():void {
 						if(!GameMode.isTraining()){
 							GameUI.alert("notes","不支持在该模式下设置AI",function():void{_btnGroup.keyEnable = true});	
 							return;	
@@ -192,10 +181,36 @@ package net.play5d.game.bvn.ui {
 							false,
 							JSON.stringify(["set_p1_ai"])
 						));
-						if(!this._p1AI)setAICtrl(true),this._p1AI = true;
-						else setPlayerCtrl(true),this._p1AI = false;
+						if(!_p1AI)  {
+							_p1AI = true; 
+							setAICtrl(true); 
+						}
+						else {
+							_p1AI = false;
+							setPlayerCtrl(true); 
+						}
 						GameCtrl.I.resume(true);	
-					});			
+					}, function ():void {
+						if(!GameMode.isTraining()){
+							GameUI.alert("notes","不支持在该模式下设置AI",function():void{_btnGroup.keyEnable = true});	
+							return;	
+						}
+						MainGame.I.stage.dispatchEvent(new DataEvent(
+							"5d_message",
+							false,
+							false,
+							JSON.stringify(["set_p2_ai"])
+						));
+						if(!_p2AI) {
+							_p2AI = true;
+							setAICtrl();
+						}
+						else {
+							_p2AI = false;
+							setPlayerCtrl();
+						}
+						GameCtrl.I.resume(true);	
+					},"P1","P2","阵营","阵营");			
 					break;	
 				case "CONTINUE":
 					GameCtrl.I.resume(true);
@@ -233,6 +248,7 @@ package net.play5d.game.bvn.ui {
 			AiCtrl.fighter = Fighter;
 			Fighter.setActionCtrl(AiCtrl);
 			trace("PauseDialog.setAICtrl ::  "+Fighter.team.name+" Ai Ctrl Start..")
+			trace(this._p1AI);
 		}
 		
 		public function setPlayerCtrl(v:Boolean = false):void {

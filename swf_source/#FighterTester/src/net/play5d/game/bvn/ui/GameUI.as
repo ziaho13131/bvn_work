@@ -9,10 +9,10 @@ package net.play5d.game.bvn.ui {
 	import net.play5d.game.bvn.MainGame;
 	import net.play5d.game.bvn.data.GameData;
 	import net.play5d.game.bvn.data.GameRunFighterGroup;
+	import net.play5d.game.bvn.interfaces.IGameUI;
 	import net.play5d.game.bvn.ui.dialog.AlertUI;
 	import net.play5d.game.bvn.ui.dialog.ConfirmUI;
 	import net.play5d.game.bvn.ui.fight.FightUI;
-	import net.play5d.game.bvn.interfaces.IGameUI;
 	
 	/**
 	 * 游戏UI
@@ -41,16 +41,19 @@ package net.play5d.game.bvn.ui {
 		
 		public static function confirm(
 			enMsg:String = null, cnMsg:String = null,
-			yes:Function = null, no:Function = null):void 
+			yes:Function = null, no:Function = null,
+		    yesStr:String = "YES",noStr:String = "NO",
+		    yesStrCn:String = "是",noStrCn:String = "否"):void 
 		{
 			closeConfrim();
-			_confirmUI = new ConfirmUI();
+			_confirmUI = new ConfirmUI(yesStr,noStr,yesStrCn,noStrCn);
 			_confirmUI.setMsg(enMsg, cnMsg);
 			_confirmUI.yesBack = yesClose;
 			_confirmUI.noBack = noClose;
 			
 			MainGame.I.stage.dispatchEvent(new DataEvent("5d_message", false, false, JSON.stringify(["show_confrim"])));
 			MainGame.I.root.addChild(_confirmUI);
+			
 			
 			function yesClose():void {
 				if (yes != null) {
