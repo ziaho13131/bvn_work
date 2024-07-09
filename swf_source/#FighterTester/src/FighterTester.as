@@ -112,8 +112,9 @@ package {
 			addChild(_testUI);
 			
 			_testpic = new _testpicClass();
-			_testpic.width = 200;
-			_testpic.height = 600;
+			_testpic.width = 350;
+			_testpic.height = 770;
+			_testpic.x = -20;
 			_testUI.addChild(_testpic);
 			
 			var yy:Number = 20;

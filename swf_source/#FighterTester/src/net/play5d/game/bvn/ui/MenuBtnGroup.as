@@ -12,7 +12,8 @@ package net.play5d.game.bvn.ui {
 	import flash.net.URLRequest;
 	import flash.net.navigateToURL
 	import flash.desktop.NativeApplication;
-		
+	
+	import net.play5d.game.bvn.data.GameData;	
 	import net.play5d.game.bvn.GameConfig;
 	import net.play5d.game.bvn.MainGame;
 	import net.play5d.game.bvn.ctrl.GameRender;
@@ -238,13 +239,23 @@ package net.play5d.game.bvn.ui {
 				case "TEAM VS PEOPLE":
 					func = function ():void {
 						GameMode.currentMode = GameMode.TEAM_VS_PEOPLE;
-						MainGame.I.goSelect();
+						if (GameConfig.SHOW_HOW_TO_PLAY) {
+							MainGame.I.goHowToPlay();
+						}
+						else {
+							MainGame.I.goSelect();
+						}
 					};
 					break;
 				case "TEAM VS CPU":
 					func = function ():void {
 						GameMode.currentMode = GameMode.TEAM_VS_CPU;
-						MainGame.I.goSelect();
+						if (GameConfig.SHOW_HOW_TO_PLAY) {
+							MainGame.I.goHowToPlay();
+						}
+						else {
+							MainGame.I.goSelect();
+						}
 					};
 					break;
 				case "TEAM WATCH":
@@ -256,25 +267,45 @@ package net.play5d.game.bvn.ui {
 				case "2v2":
 					func = function ():void {
 						GameMode.currentMode = GameMode.PARTNER_2V2;
-						MainGame.I.goSelect();
+						if (GameConfig.SHOW_HOW_TO_PLAY) {
+							MainGame.I.goHowToPlay();
+						}
+						else {
+							MainGame.I.goSelect();
+						}
 					};
 					break;
 				case "3v3":
 					func = function ():void {
 						GameMode.currentMode = GameMode.PARTNER_3V3;
-						MainGame.I.goSelect();
+						if (GameConfig.SHOW_HOW_TO_PLAY) {
+							MainGame.I.goHowToPlay();
+						}
+						else {
+							MainGame.I.goSelect();
+						}
 					};
 					break;
 				case "2v2CPU":
 					func = function ():void {
 						GameMode.currentMode = GameMode.PARTNER_2V2CPU;
-						MainGame.I.goSelect();
+						if (GameConfig.SHOW_HOW_TO_PLAY) {
+							MainGame.I.goHowToPlay();
+						}
+						else {
+							MainGame.I.goSelect();
+						}
 					};
 					break;
 				case "3v3CPU":
 					func = function ():void {
 						GameMode.currentMode = GameMode.PARTNER_3V3CPU;
-						MainGame.I.goSelect();
+						if (GameConfig.SHOW_HOW_TO_PLAY) {
+							MainGame.I.goHowToPlay();
+						}
+						else {
+							MainGame.I.goSelect();
+						}
 					};
 					break;	
 				case "2v2WATCH":
@@ -316,13 +347,23 @@ package net.play5d.game.bvn.ui {
 				case "STORY VS PEOPLE":
 					func = function ():void {
 					GameMode.currentMode = GameMode.STORY_VS_PEOPLE;
-					MainGame.I.goSelect();
+					if (GameConfig.SHOW_HOW_TO_PLAY) {
+						MainGame.I.goHowToPlay();
+					}
+					else {
+						MainGame.I.goSelect();
+					}
 					};
 					break;
 				case "STORY VS CPU":
 					func = function ():void {
 					GameMode.currentMode = GameMode.STORY_VS_CPU;
-					MainGame.I.goSelect();
+					if (GameConfig.SHOW_HOW_TO_PLAY) {
+						MainGame.I.goHowToPlay();
+					}
+					else {
+						MainGame.I.goSelect();
+					}
 					};
 					break;
 				case "STORY WATCH":
@@ -340,13 +381,23 @@ package net.play5d.game.bvn.ui {
 				case "SINGLE VS PEOPLE":
 					func = function ():void {
 						GameMode.currentMode = GameMode.SINGLE_VS_PEOPLE;
-						MainGame.I.goSelect();
+						if (GameConfig.SHOW_HOW_TO_PLAY) {
+							MainGame.I.goHowToPlay();
+						}
+						else {
+							MainGame.I.goSelect();
+						}
 					};
 					break;
 				case "SINGLE VS CPU":
 					func = function ():void {
 						GameMode.currentMode = GameMode.SINGLE_VS_CPU;
-						MainGame.I.goSelect();
+						if (GameConfig.SHOW_HOW_TO_PLAY) {
+							MainGame.I.goHowToPlay();
+						}
+						else {
+							MainGame.I.goSelect();
+						}
 					};
 					break;
 				case "SINGLE WATCH":
@@ -359,7 +410,12 @@ package net.play5d.game.bvn.ui {
 					func = function ():void {
 						GameMode.currentMode = 30;
 						MessionModel.I.reset();
-						MainGame.I.goSelect();
+						if (GameConfig.SHOW_HOW_TO_PLAY) {
+							MainGame.I.goHowToPlay();
+						}
+						else {
+							MainGame.I.goSelect();
+						}
 					};
 					break;
 				case "OPTION":

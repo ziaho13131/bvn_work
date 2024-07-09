@@ -82,11 +82,14 @@ package net.play5d.game.bvn.stage {
 			_ui.addChild(_versionTxt);
 			
 			//第一次运行游戏时弹出更新介绍
+			trace(GameData.I.config.isFirstRunGame);
 			if (GameData.I.config.isFirstRunGame && MainGame.UPDATE_INFO) {
-				GameData.I.config.isFirstRunGame = false;
-				GameData.I.saveData();
 				GameUI.alert("UPDATE", MainGame.UPDATE_INFO);
+				GameData.I.config.isFirstRunGame = false;
+				GameConfig.SHOW_HOW_TO_PLAY = true;
+				GameData.I.saveData();
 			}
+			else GameConfig.SHOW_HOW_TO_PLAY = false;	
 		}
 		
 		private function render():void {

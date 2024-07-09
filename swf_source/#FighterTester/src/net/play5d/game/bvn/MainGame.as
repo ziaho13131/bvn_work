@@ -148,7 +148,7 @@ package net.play5d.game.bvn {
 		public function goHowToPlay():void {
 			stageCtrl.goStage(new HowToPlayStage());
 			
-			setFPS(60);
+			setFPS(30);
 		}
 		
 		public function goSelect():void {

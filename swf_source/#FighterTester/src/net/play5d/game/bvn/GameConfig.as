@@ -20,7 +20,7 @@ package net.play5d.game.bvn {
 		public static const FPS_ANIMATE:int = 30;
 		public static var FPS_SHINE_EFFECT:int = 15;
 		
-		public static var SHOW_HOW_TO_PLAY:Boolean = true;
+		public static var SHOW_HOW_TO_PLAY:Boolean = false;
 		
 		public static var SPEED_PLUS:Number = SPEED_PLUS_DEFAULT;
 		
