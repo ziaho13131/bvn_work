@@ -11,7 +11,7 @@ package net.play5d.game.bvn.ui {
 	import flash.geom.Point;
 	import flash.net.URLRequest;
 	import flash.net.navigateToURL
-	import flash.desktop.NativeApplication
+	import flash.desktop.NativeApplication;
 		
 	import net.play5d.game.bvn.GameConfig;
 	import net.play5d.game.bvn.MainGame;

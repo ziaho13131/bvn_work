@@ -39,6 +39,8 @@ package net.play5d.game.bvn {
 		
 		public static var stageCtrl:KyoStageCtrl;					// 场景控制器
 		public static var I:MainGame;
+
+		public var MenuSt:MenuStage;
 		
 		private var _rootSprite:Sprite;
 		private var _stage:Stage;
@@ -131,7 +133,9 @@ package net.play5d.game.bvn {
 			));
 			
 			resetDefault();
-			stageCtrl.goStage(new MenuStage());
+			
+			this.MenuSt = new MenuStage();
+			stageCtrl.goStage(MenuSt);
 			
 			setFPS(60);
 		}

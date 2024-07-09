@@ -3,7 +3,6 @@
  */
 package {
 	import flash.display.Bitmap;
-	import flash.display.BitmapData;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.geom.Rectangle;
@@ -15,7 +14,6 @@ package {
 	import net.play5d.game.bvn.GameConfig;
 	import net.play5d.game.bvn.GameQuality;
 	import net.play5d.game.bvn.MainGame;
-	import net.play5d.game.bvn.ui;
 	import net.play5d.game.bvn.ctrl.GameLogic;
 	import net.play5d.game.bvn.ctrl.StateCtrl;
 	import net.play5d.game.bvn.ctrl.game_ctrls.GameCtrl;
@@ -49,6 +47,11 @@ package {
 		private var _mainGame:MainGame;
 		private var _gameSprite:Sprite;
 		private var _testUI:Sprite;
+		
+		//添加测试机图片
+		[Embed(source="/../res/tester.jpg")]
+		private var _testpicClass:Class;
+		private var _testpic:Bitmap;
 		
 		private var _p1InputId:TextField;
 		private var _p2InputId:TextField;
@@ -91,10 +94,13 @@ package {
 		}
 		
 		private function initBackHandler():void {
+			//自动进入主界面
+			_mainGame.goMenu();
 			if(Debugger.MODE_DEBUG)buildTestUI();
 		}
 		
-		private function initFailHandler(msg:String):void {}
+		private function initFailHandler(msg:String):void {
+		}
 		
 		private function buildTestUI():void {
 			_testUI = new Sprite();
@@ -104,6 +110,11 @@ package {
 			_testUI.graphics.endFill();
 			
 			addChild(_testUI);
+			
+			_testpic = new _testpicClass();
+			_testpic.width = 200;
+			_testpic.height = 600;
+			_testUI.addChild(_testpic);
 			
 			var yy:Number = 20;
 			
@@ -154,7 +165,8 @@ package {
 		private function addLabel(txt:String, y:Number = 0, x:Number = 0):TextField {
 			var tf:TextFormat = new TextFormat();
 			tf.size = 14;
-			tf.color = 0xe86c13;
+			//tf.color = 0xe86c13;
+			tf.color = 0xFFFFFF;
 			
 			var label:TextField = new TextField();
 			label.defaultTextFormat = tf;

@@ -248,7 +248,7 @@ package net.play5d.game.bvn.ui {
 			AiCtrl.fighter = Fighter;
 			Fighter.setActionCtrl(AiCtrl);
 			trace("PauseDialog.setAICtrl ::  "+Fighter.team.name+" Ai Ctrl Start..")
-			trace(this._p1AI);
+			//trace(this._p1AI);
 		}
 		
 		public function setPlayerCtrl(v:Boolean = false):void {
