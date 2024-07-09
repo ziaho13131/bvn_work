@@ -30,6 +30,11 @@ package net.play5d.game.bvn {
 	import net.play5d.game.bvn.utils.ResUtils;
 	import net.play5d.kyo.stage.KyoStageCtrl;
 	
+	/**
+	 * 	生存模式
+	 */
+	import net.play5d.game.bvn.plot_Mode.Main_plot_Mode;
+	
 	public class MainGame {
 		
 		public static const VERSION:String = "V3.4 小幻神修改版 基于OpenBVN";			// 版本
@@ -215,5 +220,8 @@ package net.play5d.game.bvn {
 //		public function showRank():void {
 //			GameInterface.instance.showRank();
 //		}
+		public function goBigmap():void{
+			stageCtrl.goStage(new Main_plot_Mode());
+		}
 	}
 }

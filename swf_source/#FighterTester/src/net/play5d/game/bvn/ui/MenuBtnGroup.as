@@ -308,6 +308,10 @@ package net.play5d.game.bvn.ui {
 						GameMode.currentMode = GameMode.STORY_ARCADE;
 						MainGame.I.goSelect();
 					};*/
+					func = function ():void {
+						//GameMode.currentMode = GameMode.STORY_ARCADE;
+						MainGame.I.goBigmap();
+					};
 					break;
 				case "STORY VS PEOPLE":
 					func = function ():void {
