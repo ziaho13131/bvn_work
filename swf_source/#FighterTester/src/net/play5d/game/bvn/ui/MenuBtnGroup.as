@@ -418,7 +418,7 @@ package net.play5d.game.bvn.ui {
 						}
 					};
 					break;
-				case "OPTION":
+				case "SETTINGS":
 					func = function ():void {
 						MainGame.I.goOption();
 					};

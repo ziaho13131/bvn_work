@@ -58,7 +58,7 @@ package net.play5d.game.bvn.ui.fight {
 			
 			_hpBar1 = new FighterHpBar(_ui.bar1);
 			_hpBar2 = new FighterHpBar(_ui.bar2);
-			
+			_hpBar2.setDirect(-1);
 			_energyBar1 = new EnergyBar(_ui.energy1);
 			_energyBar2 = new EnergyBar(_ui.energy2);
 			_energyBar2.setDirect(-1);

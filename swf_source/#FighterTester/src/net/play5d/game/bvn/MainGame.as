@@ -136,12 +136,9 @@ package net.play5d.game.bvn {
 				false,
 				JSON.stringify(["go_menu_stage"])
 			));
-			
 			resetDefault();
-			
-			this.MenuSt = new MenuStage();
+			MenuSt = new MenuStage();
 			stageCtrl.goStage(MenuSt);
-			
 			setFPS(60);
 		}
 		

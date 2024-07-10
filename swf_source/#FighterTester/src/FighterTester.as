@@ -95,7 +95,7 @@ package {
 		
 		private function initBackHandler():void {
 			//自动进入主界面
-			_mainGame.goMenu();
+			_mainGame.goLogo();
 			if(Debugger.MODE_DEBUG)buildTestUI();
 		}
 		

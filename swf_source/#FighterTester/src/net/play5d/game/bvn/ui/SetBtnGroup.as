@@ -294,6 +294,20 @@ package net.play5d.game.bvn.ui {
 					}
 					],
 					optoinKey: "quality"
+				}, {
+					txt      : "DISPLAY MODE",
+					cn       : "显示模式",
+					options  : [{
+						label: "WINDOW",
+						cn   : "窗口",
+						value: false
+					},{
+						label: "FULL SCREEN",
+						cn   : "全屏",
+						value: true
+					}
+					],
+					optoinKey: "isFullScreen"
 				}];
 			}
 			

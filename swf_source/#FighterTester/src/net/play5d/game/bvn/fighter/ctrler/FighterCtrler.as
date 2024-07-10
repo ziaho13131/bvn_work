@@ -11,6 +11,7 @@ package net.play5d.game.bvn.fighter.ctrler {
 	import net.play5d.game.bvn.fighter.FighterMC;
 	import net.play5d.game.bvn.fighter.FighterMain;
 	import net.play5d.game.bvn.fighter.models.FighterHitModel;
+	import net.play5d.game.bvn.fighter.events.FighterEventDispatcher;
 	import net.play5d.game.bvn.fighter.models.HitVO;
 	import net.play5d.game.bvn.interfaces.BaseGameSprite;
 	import net.play5d.game.bvn.interfaces.IFighterActionCtrl;
@@ -67,7 +68,7 @@ package net.play5d.game.bvn.fighter.ctrler {
 			return _fighter.hp;
 		}
 		
-		public function set hp(v:Number):void {
+		public function set hp(v:Number):void {	
 			_fighter.hp = _fighter.hpMax = _fighter.customHpMax = v;
 		}
 		

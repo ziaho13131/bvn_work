@@ -32,6 +32,7 @@ package net.play5d.game.bvn.data {
 		public var fighterHP   :Number = 1;
 		public var fightTime   :int = 60;
 		public var quality     :String = GameQuality.LOW;
+		public var isFullScreen:Boolean = false;
 		public var soundVolume :Number = 1;
 		public var bgmVolume   :Number = 1;
 		public var keyInputMode:int = 1;
@@ -84,6 +85,7 @@ package net.play5d.game.bvn.data {
 			o.fighterHP = fighterHP;
 			o.fightTime = fightTime;
 			o.quality = quality;
+			o.isFullScreen = isFullScreen;
 			o.keyInputMode = keyInputMode;
 			o.soundVolume = soundVolume;
 			o.bgmVolume = bgmVolume;
@@ -176,7 +178,12 @@ package net.play5d.game.bvn.data {
 					GameConfig.FPS_SHINE_EFFECT = 60;
 					EffectCtrl.EFFECT_SMOOTHING = true;
 			}
-			
+			if(isFullScreen) {
+				MainGame.I.stage.displayState = "fullScreenInteractive";
+			}
+			else {
+				MainGame.I.stage.displayState = "normal";
+			}
 			GameInterface.instance.applyConfig(this);
 			SoundCtrl.I.setBgmVolumn(bgmVolume);
 			SoundCtrl.I.setSoundVolumn(soundVolume);

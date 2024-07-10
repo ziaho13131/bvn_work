@@ -15,6 +15,8 @@ package net.play5d.game.bvn.interfaces {
 	import net.play5d.game.bvn.GameConfig;
 	import net.play5d.game.bvn.ctrl.GameRender;
 	import net.play5d.game.bvn.data.TeamVO;
+	import net.play5d.game.bvn.fighter.FighterMain;
+	import net.play5d.game.bvn.fighter.events.FighterEventDispatcher;
 	import net.play5d.game.bvn.fighter.models.HitVO;
 	import net.play5d.game.bvn.utils.MCUtils;
 	import net.play5d.kyo.utils.KyoUtils;
@@ -35,8 +37,8 @@ package net.play5d.game.bvn.interfaces {
 		public var isOnStage:Boolean = false;				// 判断是否正在场上
 		
 		public var heavy:Number = 2;
-		public var hp:Number = 1000;
-		public var hpMax:Number = 1000;
+		public var _hp:Number = 1000;
+		public var _hpMax:Number = 1000;
 		public var defense:Number = 0;
 		
 		public var isAllowCrossX:Boolean = false;
@@ -411,6 +413,55 @@ package net.play5d.game.bvn.interfaces {
 		
 		public function setIsTouchSide(v:Boolean):void {
 			_isTouchSide = v;
+		}
+		
+		public function get hp():Number
+		{
+			return _hp;
+		}
+		
+		public function set hp(value:Number) : void
+		{
+			var event:String = null;
+			var tValue:Number = value > hpMax ? hpMax : value;
+			var delta:Number = tValue - _hp;
+			if(delta == 0)
+			{
+				return;
+			}
+			var absDelta:Number = Math.abs(delta);
+			if(this is FighterMain)
+			{
+				event = delta > 0 ? "ADD_HP" : "LOSE_HP";
+			}
+			_hp = value;
+			if(_hp > hpMax)
+			{
+				_hp = hpMax;
+			}
+			if(_hp < 0)
+			{
+				_hp = 0;
+			}
+			if(this is FighterMain)
+			{
+				FighterEventDispatcher.dispatchEvent(this,event,absDelta);
+			}
+		}
+		
+		public function get hpMax() : Number
+		{
+			return _hpMax;
+		}
+		
+		public function set hpMax(value:Number) : void
+		{
+			_hpMax = value;
+		}
+		
+		public function get hpRate() : Number
+		{
+			return hp / hpMax;
 		}
 		
 		public function addHp(v:Number):void {

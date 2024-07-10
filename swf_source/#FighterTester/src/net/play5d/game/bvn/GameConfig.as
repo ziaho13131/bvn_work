@@ -16,7 +16,7 @@ package net.play5d.game.bvn {
 		public static const GAME_SIZE:Point = new Point(800, 600);
 		
 		public static var FPS_GAME:int = 60;
-		public static const FPS_UI:int = 30;
+		public static const FPS_UI:int = 60;
 		public static const FPS_ANIMATE:int = 30;
 		public static var FPS_SHINE_EFFECT:int = 15;
 		

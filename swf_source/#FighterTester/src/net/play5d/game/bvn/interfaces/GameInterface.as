@@ -97,7 +97,7 @@ package net.play5d.game.bvn.interfaces {
 				}
 				]
 			}, {
-				txt: "OPTION",
+				txt: "SETTINGS",
 				cn : "游戏设置"
 			}, {
 				txt: "TRAINING",
