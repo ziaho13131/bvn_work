@@ -7,6 +7,7 @@ package net.play5d.game.bvn.ui.fight {
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.geom.Point;
+	import flash.text.TextField;
 	
 	import net.play5d.game.bvn.ctrl.AssetManager;
 	import net.play5d.game.bvn.fighter.Assister;
@@ -36,13 +37,19 @@ package net.play5d.game.bvn.ui.fight {
 		
 		private var _faceBp:Bitmap;
 		
+		//气量数字
+		private var HIDE_DELAY:int = 30;
+		private var _qiTxtMc:DisplayObject;
+		private var _qiTxt:TextField;
+		
+		
 		public function QiBar(ui:MovieClip) {
 			_ui = ui;
 			_bar = new InsBar(_ui.barmc);
 			_fzBar = new InsFzBar(_ui.fzqibar);
 			_fzReadyMc = _ui.readymc;
 			_orgPose = new Point(_ui.x, _ui.y);
-			
+			_qiTxtMc = _ui.qiTxt;
 			_ui.addEventListener(Event.COMPLETE, uiPlayComplete);
 			if (GameUI.BITMAP_UI) {
 				_ui.gotoAndStop("fadin_fin");
