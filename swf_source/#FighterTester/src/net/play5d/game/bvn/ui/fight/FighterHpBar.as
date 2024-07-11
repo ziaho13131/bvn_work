@@ -175,6 +175,7 @@ package net.play5d.game.bvn.ui.fight {
 					_redBarMoving = true;
 				}
 			}
+			
 			//血条数字
 			if (_hpText != null)
 			{
@@ -233,7 +234,7 @@ package net.play5d.game.bvn.ui.fight {
 			return FighterActionState.isHurting(_fighter.actionState) && _damage > 0;
 		}
 		
-		private function onAddHp(event:FighterEvent) : void
+		private function onAddHp(event:FighterEvent):void
 		{
 			HIDE_DELAY = MainGame.I.getFPS();
 			var fighter:FighterMain = event.fighter as FighterMain;
@@ -250,7 +251,7 @@ package net.play5d.game.bvn.ui.fight {
 			}
 		}
 		
-		private function onLoseHp(event:FighterEvent) : void
+		private function onLoseHp(event:FighterEvent):void
 		{
 			HIDE_DELAY = MainGame.I.getFPS();
 			var fighter:FighterMain = event.fighter as FighterMain;

@@ -11,7 +11,10 @@ package net.play5d.game.bvn.ui.fight {
 	
 	import net.play5d.game.bvn.ctrl.AssetManager;
 	import net.play5d.game.bvn.fighter.Assister;
+	import net.play5d.game.bvn.MainGame;
 	import net.play5d.game.bvn.fighter.FighterMain;
+	import net.play5d.game.bvn.fighter.events.FighterEvent;
+	import net.play5d.game.bvn.fighter.events.FighterEventDispatcher;
 	import net.play5d.game.bvn.ui.GameUI;
 	import net.play5d.kyo.utils.KyoUtils;
 	
@@ -32,6 +35,7 @@ package net.play5d.game.bvn.ui.fight {
 		private var _tweenSpd:Number = 0.5;
 		private var _moveFin:Boolean = true;
 		private var _moveType:int = 0;
+		private var _direct:int;
 		private var _isFadIn:Boolean;
 		private var _isRenderAnimate:Boolean;
 		
@@ -43,6 +47,20 @@ package net.play5d.game.bvn.ui.fight {
 		private var _qiTxt:TextField;
 		
 		
+		//气量恢复数字
+		private var _qiAddTxtMc:MovieClip;
+		private var _qiAddTxt:TextField;
+		private var _qiAdd:Number = 0;
+		private var _qiAddShow:Boolean = false;
+		private var _qiAddHideDelay:int = 0;
+		
+		//气量损失数字
+		private var _qiLossTxtMc:MovieClip;
+		private var _qiLossTxt:TextField;
+		private var _qiLoss:Number = 0;
+		private var _qiLossShow:Boolean = false;
+		private var _qiLossHideDelay:int = 0;
+		
 		public function QiBar(ui:MovieClip) {
 			_ui = ui;
 			_bar = new InsBar(_ui.barmc);
@@ -50,6 +68,17 @@ package net.play5d.game.bvn.ui.fight {
 			_fzReadyMc = _ui.readymc;
 			_orgPose = new Point(_ui.x, _ui.y);
 			_qiTxtMc = _ui.qiTxt;
+			_qiTxt = (_qiTxtMc as MovieClip).mc.txt;
+			_qiAddTxtMc = _ui.getChildByName("qiAddTxt") as MovieClip;
+			_qiAddTxt = _qiAddTxtMc.mc.txt;
+			_qiLossTxtMc = _ui.getChildByName("qiLossTxt") as MovieClip;
+			_qiLossTxt = _qiLossTxtMc.mc.txt;
+			hideAdd();  hideLoss();
+			
+			//添加气量恢复和损失事件
+			FighterEventDispatcher.addEventListener("ADD_QI",onAddQi);
+			FighterEventDispatcher.addEventListener("LOSE_QI",onLossQi);
+			
 			_ui.addEventListener(Event.COMPLETE, uiPlayComplete);
 			if (GameUI.BITMAP_UI) {
 				_ui.gotoAndStop("fadin_fin");
@@ -62,6 +91,15 @@ package net.play5d.game.bvn.ui.fight {
 				_ui.removeEventListener("complete", uiPlayComplete);
 				_ui.gotoAndStop("destory");
 				_ui = null;
+			}
+			if (_qiTxtMc) {
+				_qiTxtMc = null;
+			}
+			if (_qiAddTxtMc) {
+				_qiAddTxtMc = null;
+			}
+			if (_qiLossTxtMc) {
+				_qiLossTxtMc = null;
 			}
 			if (_faceBp) {
 				_faceBp.bitmapData.dispose();
@@ -119,6 +157,31 @@ package net.play5d.game.bvn.ui.fight {
 			_fzReadyMc.mc.scaleX = v > 0 ? 1 : -1;
 		}
 		
+		public function setTxtDirect(direct:int):void
+		{
+			_direct = direct;
+			if(direct < 0)
+			{
+				if(_qiTxtMc != null)
+				{
+					(_qiTxtMc as MovieClip).gotoAndStop(2);
+					_qiTxt = (_qiTxtMc as MovieClip).mc.txt;
+				}
+				if(_qiAddTxtMc != null)
+				{
+					_qiAddTxtMc.gotoAndStop(2);
+					_qiAddTxt = _qiAddTxtMc.mc.txt;
+				}
+				if(_qiLossTxtMc != null)
+				{
+					_qiLossTxtMc.gotoAndStop(2);
+					_qiLossTxt = _qiLossTxtMc.mc.txt;
+				}
+				hideAdd();
+				hideLoss();
+			}
+		}	
+		
 		public function render():void {
 			_qiRate = _fighter.qi / 100;
 			
@@ -148,6 +211,33 @@ package net.play5d.game.bvn.ui.fight {
 				else {
 					_fzReadyMc.mc.gotoAndStop(1);
 				}
+			}
+			
+			//气量数字
+			if (_qiTxt != null) {
+				_qiTxt.text = int(_fighter.qi).toString();
+			}	
+			
+			//气量恢复
+			if (_qiAddTxt && _qiAddShow)
+			{
+				_qiAddTxt.text = _qiAdd > 0 ? "+" + _qiAdd.toString() : "";
+				_qiAddHideDelay--;
+				if(_qiAddHideDelay <= 0)
+				{
+					hideAdd();
+				}
+			}
+			
+			//气量损失 
+			if (_qiLossTxt && _qiLossShow)
+			{
+				_qiLossTxt.text = _qiLoss > 0 ? "-" + _qiLoss.toString() : "";
+				_qiLossHideDelay--;
+				if(_qiLossHideDelay <= 0)
+				{
+					hideLoss();
+				} 
 			}
 		}
 		
@@ -256,6 +346,65 @@ package net.play5d.game.bvn.ui.fight {
 			_ui.scaleX = scale;
 			_ui.scaleY = scale;
 		}
+		
+		private function hideAdd():void
+		{
+			_qiAddTxt.text = "";
+			_qiAdd = 0;
+			_qiAddTxtMc.visible = _qiAddShow = false;
+		}
+		
+		private function hideLoss():void
+		{
+			_qiLossTxt.text = "";
+			_qiLoss = 0;
+			_qiLossTxtMc.visible = _qiLossShow = false;
+		}
+		
+		private function showAdd():void
+		{
+			_qiAddTxtMc.visible = _qiAddShow = true;
+		}
+		
+		private function showLoss():void
+		{
+			_qiLossTxtMc.visible = _qiLossShow = true;
+		}
+		
+		private function onAddQi(event:FighterEvent):void
+		{
+			HIDE_DELAY = MainGame.I.getFPS();
+			var fighter:FighterMain = event.fighter as FighterMain;
+			if(fighter != null && fighter != _fighter)
+			{
+				return;
+			}
+			var addQi:Number = event.params as Number;
+			_qiAddHideDelay = HIDE_DELAY;
+			_qiAdd += addQi;
+			if(_qiAdd > 0)
+			{
+				showAdd();
+			}
+		}
+		
+		private function onLossQi(event:FighterEvent):void
+		{
+			HIDE_DELAY = MainGame.I.getFPS();
+			var fighter:FighterMain = event.fighter as FighterMain;
+			if(fighter != null && fighter != _fighter)
+			{
+				return;
+			}
+			var lossQi:Number = event.params as Number;
+			_qiLossHideDelay = HIDE_DELAY;
+			_qiLoss += lossQi;
+			if(_qiLoss > 0)
+			{
+				showLoss();
+			}
+		}
+		
 	}
 }
 

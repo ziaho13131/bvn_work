@@ -13,6 +13,7 @@ package net.play5d.game.bvn.fighter {
 	import net.play5d.game.bvn.data.TeamVO;
 	import net.play5d.game.bvn.fighter.ctrler.FighterBuffCtrler;
 	import net.play5d.game.bvn.fighter.ctrler.FighterCtrler;
+	import net.play5d.game.bvn.fighter.events.FighterEventDispatcher;
 	import net.play5d.game.bvn.fighter.models.HitVO;
 	import net.play5d.game.bvn.interfaces.BaseGameSprite;
 	import net.play5d.game.bvn.interfaces.IFighterActionCtrl;
@@ -23,8 +24,8 @@ package net.play5d.game.bvn.fighter {
 	 */
 	public class FighterMain extends BaseGameSprite {
 		
-		public var qi:Number = 0;
-		public const qiMax:Number = 300;
+		public var _qi:Number = 0;
+		public const  _qiMax:Number = 300;
 		public var energy:Number = 100;
 		public var energyMax:Number = 100;
 		public var energyOverLoad:Boolean = false;
@@ -460,6 +461,50 @@ package net.play5d.game.bvn.fighter {
 				energy = 0;
 				energyOverLoad = true;
 			}
+		}
+		
+		public function get qi():Number
+		{
+			return _qi;
+		}
+		
+		public function set qi(value:Number) : void
+		{
+			var event:String = null;
+			var tValue:Number = value > qiMax ? qiMax : value;
+			var delta:Number = tValue - _qi;
+			if(delta == 0)
+			{
+				return;
+			}
+			var absDelta:Number = Math.abs(delta);
+			if(this is FighterMain)
+			{
+				event = delta > 0 ? "ADD_QI" : "LOSE_QI";
+			}
+			_qi = value;
+			if(_qi > qiMax)
+			{
+				_qi = qiMax;
+			}
+			if(_qi < 0)
+			{
+				_qi = 0;
+			}
+			if(this is FighterMain)
+			{
+				FighterEventDispatcher.dispatchEvent(this,event,absDelta);
+			}
+		}
+		
+		public function get qiMax():Number
+		{
+			return _qiMax;
+		}
+		
+		public function get qiRate():Number
+		{
+			return qi / qiMax;
 		}
 		
 		public function useQi(v:Number):Boolean {

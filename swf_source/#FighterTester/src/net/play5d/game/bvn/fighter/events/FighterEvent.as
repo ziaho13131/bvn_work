@@ -25,6 +25,9 @@ package net.play5d.game.bvn.fighter.events {
 		public static const LOSE_HP:String = "LOSE_HP";
 		public static const ADD_HP:String = "ADD_HP";
 		
+		public static const LOSE_QI:String = "LOSE_QI";
+		public static const ADD_QI:String = "ADD_QI";
+		
 		
 		public var params:*;
 		

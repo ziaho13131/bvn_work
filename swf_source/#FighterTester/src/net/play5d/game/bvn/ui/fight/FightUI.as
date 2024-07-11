@@ -62,7 +62,7 @@ package net.play5d.game.bvn.ui.fight {
 			_hits1 = new HitsUI(ui.hits1);
 			_hits2 = new HitsUI(ui.hits2);
 			_qibar2.setDirect(-1);
-			
+			_qibar2.setTxtDirect(-1);
 			_p1PosUI = ResUtils.I.createDisplayObject(ResUtils.I.fight, "player_pos_p1");
 			_p2PosUI = ResUtils.I.createDisplayObject(ResUtils.I.fight, "player_pos_p2");
 			_p1PosUI.visible = false;

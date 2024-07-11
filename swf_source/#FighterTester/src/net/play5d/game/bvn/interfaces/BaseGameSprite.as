@@ -449,17 +449,17 @@ package net.play5d.game.bvn.interfaces {
 			}
 		}
 		
-		public function get hpMax() : Number
+		public function get hpMax():Number
 		{
 			return _hpMax;
 		}
 		
-		public function set hpMax(value:Number) : void
+		public function set hpMax(value:Number):void
 		{
 			_hpMax = value;
 		}
 		
-		public function get hpRate() : Number
+		public function get hpRate():Number
 		{
 			return hp / hpMax;
 		}
