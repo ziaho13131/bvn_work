@@ -33,6 +33,7 @@ package net.play5d.game.bvn.data {
 		public var fightTime   :int = 60;
 		public var quality     :String = GameQuality.LOW;
 		public var isFullScreen:Boolean = false;
+		public var isSmoothLowQuality:Boolean = true;
 		public var soundVolume :Number = 1;
 		public var bgmVolume   :Number = 1;
 		public var keyInputMode:int = 1;
@@ -86,6 +87,7 @@ package net.play5d.game.bvn.data {
 			o.fightTime = fightTime;
 			o.quality = quality;
 			o.isFullScreen = isFullScreen;
+			o.isSmoothLowQuality = isSmoothLowQuality;
 			o.keyInputMode = keyInputMode;
 			o.soundVolume = soundVolume;
 			o.bgmVolume = bgmVolume;
@@ -149,13 +151,13 @@ package net.play5d.game.bvn.data {
 		public function applyConfig():void {
 			switch (quality) {
 				case GameQuality.LOW:
-					MainGame.I.stage.quality = StageQuality.LOW;
+					MainGame.I.stage.quality = isSmoothLowQuality?StageQuality.MEDIUM:StageQuality.LOW;
 					GameConfig.setGameFps(30);
 					GameConfig.FPS_SHINE_EFFECT = 15;
 					EffectCtrl.EFFECT_SMOOTHING = false;
 					break;
 				case GameQuality.MEDIUM:
-					MainGame.I.stage.quality = StageQuality.LOW;
+					MainGame.I.stage.quality = isSmoothLowQuality?StageQuality.MEDIUM:StageQuality.LOW;
 					GameConfig.setGameFps(60);
 					GameConfig.FPS_SHINE_EFFECT = 30;
 					EffectCtrl.EFFECT_SMOOTHING = false;
