@@ -322,6 +322,20 @@ package net.play5d.game.bvn.ui {
 					 }
 					 ],
 					 optoinKey: "isSmoothLowQuality"
+				 }, {
+					 txt      : "STEEL BODY FREEZE",
+					 cn       : "钢身停顿",
+					 options  : [{
+						 label: "ENABLED",
+						 cn   : "启用",
+						 value: true
+					 },{
+						 label: "DISABLED",
+						 cn   : "禁用",
+						 value: false
+					 }
+					 ],
+					 optoinKey: "isSteelBodyFreeze"
 				 }
 				];
 			}

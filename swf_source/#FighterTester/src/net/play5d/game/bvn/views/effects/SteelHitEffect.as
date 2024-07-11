@@ -6,6 +6,7 @@ package net.play5d.game.bvn.views.effects {
 	
 	import net.play5d.game.bvn.ctrl.EffectCtrl;
 	import net.play5d.game.bvn.data.EffectVO;
+	import net.play5d.game.bvn.data.GameData;
 	import net.play5d.game.bvn.fighter.FighterMain;
 	import net.play5d.game.bvn.interfaces.IGameSprite;
 	
@@ -39,11 +40,13 @@ package net.play5d.game.bvn.views.effects {
 						ct.blueOffset = 0;
 						EffectCtrl.I.shine(0xFFFF00, 0.3);
 					}
-					
-					_fighter.changeColor(ct);
-					EffectCtrl.I.setOnFreezeOver(function ():void {
-						_fighter.resumeColor();
-					});
+					if (GameData.I.config.isSteelBodyFreeze)
+					{
+						_fighter.changeColor(ct);
+						EffectCtrl.I.setOnFreezeOver(function ():void {
+							_fighter.resumeColor();
+						});
+					}
 				}
 			}
 		}

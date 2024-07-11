@@ -34,6 +34,7 @@ package net.play5d.game.bvn.data {
 		public var quality     :String = GameQuality.LOW;
 		public var isFullScreen:Boolean = false;
 		public var isSmoothLowQuality:Boolean = true;
+		public var isSteelBodyFreeze:Boolean = true;
 		public var soundVolume :Number = 1;
 		public var bgmVolume   :Number = 1;
 		public var keyInputMode:int = 1;
@@ -88,6 +89,7 @@ package net.play5d.game.bvn.data {
 			o.quality = quality;
 			o.isFullScreen = isFullScreen;
 			o.isSmoothLowQuality = isSmoothLowQuality;
+			o.isSteelBodyFreeze = isSteelBodyFreeze;
 			o.keyInputMode = keyInputMode;
 			o.soundVolume = soundVolume;
 			o.bgmVolume = bgmVolume;

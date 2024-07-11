@@ -22,6 +22,7 @@ package net.play5d.game.bvn.ctrl {
 	import net.play5d.game.bvn.interfaces.BaseGameSprite;
 	import net.play5d.game.bvn.interfaces.IGameSprite;
 	import net.play5d.game.bvn.stage.GameStage;
+	import net.play5d.game.bvn.data.GameData;
 	import net.play5d.game.bvn.utils.EffectManager;
 	import net.play5d.game.bvn.views.effects.BitmapFilterView;
 	import net.play5d.game.bvn.views.effects.BlackBackView;
@@ -349,6 +350,14 @@ package net.play5d.game.bvn.ctrl {
 			var direct:int = 1;
 			if (effect.followDirect && hitvo.owner && hitvo.owner is IGameSprite) {
 				direct = (hitvo.owner as IGameSprite).direct;
+			}
+			
+			//如果钢身停顿不开启则取消闪光和停顿
+			if(!GameData.I.config.isSteelBodyFreeze)
+			{
+				effect = effect.clone();
+				effect.freeze = 0;
+				effect.shine = {};
 			}
 			
 			doEffectVO(effect, ex, ey, direct, target);
