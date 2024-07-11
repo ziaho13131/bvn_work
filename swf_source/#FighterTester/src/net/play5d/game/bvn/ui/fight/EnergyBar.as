@@ -4,6 +4,7 @@
 package net.play5d.game.bvn.ui.fight {
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
+	import flash.text.TextField;
 	
 	import net.play5d.game.bvn.fighter.FighterMain;
 	
@@ -17,15 +18,18 @@ package net.play5d.game.bvn.ui.fight {
 		private var _fighter:FighterMain;
 		private var _bar:InsBar;
 		private var _txt:InsTxt;
+		private var _energyTxtMc:MovieClip;
+		private var _energyTxt:TextField;
 		
 //		private var _renderFlash:Boolean;
 //		private var _renderFlashInt:int;
 		
 		public function EnergyBar(ui:MovieClip) {
 			_ui = ui;
-			
 			_bar = new InsBar(_ui.barmc.bar);
 			_txt = new InsTxt(_ui.txtmc);
+			_energyTxtMc = _ui.getChildByName("energytxt") as MovieClip;
+			_energyTxt = _energyTxtMc.mc.txt;
 		}
 		
 		public function get ui():DisplayObject {
@@ -34,6 +38,7 @@ package net.play5d.game.bvn.ui.fight {
 		
 		public function destory():void {
 			_fighter = null;
+			_energyTxtMc = null;
 		}
 		
 		public function setFighter(v:FighterMain):void {
@@ -45,6 +50,13 @@ package net.play5d.game.bvn.ui.fight {
 		
 		public function setDirect(v:int):void {
 			_txt.setDirect(v);
+			if (v < 0) {
+			 if (_energyTxtMc) {
+				 _energyTxtMc.gotoAndStop(2);
+				 _energyTxt = _energyTxtMc.mc.txt;
+			 }
+				
+			}
 		}
 		
 		public function render():void {
@@ -62,7 +74,9 @@ package net.play5d.game.bvn.ui.fight {
 				_bar.normal();
 				_txt.normal();
 			}
-			
+			if (_energyTxt) {
+				_energyTxt.text = int(_fighter.energy).toString();
+			}
 			_bar.render();
 			_txt.render();
 		}

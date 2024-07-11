@@ -47,6 +47,10 @@ package net.play5d.game.bvn.ui.fight {
 		private var _damage:Number = 0;
 		private var _damageShow:Boolean = false;
 		private var _damageHideDelay:int = 0;
+		
+		//角色名称
+		private var _NameTxtMc:MovieClip;
+		private var _NameTxt:TextField;
 
 		public function FighterHpBar(ui:MovieClip) {
 			_ui = ui;
@@ -58,6 +62,8 @@ package net.play5d.game.bvn.ui.fight {
 			_addText = _addTxtMc.mc.txt;
 			_damageTxtMc = _ui.getChildByName("damagetxt") as MovieClip;
 			_damageText = _damageTxtMc.mc.txt;
+			_NameTxtMc = _ui.getChildByName("FighterName") as MovieClip;		
+			_NameTxt = _NameTxtMc.mc.txt; 
 			hideAdd();
 			hideDamge();
 			
@@ -75,20 +81,21 @@ package net.play5d.game.bvn.ui.fight {
 			_direct = direct;
 			if(direct < 0)
 			{
-				if(_hpTxtMc != null)
-				{
+				if (_hpTxtMc != null) {
 					(_hpTxtMc as MovieClip).gotoAndStop(2);
 					_hpText = (_hpTxtMc as MovieClip).mc.txt;
 				}
-				if(_addTxtMc != null)
-				{
+				if (_addTxtMc != null) {
 					_addTxtMc.gotoAndStop(2);
 					_addText = _addTxtMc.mc.txt;
 				}
-				if(_damageTxtMc != null)
-				{
+				if (_damageTxtMc != null) {
 					_damageTxtMc.gotoAndStop(2);
 					_damageText = _damageTxtMc.mc.txt;
+				}
+				if (_NameTxtMc != null) {
+					_NameTxtMc.gotoAndStop(2);
+					_NameTxt = _NameTxtMc.mc.txt;
 				}
 				hideAdd();
 				hideDamge();
@@ -176,6 +183,11 @@ package net.play5d.game.bvn.ui.fight {
 				}
 			}
 			
+			//角色名称 
+			if (_NameTxt) {
+				_NameTxt.text = _fighter.data.name;
+			}
+			
 			//血条数字
 			if (_hpText != null)
 			{
@@ -202,7 +214,7 @@ package net.play5d.game.bvn.ui.fight {
 				 {
 					 hideDamge();
 				 } 
-			 } 	 
+			 }
 		}
 		
 		private function hideAdd():void

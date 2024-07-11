@@ -477,7 +477,7 @@ package net.play5d.game.bvn.fighter {
 			{
 				return;
 			}
-			var absDelta:Number = Math.abs(delta);
+			var absDelta:Number = int(Math.abs(delta));
 			if(this is FighterMain)
 			{
 				event = delta > 0 ? "ADD_QI" : "LOSE_QI";
