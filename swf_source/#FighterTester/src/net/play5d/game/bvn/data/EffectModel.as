@@ -114,8 +114,12 @@ package net.play5d.game.bvn.data {
 		}
 		
 		private function initHitEffect():void {
+			
+			//抓取击停顿时间
+			var catchFreeze:int = GameData.I.config.catchHitFreeze;
+			
 			addHitEffect(HitType.CATCH, "xg_catch_hit", {
-				freeze: 400,
+				freeze: catchFreeze,
 				sound : "snd_hit_cache"
 			});
 			
@@ -137,7 +141,7 @@ package net.play5d.game.bvn.data {
 			//轻击停顿时间
 			var weakFreeze:int = GameData.I.config.weakHitFreeze; 
 			
-			//轻击停顿时间
+			//重击击停顿时间
 			var heavyFreeze:int = GameData.I.config.heavyHitFreeze; 
 			
 			addHitEffect(HitType.KAN, "XG_kan", {
@@ -190,7 +194,7 @@ package net.play5d.game.bvn.data {
 			});
 			addHitEffect(HitType.MAGIC, "XG_mfdj", {
 				sound     : "snd_hit2",
-				freeze    : 400,
+				freeze    : weakFreeze,
 				blendMode : BlendMode.ADD,
 				randRotate: true,
 				shake     : {

@@ -40,6 +40,7 @@ package net.play5d.game.bvn.data {
 		public var soundVolume :Number = 1;
 		public var weakHitFreeze:int = 0;
 		public var heavyHitFreeze:int = 250;
+		public var catchHitFreeze:int = 250;
 		public var bgmVolume   :Number = 1;
 		public var keyInputMode:int = 1;
 		
@@ -98,6 +99,7 @@ package net.play5d.game.bvn.data {
 			o.shakeLevel = shakeLevel;
 			o.weakHitFreeze = weakHitFreeze;
 			o.heavyHitFreeze = heavyHitFreeze;
+			o.catchHitFreeze = catchHitFreeze;
 			o.keyInputMode = keyInputMode;
 			o.soundVolume = soundVolume;
 			o.bgmVolume = bgmVolume;

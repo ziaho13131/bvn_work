@@ -425,7 +425,7 @@ package net.play5d.game.bvn.ui {
 						 label: "300",
 						 cn   : "0.3秒",
 						 value: 300
-					 },,{
+					 },{
 						 label: "350",
 						 cn   : "0.35秒",
 						 value: 350
@@ -440,6 +440,52 @@ package net.play5d.game.bvn.ui {
 					 }
 					 ],
 					 optoinKey: "heavyHitFreeze"
+				 },{
+					 txt      : "CATCH HIT TIME",
+					 cn       : "抓取停顿时间 (需重启)",
+					 options  : [{
+						 label: "50",
+						 cn   : "0.05秒",
+						 value: 50
+					 },{
+						 label: "100",
+						 cn   : "0.1秒",
+						 value: 100
+					 },{
+						 label: "120",
+						 cn   : "0.12秒",
+						 value: 120
+					 },{
+						 label: "150",
+						 cn   : "0.15秒",
+						 value: 150
+					 },{
+						 label: "200",
+						 cn   : "0.2秒",
+						 value: 200
+					 },{
+						 label: "250",
+						 cn   : "0.25秒 (推荐)",
+						 value: 250
+					 },{
+						 label: "300",
+						 cn   : "0.3秒",
+						 value: 300
+					 },{
+						 label: "350",
+						 cn   : "0.35秒",
+						 value: 350
+					 },{
+						 label: "400",
+						 cn   : "0.4秒 (原版)",
+						 value: 400
+					 },{
+						 label: "500",
+						 cn   : "0.5秒",
+						 value: 500
+					 }
+					 ],
+					 optoinKey: "catchHitFreeze"
 				 }
 				];
 			}
