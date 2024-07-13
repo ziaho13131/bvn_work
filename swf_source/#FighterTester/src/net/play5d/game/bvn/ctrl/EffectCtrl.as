@@ -740,8 +740,15 @@ package net.play5d.game.bvn.ctrl {
 		}
 		
 		public function slowDown(rate:Number, time:int = 1000):void {
-			GameCtrl.I.slow(rate);
 			
+			//如果缓动时间不开启则返回
+			if(!GameData.I.config.isSlowDown)
+			{
+				_slowDownFrame = 0;
+				return;
+			}
+			
+			GameCtrl.I.slow(rate);
 			_renderAnimateGap = Math.ceil(GameConfig.FPS_GAME / (30 / rate)) - 1;
 			if (time == 0) {
 				_slowDownFrame = 0;

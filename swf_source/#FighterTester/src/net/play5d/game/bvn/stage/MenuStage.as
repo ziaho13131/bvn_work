@@ -82,7 +82,6 @@ package net.play5d.game.bvn.stage {
 			_ui.addChild(_versionTxt);
 			
 			//第一次运行游戏时弹出更新介绍
-			trace(GameData.I.config.isFirstRunGame);
 			if (GameData.I.config.isFirstRunGame && MainGame.UPDATE_INFO) {
 				GameUI.alert("UPDATE", MainGame.UPDATE_INFO);
 				GameData.I.config.isFirstRunGame = false;

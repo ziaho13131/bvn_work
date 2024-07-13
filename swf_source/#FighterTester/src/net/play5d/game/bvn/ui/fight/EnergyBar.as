@@ -75,6 +75,8 @@ package net.play5d.game.bvn.ui.fight {
 				_txt.normal();
 			}
 			if (_energyTxt) {
+				if(_bar.mc.currentFrame == 2)_energyTxtMc.mc.gotoAndStop(2);
+				else _energyTxtMc.mc.gotoAndStop(1);
 				_energyTxt.text = int(_fighter.energy).toString();
 			}
 			_bar.render();
@@ -117,6 +119,10 @@ class InsBar {
 		if (_isFlash) {
 			renderFlash();
 		}
+	}
+	
+	public function get mc():MovieClip {
+		return _mc;
 	}
 	
 	private function renderFlash():void {

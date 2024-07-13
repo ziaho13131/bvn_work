@@ -121,7 +121,7 @@ package net.play5d.game.bvn.ui {
 					txt: "P2 KEY SET",
 					cn : "玩家2 按键设置"
 				}, {
-					txt      : "COM LEVEL",
+					txt      : "AI LEVEL",
 					cn       : "电脑等级",
 					options  : [{
 						label: "VERY EASY",
@@ -336,6 +336,20 @@ package net.play5d.game.bvn.ui {
 					 }
 					 ],
 					 optoinKey: "isSteelBodyFreeze"
+				 }, {
+					 txt      : "SLOW DOWN TIME",
+					 cn       : "缓动时间",
+					 options  : [{
+						 label: "ENABLED",
+						 cn   : "启用",
+						 value: true
+					 },{
+						 label: "DISABLED",
+						 cn   : "禁用",
+						 value: false
+					 }
+					 ],
+					 optoinKey: "isSlowDown"
 				 }
 				];
 			}
