@@ -17,7 +17,6 @@ package net.play5d.game.bvn.fighter.models {
 		
 		public var owner:IGameSprite;
 		public var power:Number = 0;
-		public var powerAdd:Number = 0;
 		public var powerRate:Number = 1;
 		public var hitType:int = 1;
 		public var isBreakDef:Boolean = false;
@@ -32,7 +31,7 @@ package net.play5d.game.bvn.fighter.models {
 		
 		private var _cloneKey:Array = [
 			"id", 
-			"owner", "power","powerAdd", "powerRate", "hitType", "isBreakDef", "hitx", "hity", "hurtTime", 
+			"owner", "power", "powerRate", "hitType", "isBreakDef", "hitx", "hity", "hurtTime", 
 			"hurtType", 
 			"currentArea", "checkDirect"
 		];
@@ -54,15 +53,6 @@ package net.play5d.game.bvn.fighter.models {
 			return hv;
 		}
 		
-		public function isSkill():Boolean
-		{
-			if(id == null)
-			{
-				return false;
-			}
-			return id.indexOf("tz") != -1 || id.indexOf("kj") != -1 || id.indexOf("zh") != -1 || id.indexOf("sh") != -1;
-		}
-		
 		public function isBisha():Boolean {
 			if (id == null) {
 				return false;
@@ -80,8 +70,7 @@ package net.play5d.game.bvn.fighter.models {
 		}
 		
 		public function getDamage():int {
-			var tmpNum1:Number = power * (powerAdd * 0.01);
-			return Number(power + tmpNum1) * powerRate;
+			return power * powerRate;
 		}
 	}
 }

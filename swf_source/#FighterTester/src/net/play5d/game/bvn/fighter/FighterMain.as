@@ -230,30 +230,6 @@ package net.play5d.game.bvn.fighter {
 			return _fighterCtrl.getMcCtrl().getFighterMc();
 		}
 		
-		public function initAttackAddDmg(normal:int, skill:int = 0, bisha:int = 0) : void
-		{
-			if(!_fighterCtrl || !_fighterCtrl.hitModel)
-			{
-				return;
-			}
-			var hitObj:Object = _fighterCtrl.hitModel.getAll();
-			for each(var hitvo:HitVO in hitObj)
-			{
-				if(hitvo.isBisha())
-				{
-					hitvo.powerAdd = bisha;
-				}
-				else if(hitvo.isSkill())
-				{
-					hitvo.powerAdd = skill;
-				}
-				else
-				{
-					hitvo.powerAdd = normal;
-				}
-			}
-		}
-		
 		public function setActionCtrl(ctrler:IFighterActionCtrl):void {
 			if (_fighterCtrl) {
 				_fighterCtrl.setActionCtrl(ctrler);

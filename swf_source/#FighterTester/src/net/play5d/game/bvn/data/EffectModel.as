@@ -134,9 +134,15 @@ package net.play5d.game.bvn.data {
 			     break;	 
 			}
 			
+			//轻击停顿时间
+			var weakFreeze:int = GameData.I.config.weakHitFreeze; 
+			
+			//轻击停顿时间
+			var heavyFreeze:int = GameData.I.config.heavyHitFreeze; 
+			
 			addHitEffect(HitType.KAN, "XG_kan", {
 				sound     : "snd_kan1",
-				freeze    : 50,
+				freeze    : weakFreeze,
 				blendMode : BlendMode.ADD,
 				randRotate: true,
 				shake     : {
@@ -146,7 +152,7 @@ package net.play5d.game.bvn.data {
 			});
 			addHitEffect(HitType.KAN_HEAVY, "XG_kanx", {
 				sound     : "snd_kan2",
-				freeze    : 400,
+				freeze    : heavyFreeze,
 				blendMode : BlendMode.ADD,
 				shine     : {
 					color: 0xFFFFFF,
@@ -161,7 +167,7 @@ package net.play5d.game.bvn.data {
 			addHitEffect(HitType.DA, "XG_qdj", {
 				sound     : "snd_hit2",
 				blendMode : BlendMode.ADD,
-				freeze    : 50,
+				freeze    : weakFreeze,
 				randRotate: true,
 				shake     : {
 					pow : shakeLevel.x,
@@ -172,7 +178,7 @@ package net.play5d.game.bvn.data {
 				sound     : "snd_hit_heavy",
 				blendMode : BlendMode.ADD,
 				randRotate: true,
-				freeze    : 400,
+				freeze    : heavyFreeze,
 				shine     : {
 					color: 0xFFFFFF,
 					alpha: 0.2
@@ -184,7 +190,7 @@ package net.play5d.game.bvn.data {
 			});
 			addHitEffect(HitType.MAGIC, "XG_mfdj", {
 				sound     : "snd_hit2",
-				freeze    : 50,
+				freeze    : 400,
 				blendMode : BlendMode.ADD,
 				randRotate: true,
 				shake     : {
@@ -194,7 +200,7 @@ package net.play5d.game.bvn.data {
 			});
 			addHitEffect(HitType.MAGIC_HEAVY, "XG_mfdjx", {
 				sound     : "snd_mfdjx",
-				freeze    : 400,
+				freeze    : heavyFreeze,
 				blendMode : BlendMode.ADD,
 				randRotate: true,
 				shine     : {
@@ -210,7 +216,7 @@ package net.play5d.game.bvn.data {
 				sound          : "snd_hit_fire",
 				blendMode      : BlendMode.ADD,
 				specialEffectId: "fire_ing",
-				freeze         : 400,
+				freeze         : heavyFreeze,
 				shine          : {
 					color: 0xFFFF67,
 					alpha: 0.2
@@ -224,7 +230,7 @@ package net.play5d.game.bvn.data {
 				sound          : "snd_hit_ice",
 				blendMode      : BlendMode.ADD,
 				specialEffectId: "ice_ing",
-				freeze         : 400,
+				freeze         : heavyFreeze,
 				shine          : {
 					color: 0xA3E5F5,
 					alpha: 0.2
@@ -238,7 +244,7 @@ package net.play5d.game.bvn.data {
 				sound          : "snd_hit_dian",
 				blendMode      : "hardlight",
 				specialEffectId: "shock_ing",
-				freeze         : 400,
+				freeze         : heavyFreeze,
 				shine          : {
 					color: 0x8288D2,
 					alpha: 0.2

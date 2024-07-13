@@ -350,6 +350,96 @@ package net.play5d.game.bvn.ui {
 					 }
 					 ],
 					 optoinKey: "isSlowDown"
+				 },{
+					 txt      : "HIT SHAKE LEVEL",
+					 cn       : "打击震动时间 (需重启)",
+					 options  : [{
+						 label: "LOW",
+						 cn   : "低 (原版)",
+						 value: "low"
+					 },{
+						 label: "MEDIUM",
+						 cn   : "中 (推荐)",
+						 value: "medium"
+					 },{
+						 label: "HIGH",
+						 cn   : "高",
+						 value: "high"
+					 }
+					 ],
+					 optoinKey: "shakeLevel"
+				 },{
+					 txt      : "WEAK HIT TIME",
+					 cn       : "轻击停顿时间 (需重启)",
+					 options  : [{
+						 label: "0",
+						 cn   : "0秒 (推荐)",
+						 value: 0
+					 },{
+						 label: "20",
+						 cn   : "0.02秒",
+						 value: 20
+					 },{
+						 label: "50",
+						 cn   : "0.05秒 (原版)",
+						 value: 50
+					 },{
+						 label: "100",
+						 cn   : "0.1秒",
+						 value: 100
+					 },{
+						 label: "120",
+						 cn   : "0.12秒",
+						 value: 120
+					 }
+					 ],
+					 optoinKey: "weakHitFreeze"
+				 },{
+					 txt      : "HEAVY HIT TIME",
+					 cn       : "重击停顿时间 (需重启)",
+					 options  : [{
+						 label: "50",
+						 cn   : "0.05秒",
+						 value: 50
+					 },{
+						 label: "100",
+						 cn   : "0.1秒",
+						 value: 100
+					 },{
+						 label: "120",
+						 cn   : "0.12秒",
+						 value: 120
+					 },{
+						 label: "150",
+						 cn   : "0.15秒",
+						 value: 150
+					 },{
+						 label: "200",
+						 cn   : "0.2秒",
+						 value: 200
+					 },{
+						 label: "250",
+						 cn   : "0.25秒 (推荐)",
+						 value: 250
+					 },{
+						 label: "300",
+						 cn   : "0.3秒",
+						 value: 300
+					 },,{
+						 label: "350",
+						 cn   : "0.35秒",
+						 value: 350
+					 },{
+						 label: "400",
+						 cn   : "0.4秒 (原版)",
+						 value: 400
+					 },{
+						 label: "500",
+						 cn   : "0.5秒",
+						 value: 500
+					 }
+					 ],
+					 optoinKey: "heavyHitFreeze"
 				 }
 				];
 			}

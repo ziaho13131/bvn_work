@@ -15,7 +15,6 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 	import net.play5d.game.bvn.ctrl.SoundCtrl;
 	import net.play5d.game.bvn.data.GameData;
 	import net.play5d.game.bvn.data.GameMode;
-	import net.play5d.game.bvn.ctrl.mosou_ctrls.MosouCtrl;
 	import net.play5d.game.bvn.data.GameRunDataVO;
 	import net.play5d.game.bvn.data.GameRunFighterGroup;
 	import net.play5d.game.bvn.data.MessionModel;
@@ -71,8 +70,6 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 		
 		public var fightFinished:Boolean;
 		private var _gameStartAndPause:Boolean;
-		
-		private var _mosouCtrl:MosouCtrl;
 		
 		public static function get I():GameCtrl {
 			_i ||= new GameCtrl();
@@ -210,20 +207,6 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 			
 			fightFinished = false;
 			doStartGame();
-		}
-		
-		public function startMosouGame() : void
-		{
-			if(!autoStartAble)
-			{
-				return;
-			}
-			fightFinished = false;
-			_isPauseGame = false;
-			GameInputer.enabled = true;
-			initTeam();
-			_mosouCtrl.buildGame();
-			GameRender.add(render);
 		}
 		
 		public function doStartGame():void {

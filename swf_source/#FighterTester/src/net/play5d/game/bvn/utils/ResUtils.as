@@ -25,7 +25,6 @@ package net.play5d.game.bvn.utils {
 		public static var GAME_OVER      :String = "stg_gameover_mc";
 		public static var SELECT         :String = "stg_select";
 		public static var BIGMAP         :String = "big_map_mc";
-		public static var MOSOU          :String = "stg_mosou";
 		
 		[Embed(source="/../swfs/common_ui.swf")]
 		public var common_ui:Class;
@@ -43,12 +42,8 @@ package net.play5d.game.bvn.utils {
 		public var setting:Class;
 		[Embed(source="/../swfs/title.swf")]
 		public var title:Class;
-		//无双大地图
 		[Embed(source="/../swfs/bigmap.swf")]
 		public var bigmap:Class;
-		//无双战斗界面
-		[Embed(source="/../swfs/mosou.swf")]
-		public var mosou:Class;
 		
 		private var _swfPool:Dictionary;
 		

@@ -29,11 +29,6 @@ package net.play5d.game.bvn.fighter.models {
 			return _hitObj[id];
 		}
 		
-		public function getAll():Object
-		{
-			return _hitObj;
-		}
-		
 		public function getHitVOLike(likeId:String):Vector.<HitVO> {
 			var hv:Vector.<HitVO> = new Vector.<HitVO>();
 			

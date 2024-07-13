@@ -38,6 +38,8 @@ package net.play5d.game.bvn.data {
 		public var isSlowDown:Boolean = true;
 		public var shakeLevel:String = "medium";
 		public var soundVolume :Number = 1;
+		public var weakHitFreeze:int = 0;
+		public var heavyHitFreeze:int = 250;
 		public var bgmVolume   :Number = 1;
 		public var keyInputMode:int = 1;
 		
@@ -94,6 +96,8 @@ package net.play5d.game.bvn.data {
 			o.isSteelBodyFreeze = isSteelBodyFreeze;
 			o.isSlowDown = isSlowDown;
 			o.shakeLevel = shakeLevel;
+			o.weakHitFreeze = weakHitFreeze;
+			o.heavyHitFreeze = heavyHitFreeze;
 			o.keyInputMode = keyInputMode;
 			o.soundVolume = soundVolume;
 			o.bgmVolume = bgmVolume;

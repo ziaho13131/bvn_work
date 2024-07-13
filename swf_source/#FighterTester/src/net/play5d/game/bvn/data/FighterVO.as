@@ -21,17 +21,12 @@ package net.play5d.game.bvn.data {
 		public var says:Array;
 		public var bgm:String;
 		public var bgmRate:Number = 1;
-		public var isAlive:Boolean;
-		public var money:int = 0;
-		public var level:int = -1;
-		public var isGodLevel:Boolean = false;
-		public var isOld:Boolean = false;
-		public var isZako:Boolean = false;
-		public var isActivities:Boolean = false;
-		public var isPlaceholder:Boolean = false;
-		public var hurtless:int;
 		
-		private var _cloneKey:Array = ["id","name","comicType","fileUrl","startFrame","faceUrl","says","faceBigUrl","faceBarUrl","bgm","bgmRate","money","level","isGodLevel","isOld","isZako","isActivities","isPlaceholder","hurtless"];
+		private var _cloneKey:Array = [
+			"id", "name", "comicType", 
+			"fileUrl", "startFrame", "faceCls", "says", "faceBigCls", "faceBarCls", 
+			"bgm", "bgmRate"
+		];
 		
 		public function initByXML(xml:XML):void {
 			id = xml.@id;
@@ -54,15 +49,6 @@ package net.play5d.game.bvn.data {
 			if (startFrame != 0 && !bgm) {
 				trace(id + " : not define BGM!");
 			}
-			
-			money = xml.@money == undefined ? 5000 : int(xml.@money);
-			level = xml.@level == undefined ? -1 : int(xml.@level);
-			isGodLevel = level == 0;
-			isOld = id.indexOf("_old") != -1;
-			isZako = id.indexOf("xb_") != -1;
-			isActivities = xml.@is_activities == undefined ? false : int(xml.@is_activities) == 1;
-			isPlaceholder = id.indexOf("placeholder") != -1;
-			hurtless = int(xml.@hurtless);
 		}
 		
 		public function getRandSay():String {

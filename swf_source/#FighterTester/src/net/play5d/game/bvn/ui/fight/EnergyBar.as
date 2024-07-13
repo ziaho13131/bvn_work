@@ -75,9 +75,9 @@ package net.play5d.game.bvn.ui.fight {
 				_txt.normal();
 			}
 			if (_energyTxt) {
-				if(_bar.mc.currentFrame == 2)_energyTxtMc.mc.gotoAndStop(2);
-				else _energyTxtMc.mc.gotoAndStop(1);
 				_energyTxt.text = int(_fighter.energy).toString();
+				if(_bar.mc.currentFrame == 2)_energyTxt.textColor = 0xFF0000;
+				else _energyTxt.textColor = 0x0099FF;
 			}
 			_bar.render();
 			_txt.render();
