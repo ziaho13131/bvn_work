@@ -350,6 +350,24 @@ package net.play5d.game.bvn.ui {
 					 }
 					 ],
 					 optoinKey: "isSlowDown"
+				 },{
+					 txt      : "HIT SHAKE LEVEL",
+					 cn       : "打击震动时间 (需重启)",
+					 options  : [{
+						 label: "LOW",
+						 cn   : "低 (原版)",
+						 value: "low"
+					 },{
+						 label: "MEDIUM",
+						 cn   : "中 (推荐)",
+						 value: "medium"
+					 },{
+						 label: "HIGH",
+						 cn   : "高",
+						 value: "high"
+					 }
+					 ],
+					 optoinKey: "shakeLevel"
 				 }
 				];
 			}

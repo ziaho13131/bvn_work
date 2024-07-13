@@ -3,6 +3,7 @@
  */
 package net.play5d.game.bvn.data {
 	import flash.display.BlendMode;
+	import flash.geom.Point;
 	
 	/**
 	 * 特效模型集合类
@@ -117,11 +118,31 @@ package net.play5d.game.bvn.data {
 				freeze: 400,
 				sound : "snd_hit_cache"
 			});
+			
+			//打击震动等级
+			var shakeLevel:Point = new Point(0,0);
+			switch (GameData.I.config.shakeLevel) {
+				 case "low": 
+				 break;
+				 case "medium":
+				  shakeLevel.x = 2;
+				  shakeLevel.y = 150;
+				 break;
+				 case "HIGH":
+				  shakeLevel.x = 3;
+				  shakeLevel.y = 200;
+			     break;	 
+			}
+			
 			addHitEffect(HitType.KAN, "XG_kan", {
 				sound     : "snd_kan1",
 				freeze    : 50,
 				blendMode : BlendMode.ADD,
-				randRotate: true
+				randRotate: true,
+				shake     : {
+					pow : shakeLevel.x,
+					time: shakeLevel.y
+				}
 			});
 			addHitEffect(HitType.KAN_HEAVY, "XG_kanx", {
 				sound     : "snd_kan2",
@@ -141,7 +162,11 @@ package net.play5d.game.bvn.data {
 				sound     : "snd_hit2",
 				blendMode : BlendMode.ADD,
 				freeze    : 50,
-				randRotate: true
+				randRotate: true,
+				shake     : {
+					pow : shakeLevel.x,
+					time: shakeLevel.y
+				}
 			});
 			addHitEffect(HitType.DA_HEAVY, "XG_qdjx", {
 				sound     : "snd_hit_heavy",
@@ -161,7 +186,11 @@ package net.play5d.game.bvn.data {
 				sound     : "snd_hit2",
 				freeze    : 50,
 				blendMode : BlendMode.ADD,
-				randRotate: true
+				randRotate: true,
+				shake     : {
+					pow : shakeLevel.x,
+					time: shakeLevel.y
+				}
 			});
 			addHitEffect(HitType.MAGIC_HEAVY, "XG_mfdjx", {
 				sound     : "snd_mfdjx",
