@@ -269,6 +269,10 @@ package net.play5d.game.bvn.ctrl {
 			_assetLoader.loadBitmap(url, back, fail, process);
 		}
 		
+		public function loadJSON(url:String, back:Function, fail:Function = null) : void {
+			_assetLoader.loadJSON(url, back, fail);
+		}
+		
 		public function disposeAsset(url:String):void {
 			_assetLoader.dispose(url);
 		}

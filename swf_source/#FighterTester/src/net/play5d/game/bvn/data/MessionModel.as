@@ -106,5 +106,9 @@ package net.play5d.game.bvn.data {
 		else return _curMession.stageList.length - 1;
 		}
 		
+		public function getAllMissions() : Array
+		{
+			return _messions;
+		}
 	}
 }
