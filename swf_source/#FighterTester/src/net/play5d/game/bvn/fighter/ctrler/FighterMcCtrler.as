@@ -12,6 +12,8 @@ package net.play5d.game.bvn.fighter.ctrler {
 	import net.play5d.game.bvn.ctrl.GameLogic;
 	import net.play5d.game.bvn.ctrl.game_ctrls.GameCtrl;
 	import net.play5d.game.bvn.data.HitType;
+	import net.play5d.game.bvn.fighter.Assister;
+	import net.play5d.game.bvn.fighter.Bullet;
 	import net.play5d.game.bvn.fighter.FighterAction;
 	import net.play5d.game.bvn.fighter.FighterActionState;
 	import net.play5d.game.bvn.fighter.FighterAttacker;
@@ -20,6 +22,7 @@ package net.play5d.game.bvn.fighter.ctrler {
 	import net.play5d.game.bvn.fighter.events.FighterEvent;
 	import net.play5d.game.bvn.fighter.events.FighterEventDispatcher;
 	import net.play5d.game.bvn.fighter.models.HitVO;
+	import net.play5d.game.bvn.data.GameData;	
 	import net.play5d.game.bvn.fighter.vos.MoveTargetParamVO;
 	import net.play5d.game.bvn.interfaces.BaseGameSprite;
 	import net.play5d.game.bvn.interfaces.IFighterActionCtrl;
@@ -31,6 +34,8 @@ package net.play5d.game.bvn.fighter.ctrler {
 	public class FighterMcCtrler {
 		
 		public var effectCtrler:FighterEffectCtrl;
+		public var beHitActions:Object = null;
+		public var doActionTimes:uint = 1;
 		
 		private var _actionCtrler:IFighterActionCtrl;
 		private var _mc:FighterMC;
@@ -39,6 +44,8 @@ package net.play5d.game.bvn.fighter.ctrler {
 		
 		private var _doingAction:String;
 		private var _doingAirAction:String;
+		private var _hasBadAction:Boolean = false;
+		private var _lastHurtActionTimes:uint = 0;
 		private var _isFalling:Boolean;
 		private var _jumpDelayFrame:int = 0;
 		private var _hurtHoldFrame:int = 0;
@@ -150,9 +157,9 @@ package net.play5d.game.bvn.fighter.ctrler {
 			_fighter.defenseHit = null;
 			_fighter.clearHurtHits();
 			_fighter.getDisplay().visible = true;
-			
 			_isDefense = false;
 			_autoDirectFrame = 0;
+			hurtActionClear();
 			
 			if (!_isTouchFloor) {
 				fall();
@@ -1051,6 +1058,7 @@ package net.play5d.game.bvn.fighter.ctrler {
 			_fighter.isApplyG = true;
 			
 			_doActionFrame = 0;
+			 doActionTimes++;
 			
 			_mc.goFrame(action, true, 0, delayParam);
 			_fighter.dispatchEvent(new FighterEvent(FighterEvent.DO_ACTION));
@@ -1555,9 +1563,10 @@ package net.play5d.game.bvn.fighter.ctrler {
 		private function doHurt(hitvo:HitVO, hitRect:Rectangle):void {
 			effectCtrler.endShadow();
 			effectCtrler.endShake();
+			_hasBadAction = hurtActionCheck(hitvo);
 			
 			_fighter.hurtHit = hitvo;
-			_fighter.loseHp(hitvo.getDamage());
+			if(!_hasBadAction)_fighter.loseHp(hitvo.getDamage());
 			
 			if (_fighter.isAlive && GameLogic.checkFighterDie(_fighter)) {
 				FighterEventDispatcher.dispatchEvent(_fighter, FighterEvent.DIE);
@@ -1589,8 +1598,8 @@ package net.play5d.game.bvn.fighter.ctrler {
 			_doingAirAction = null;
 			_doingAction = null;
 			setSteelBody(false);
-			
-			if (hitvo.hurtType == 0) {
+			trace(_hasBadAction);
+			if (hitvo.hurtType == 0 &&!_hasBadAction) {
 				_action.isHurting = true;
 				_hurtHoldFrame = Math.round(hitvo.hurtTime / 1000 * 30) + GameConfig.HURT_FRAME_OFFSET;
 				if (_hurtHoldFrame < 4) {
@@ -1610,7 +1619,7 @@ package net.play5d.game.bvn.fighter.ctrler {
 					_fighter.getCtrler().getVoiceCtrl().playVoice(0, 0.5);
 				}
 			}
-			if (hitvo.hurtType == 1) {
+			if (hitvo.hurtType == 1 || _hasBadAction) {
 				_action.isHurtFlying = true;
 				_fighter.actionState = FighterActionState.HURT_FLYING;
 				_hurtDownFrame = 0;
@@ -1621,6 +1630,7 @@ package net.play5d.game.bvn.fighter.ctrler {
 				else {
 					_fighter.getCtrler().getVoiceCtrl().playVoice(FighterVoice.DIE, 1);
 				}
+				hurtActionClear();
 			}
 			
 			if (hitvo && hitRect) {
@@ -1628,6 +1638,77 @@ package net.play5d.game.bvn.fighter.ctrler {
 			}
 			
 			_isFalling = false;
+		}
+		
+		private function hurtActionCheck(hitvo:HitVO):Boolean {
+			var targetAction:Object = null;
+			var target:IGameSprite = hitvo.owner;
+			if(target == null)
+			{
+				return false;
+			}
+			if(beHitActions == null)
+			{
+				beHitActions = {};
+			}
+			if(target is FighterMain || target is Bullet || target is FighterAttacker)
+			{
+				if(target is Bullet && (target as Bullet).owner is Assister || target is FighterAttacker && (target as FighterAttacker).getOwner() is Assister)
+				{
+					return false;
+				}
+				targetAction = null;
+				if(target is FighterMain)
+				{
+					targetAction = (target as FighterMain).getDoingAction();
+					trace(targetAction.action);
+				}
+				else if(target is Bullet)
+				{
+					targetAction = (target as Bullet).getDoingAction();
+				}
+				else if(target is FighterAttacker)
+				{
+					targetAction = (target as FighterAttacker).getDoingAction();
+				}
+				if(targetAction == null || targetAction.action == null)
+				{
+					return false;
+				}
+				if(hurtActionRepeatCheck(targetAction))
+				{
+					return true;
+				}
+				_lastHurtActionTimes = targetAction.times;	
+			}
+			else if(target is Assister)
+			{
+			}
+			return false;
+		}
+		
+		private function hurtActionRepeatCheck(doingAction:Object):Boolean {
+			if(!GameData.I.config.isInfiniteAttack == "false")
+			{
+				return false;
+			}
+			if(!beHitActions[doingAction.action])
+			{
+				beHitActions[doingAction.action] = doingAction.times;
+				return false;
+			}
+			if(beHitActions[doingAction.action] != doingAction.times)
+			{
+				return true;
+			}
+			return false;
+		}
+		
+		
+		private function hurtActionClear():void {
+			_hasBadAction = false;
+			beHitActions = null;
+			_lastHurtActionTimes = 0;
 		}
 		
 		private function renderHurt():void {

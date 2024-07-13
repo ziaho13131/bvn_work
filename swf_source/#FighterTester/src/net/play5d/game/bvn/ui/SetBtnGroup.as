@@ -56,6 +56,17 @@ package net.play5d.game.bvn.ui {
 			GameInputer.enabled = true;
 		}
 		
+		public function initRuleSet():void {
+			initRuleBtns();
+			initArrow();
+			
+			GameRender.add(render, this);
+			
+			GameInputer.focus();
+			GameInputer.enabled = true;
+		}
+		
+		
 		public function initKeySet():void {
 			setBtnData([{
 				label: "SET ALL",
@@ -487,6 +498,61 @@ package net.play5d.game.bvn.ui {
 					 ],
 					 optoinKey: "catchHitFreeze"
 				 }
+				];
+			}
+			
+			var config:ConfigVO = GameData.I.config;
+			for (var i:int = 0; i < settingMenu.length; i++) {
+				var o:Object = settingMenu[i];
+				var btn:SetBtn = addBtn(o.txt, o.cn, o.options);
+				
+				if (o.select) {
+					btn.onSelect = o.select;
+				}
+				
+				btn.optionKey = o.optoinKey;
+				if (btn.optionKey) {
+					btn.setOptionByValue(config.getValueByKey(btn.optionKey));
+				}
+			}
+			
+			addBtn("APPLY", "应用");
+			addBtn("CANCEL", "取消");
+		}
+		
+	    //初始化规则书按钮
+		private function initRuleBtns():void {
+			_btns = new Vector.<SetBtn>();
+			
+			var settingMenu:Array = GameInterface.instance.getSettingMenu();
+			if (!settingMenu) {
+				settingMenu = [{
+					txt      : "INFINITE COMBO",
+					cn       : "无限连检测",
+					options  : [{
+						label: "DISABLED",
+						cn   : "禁用",
+						value: "false"
+					},{
+						label: "ENABLE",
+						cn   : "惩罚:无 (原版)",
+						value: "true"
+					},{
+						label: "LOW",
+						cn   : "惩罚:低",
+						value: "low"
+					},{
+						label: "MEDIUM",
+						cn   : "惩罚:中 (推荐)",
+						value: "medium"
+					},{
+						label: "HIGH",
+						cn   : "惩罚:高 (不推荐)",
+						value: "high"
+					}
+					],
+					optoinKey: "isInfiniteAttack"
+				}
 				];
 			}
 			

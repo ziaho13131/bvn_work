@@ -25,6 +25,7 @@ package net.play5d.game.bvn.fighter {
 		
 		private var _ctrler:FighterAttackerCtrler;
 		private var _owner:IGameSprite;
+		private var _ownerDoingAction:Object;
 		
 		public var moveToTargetX:Boolean;
 		public var moveToTargetY:Boolean;
@@ -135,10 +136,15 @@ package net.play5d.game.bvn.fighter {
 			
 			if (_owner is FighterMain) {
 				_ctrler.effect = (_owner as FighterMain).getCtrler().getEffectCtrl();
+				_ownerDoingAction = (_owner as FighterMain).getDoingAction();
 			}
 			if (_owner is Assister) {
 				_ctrler.effect = (_owner as Assister).getCtrler().effect;
 			}
+		}
+		
+		public function getDoingAction():Object {
+			return _ownerDoingAction;
 		}
 		
 		public function init():void {

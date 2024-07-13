@@ -51,6 +51,7 @@ package net.play5d.game.bvn.fighter {
 		private var _bulletArea:Rectangle;
 		private var _hitVO:HitVO;
 		private var _loopFrame:Object;
+		private var _ownerDoingAction:Object;
 		private var _hitAble:Boolean = true;
 		private var _speedPlus:Number = GameConfig.SPEED_PLUS;
 		private var _destoryed:Boolean;
@@ -217,9 +218,13 @@ package net.play5d.game.bvn.fighter {
 				_bulletArea.y -= mc.y;
 			}
 			
+			//自身主人动作
+			_ownerDoingAction = (owner as FighterMain).getDoingAction();
+			
 			direct = owner.direct;
 			mc.x += owner.x;
 			mc.y += owner.y;
+			
 			
 			// 修复辅助，独立道具的主人问题
 			if (owner is FighterMain) {
@@ -235,6 +240,10 @@ package net.play5d.game.bvn.fighter {
 			else if (owner is FighterAttacker) {
 				owner = (owner as FighterAttacker).getOwner();
 			}
+		}
+		
+		public function getDoingAction():Object {
+			return _ownerDoingAction;
 		}
 		
 		public function destory(dispose:Boolean = true):void {

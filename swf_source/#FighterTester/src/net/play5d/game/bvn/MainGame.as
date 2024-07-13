@@ -25,6 +25,7 @@ package net.play5d.game.bvn {
 	import net.play5d.game.bvn.stage.MenuStage;
 	import net.play5d.game.bvn.stage.SelectFighterStage;
 	import net.play5d.game.bvn.stage.SettingStage;
+	import net.play5d.game.bvn.stage.RuleStage;
 	import net.play5d.game.bvn.stage.WinnerStage;
 	import net.play5d.game.bvn.utils.GameLogger;
 	import net.play5d.game.bvn.utils.ResUtils;
@@ -170,7 +171,11 @@ package net.play5d.game.bvn {
 		
 		public function goOption():void {
 			stageCtrl.goStage(new SettingStage());
-			
+			setFPS(60);
+		}
+		
+		public function goRuleBook():void {
+			stageCtrl.goStage(new RuleStage());
 			setFPS(60);
 		}
 		

@@ -100,6 +100,9 @@ package net.play5d.game.bvn.interfaces {
 				txt: "SETTINGS",
 				cn : "游戏设置"
 			}, {
+				txt: "RULEBOOK",
+				cn : "竞技规则书"
+			},{
 				txt: "TRAINING",
 				cn : "练习模式"
 			}, {

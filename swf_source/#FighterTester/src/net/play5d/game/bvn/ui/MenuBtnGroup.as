@@ -423,6 +423,11 @@ package net.play5d.game.bvn.ui {
 						MainGame.I.goOption();
 					};
 					break;
+				case "RULEBOOK":	
+					func = function ():void {
+						MainGame.I.goRuleBook();
+					};
+					break;
 				case "TRAINING":
 					func = function ():void {
 						GameMode.currentMode = GameMode.TRAINING;

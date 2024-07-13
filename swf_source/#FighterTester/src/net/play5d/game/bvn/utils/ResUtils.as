@@ -19,6 +19,7 @@ package net.play5d.game.bvn.utils {
 		private static var _i:ResUtils;
 		
 		public static var SETTING        :String = "stg_set_ui";
+		public static var RULEBOOK        :String = "stg_rule_ui";
 		public static var CONGRATULATIONS:String = "mc_congratulations";
 		public static var WINNER         :String = "winner_stg_mc";
 		public static var TITLE          :String = "stg_title";
@@ -40,6 +41,8 @@ package net.play5d.game.bvn.utils {
 		public var select:Class;
 		[Embed(source="/../swfs/setting.swf")]
 		public var setting:Class;
+		[Embed(source="/../swfs/rule.swf")]
+		public var rule:Class;
 		[Embed(source="/../swfs/title.swf")]
 		public var title:Class;
 		[Embed(source="/../swfs/bigmap.swf")]

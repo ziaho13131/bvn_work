@@ -606,6 +606,21 @@ package net.play5d.game.bvn.fighter {
 			idle();
 		}
 		
+		/**
+		 * 获取当前动作组
+		 */
+		public function getDoingAction():Object
+		{
+			if(_fighterCtrl == null || _fighterCtrl.getMcCtrl() == null || getMC() == null || data == null)
+			{
+				return null;
+			}
+			return {
+				"action":getMC().getCurrentLabel + "\n" + mc.currentFrame.toString() + data.id,
+				"times" :getCtrler().getMcCtrl().doActionTimes
+			};
+		}
+		
 		private function checkRenderToTarget():void {
 			var target:IGameSprite = getCurrentTarget();
 			if (target == null || !(target is FighterMain)) {

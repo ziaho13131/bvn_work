@@ -41,6 +41,7 @@ package net.play5d.game.bvn.data {
 		public var weakHitFreeze:int = 0;
 		public var heavyHitFreeze:int = 250;
 		public var catchHitFreeze:int = 250;
+		public var isInfiniteAttack:String = "medium";
 		public var bgmVolume   :Number = 1;
 		public var keyInputMode:int = 1;
 		
@@ -100,6 +101,7 @@ package net.play5d.game.bvn.data {
 			o.weakHitFreeze = weakHitFreeze;
 			o.heavyHitFreeze = heavyHitFreeze;
 			o.catchHitFreeze = catchHitFreeze;
+			o.isInfiniteAttack = isInfiniteAttack;
 			o.keyInputMode = keyInputMode;
 			o.soundVolume = soundVolume;
 			o.bgmVolume = bgmVolume;

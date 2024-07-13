@@ -59,6 +59,10 @@ package net.play5d.game.bvn.fighter {
 			return _mc.currentFrame;
 		}
 		
+		public function get getCurrentLabel():String {
+			return _mc.currentLabel;
+		}
+		
 		public function getCurrentFrameCount():int {
 			return _curFrameCount;
 		}
