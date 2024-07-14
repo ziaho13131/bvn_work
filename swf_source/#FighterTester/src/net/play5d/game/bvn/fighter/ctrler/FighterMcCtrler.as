@@ -1569,11 +1569,14 @@ package net.play5d.game.bvn.fighter.ctrler {
 		}
 		
 		private function doHurt(hitvo:HitVO, hitRect:Rectangle):void {
+			var lastTargetState:int = new int(_fighter.actionState);
+			
 			effectCtrler.endShadow();
 			effectCtrler.endShake();
 			_hasBadAction = hurtActionCheck(hitvo);
-			
+		
 			_fighter.hurtHit = hitvo;
+
 			if(!_hasBadAction&&!_hasLongGhostStep)_fighter.loseHp(hitvo.getDamage());
 			
 			if (_fighter.isAlive && GameLogic.checkFighterDie(_fighter)) {
@@ -1635,8 +1638,16 @@ package net.play5d.game.bvn.fighter.ctrler {
 				else if(_hasBadAction && unlimitedComboLevel != "false")infiniteComboPunish(GameCtrl.I.gameRunData.p1FighterGroup.currentFighter,hitvo);
 				
 			  //长幽连惩罚
-				if(_fighter.team.id == 1 && _hasLongGhostStep && longGhostComboLevel != "false")longGhostComboPunish(GameCtrl.I.gameRunData.p2FighterGroup.currentFighter,hitvo);
-				else if(_hasLongGhostStep && longGhostComboLevel != "false")longGhostComboPunish(GameCtrl.I.gameRunData.p1FighterGroup.currentFighter,hitvo);
+				if(_fighter.team.id == 1 && _hasLongGhostStep && longGhostComboLevel != "false" 
+				&& (lastTargetState == 21||lastTargetState == 40))longGhostComboPunish(GameCtrl.I.gameRunData.p2FighterGroup.currentFighter,hitvo);
+				else if(_hasLongGhostStep && longGhostComboLevel != "false" 
+					&& (lastTargetState == 21||lastTargetState == 40))longGhostComboPunish(GameCtrl.I.gameRunData.p1FighterGroup.currentFighter,hitvo);
+				
+				//如果不等于被打和僵直状态的话则清空长幽连计数和关闭长幽连开光
+				else if(_hasLongGhostStep && (lastTargetState != 21||lastTargetState != 40)) {
+					_hasLongGhostStep = false;
+					_fighter.getCtrler().getMcCtrl().longGhostStepState = 0;
+				}
 				
 			if (hitvo.hurtType == 1 || (_hasBadAction && unlimitedComboLevel == "true")) {
 				_action.isHurtFlying = true;
@@ -1729,7 +1740,6 @@ package net.play5d.game.bvn.fighter.ctrler {
 		private function longGhostComboPunish(fighter:FighterMain,hitvo:HitVO = null):void {
 			var level:String = GameData.I.config.isLongGhostStep;
 			var fc:FighterCtrler = fighter.getCtrler();
-			trace(_fighter.actionState == 40); 
 			fc.hitModel.addHitVO("longGhostATK",{
 				"power":0,
 				"powerRate":0,
@@ -1785,7 +1795,7 @@ package net.play5d.game.bvn.fighter.ctrler {
 			{
 				return false;
 			}
-			if(longGhostStepState >= 2 && _fighter.actionState == 40)
+			if(longGhostStepState >= 2)
 			{
 				_hasLongGhostStep = true;
 				return false;
