@@ -11,6 +11,9 @@ package net.play5d.game.bvn.fighter.ctrler {
 	import net.play5d.game.bvn.ctrl.EffectCtrl;
 	import net.play5d.game.bvn.ctrl.GameLogic;
 	import net.play5d.game.bvn.ctrl.game_ctrls.GameCtrl;
+	import net.play5d.game.bvn.data.FighterModel;
+	import net.play5d.game.bvn.data.GameData;
+	import net.play5d.game.bvn.data.GameMode;
 	import net.play5d.game.bvn.data.HitType;
 	import net.play5d.game.bvn.fighter.Assister;
 	import net.play5d.game.bvn.fighter.Bullet;
@@ -21,8 +24,8 @@ package net.play5d.game.bvn.fighter.ctrler {
 	import net.play5d.game.bvn.fighter.FighterMain;
 	import net.play5d.game.bvn.fighter.events.FighterEvent;
 	import net.play5d.game.bvn.fighter.events.FighterEventDispatcher;
+	import net.play5d.game.bvn.fighter.models.FighterHitModel;
 	import net.play5d.game.bvn.fighter.models.HitVO;
-	import net.play5d.game.bvn.data.GameData;	
 	import net.play5d.game.bvn.fighter.vos.MoveTargetParamVO;
 	import net.play5d.game.bvn.interfaces.BaseGameSprite;
 	import net.play5d.game.bvn.interfaces.IFighterActionCtrl;
@@ -50,6 +53,8 @@ package net.play5d.game.bvn.fighter.ctrler {
 		private var _jumpDelayFrame:int = 0;
 		private var _hurtHoldFrame:int = 0;
 		private var _defenseHoldFrame:int = 0;
+		private var _maxInfinityCombo:int = 4;
+		private var _limiteInfinityCombo:int = 6;
 		private var _beHitGap:int;
 		private var _doActionFrame:int;
 		private var _isTouchFloor:Boolean = true;
@@ -1598,8 +1603,10 @@ package net.play5d.game.bvn.fighter.ctrler {
 			_doingAirAction = null;
 			_doingAction = null;
 			setSteelBody(false);
-			trace(_hasBadAction);
-			if (hitvo.hurtType == 0 &&!_hasBadAction) {
+			var unlimitedComboLevel:String = GameData.I.config.isInfiniteAttack; 
+			if ((hitvo.hurtType == 0&&!_hasBadAction) || 
+				(hitvo.hurtType == 0&&unlimitedComboLevel != "true")
+				|| (!_hasBadAction&&unlimitedComboLevel == "true" && hitvo.hurtType == 0)) {
 				_action.isHurting = true;
 				_hurtHoldFrame = Math.round(hitvo.hurtTime / 1000 * 30) + GameConfig.HURT_FRAME_OFFSET;
 				if (_hurtHoldFrame < 4) {
@@ -1619,7 +1626,10 @@ package net.play5d.game.bvn.fighter.ctrler {
 					_fighter.getCtrler().getVoiceCtrl().playVoice(0, 0.5);
 				}
 			}
-			if (hitvo.hurtType == 1 || _hasBadAction) {
+			    if(_fighter.team.id == 1 && _hasBadAction)infiniteComboPunish(GameCtrl.I.gameRunData.p2FighterGroup.currentFighter,hitvo);
+				else if(_hasBadAction) infiniteComboPunish(GameCtrl.I.gameRunData.p1FighterGroup.currentFighter,hitvo);
+				
+			if (hitvo.hurtType == 1 || (_hasBadAction && unlimitedComboLevel == "true")) {
 				_action.isHurtFlying = true;
 				_fighter.actionState = FighterActionState.HURT_FLYING;
 				_hurtDownFrame = 0;
@@ -1639,6 +1649,72 @@ package net.play5d.game.bvn.fighter.ctrler {
 			
 			_isFalling = false;
 		}
+		
+		//无限连惩罚
+		private function infiniteComboPunish(fighter:FighterMain,hitvo:HitVO = null):void {
+			var level:String = GameData.I.config.isInfiniteAttack;
+			var fc:FighterCtrler = fighter.getCtrler();
+			fc.hitModel.addHitVO("infintyATK",{
+				"power":50,
+				"powerRate":0,
+				"hitType":0,
+				"hurtTime":0,
+				"hitx":-2,
+				"hity":-2,
+				"hurtType":1,
+				"checkDirect":true,
+				"isBreakDef":true
+			});
+			 switch (level) {
+				case "low":
+					fighter.loseHp(50);
+					fighter.beHit(fc.hitModel.getHitVO("infintyATK"));
+					fighter.addQi(-50);
+					break;
+				case "medium":
+					fighter.loseHp(hitvo.power*2+100);
+					fighter.beHit(fc.hitModel.getHitVO("infintyATK"));
+					fighter.addQi(-120);
+					fighter.energy = 0;
+					fighter.energyOverLoad = true;
+					break;
+				case "high":
+					if(_maxInfinityCombo >0) {
+						fighter.loseHp(hitvo.power*2+100);
+						fighter.beHit(fc.hitModel.getHitVO("infintyATK"));
+						fighter.addQi(-120);
+						fighter.energy = 0;
+						fighter.energyOverLoad = true;
+						if(!GameMode.isTraining())_maxInfinityCombo--;
+					}
+					else {
+						fighter.loseHp(99999);
+						fighter.beHit(fc.hitModel.getHitVO("infintyATK"));
+						fighter.addQi(-300);
+						fighter.energy = 0;
+						fighter.energyOverLoad = true;
+						_maxInfinityCombo = 4;
+					}
+				case "limited":
+					if(_limiteInfinityCombo >0) {
+						
+						if(_limiteInfinityCombo == 6)fc.hitModel.setPowerRate(0.8);
+						else if(_limiteInfinityCombo == 5)fc.hitModel.setPowerRate(0.6);
+						else if(_limiteInfinityCombo == 4)fc.hitModel.setPowerRate(0.4);
+						else if(_limiteInfinityCombo == 3)fc.hitModel.setPowerRate(0.2);
+						else if(_limiteInfinityCombo == 2)fc.hitModel.setPowerRate(0.1);
+						else if(_limiteInfinityCombo == 1)fc.hitModel.setPowerRate(0);
+						_limiteInfinityCombo--;
+					}
+					else {
+						fighter.beHit(fc.hitModel.getHitVO("infintyATK"));
+						fc.hitModel.setPowerRate(1);
+						_limiteInfinityCombo = 6;
+					}
+					break;
+			  }
+		}
+			
 		
 		private function hurtActionCheck(hitvo:HitVO):Boolean {
 			var targetAction:Object = null;
@@ -1706,9 +1782,25 @@ package net.play5d.game.bvn.fighter.ctrler {
 		
 		
 		private function hurtActionClear():void {
+			var currentFighter:FighterMain;
+			var fc:FighterCtrler;
 			_hasBadAction = false;
 			beHitActions = null;
 			_lastHurtActionTimes = 0;
+			if(_fighter.team != null) {
+				 currentFighter = _fighter.team.id == 1?
+					GameCtrl.I.gameRunData.p2FighterGroup.currentFighter:
+					GameCtrl.I.gameRunData.p1FighterGroup.currentFighter;
+				fc = currentFighter.getCtrler();
+				if(GameData.I.config.isInfiniteAttack == "limited"&&_fighter.actionState != 40) {
+					fc.hitModel.setPowerRate(1);
+					_limiteInfinityCombo = 6;
+				}
+				if(GameData.I.config.isInfiniteAttack) {
+					
+				}
+				trace(_limiteInfinityCombo);
+			}
 		}
 		
 		private function renderHurt():void {

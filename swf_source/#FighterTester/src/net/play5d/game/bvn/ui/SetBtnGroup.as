@@ -538,6 +538,10 @@ package net.play5d.game.bvn.ui {
 						cn   : "惩罚:无 (原版)",
 						value: "true"
 					},{
+						label: "LIMITED",
+						cn   : "惩罚:限伤",
+						value: "limited"
+					},{
 						label: "LOW",
 						cn   : "惩罚:低",
 						value: "low"
@@ -547,7 +551,7 @@ package net.play5d.game.bvn.ui {
 						value: "medium"
 					},{
 						label: "HIGH",
-						cn   : "惩罚:高 (不推荐)",
+						cn   : "惩罚:高",
 						value: "high"
 					}
 					],
