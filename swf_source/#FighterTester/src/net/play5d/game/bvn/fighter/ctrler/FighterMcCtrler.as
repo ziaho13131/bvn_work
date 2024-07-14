@@ -39,6 +39,7 @@ package net.play5d.game.bvn.fighter.ctrler {
 		public var effectCtrler:FighterEffectCtrl;
 		public var beHitActions:Object = null;
 		public var doActionTimes:uint = 1;
+		public var longGhostStepState:int = 0;
 		
 		private var _actionCtrler:IFighterActionCtrl;
 		private var _mc:FighterMC;
@@ -48,12 +49,14 @@ package net.play5d.game.bvn.fighter.ctrler {
 		private var _doingAction:String;
 		private var _doingAirAction:String;
 		private var _hasBadAction:Boolean = false;
+		private var _hasLongGhostStep:Boolean = false;
 		private var _lastHurtActionTimes:uint = 0;
 		private var _isFalling:Boolean;
 		private var _jumpDelayFrame:int = 0;
 		private var _hurtHoldFrame:int = 0;
 		private var _defenseHoldFrame:int = 0;
 		private var _maxInfinityCombo:int = 4;
+		private var _maxLongGhostCombo:int = 4;
 		private var _limiteInfinityCombo:int = 6;
 		private var _beHitGap:int;
 		private var _doActionFrame:int;
@@ -1571,7 +1574,7 @@ package net.play5d.game.bvn.fighter.ctrler {
 			_hasBadAction = hurtActionCheck(hitvo);
 			
 			_fighter.hurtHit = hitvo;
-			if(!_hasBadAction)_fighter.loseHp(hitvo.getDamage());
+			if(!_hasBadAction&&!_hasLongGhostStep)_fighter.loseHp(hitvo.getDamage());
 			
 			if (_fighter.isAlive && GameLogic.checkFighterDie(_fighter)) {
 				FighterEventDispatcher.dispatchEvent(_fighter, FighterEvent.DIE);
@@ -1604,6 +1607,7 @@ package net.play5d.game.bvn.fighter.ctrler {
 			_doingAction = null;
 			setSteelBody(false);
 			var unlimitedComboLevel:String = GameData.I.config.isInfiniteAttack; 
+			var longGhostComboLevel:String = GameData.I.config.isLongGhostStep; 
 			if ((hitvo.hurtType == 0&&!_hasBadAction) || 
 				(hitvo.hurtType == 0&&unlimitedComboLevel != "true")
 				|| (!_hasBadAction&&unlimitedComboLevel == "true" && hitvo.hurtType == 0)) {
@@ -1626,8 +1630,13 @@ package net.play5d.game.bvn.fighter.ctrler {
 					_fighter.getCtrler().getVoiceCtrl().playVoice(0, 0.5);
 				}
 			}
-			    if(_fighter.team.id == 1 && _hasBadAction)infiniteComboPunish(GameCtrl.I.gameRunData.p2FighterGroup.currentFighter,hitvo);
-				else if(_hasBadAction) infiniteComboPunish(GameCtrl.I.gameRunData.p1FighterGroup.currentFighter,hitvo);
+			   //无限连惩罚
+			    if(_fighter.team.id == 1 && _hasBadAction && unlimitedComboLevel != "false")infiniteComboPunish(GameCtrl.I.gameRunData.p2FighterGroup.currentFighter,hitvo);
+				else if(_hasBadAction && unlimitedComboLevel != "false")infiniteComboPunish(GameCtrl.I.gameRunData.p1FighterGroup.currentFighter,hitvo);
+				
+			  //长幽连惩罚
+				if(_fighter.team.id == 1 && _hasLongGhostStep && longGhostComboLevel != "false")longGhostComboPunish(GameCtrl.I.gameRunData.p2FighterGroup.currentFighter,hitvo);
+				else if(_hasLongGhostStep && longGhostComboLevel != "false")longGhostComboPunish(GameCtrl.I.gameRunData.p1FighterGroup.currentFighter,hitvo);
 				
 			if (hitvo.hurtType == 1 || (_hasBadAction && unlimitedComboLevel == "true")) {
 				_action.isHurtFlying = true;
@@ -1704,6 +1713,7 @@ package net.play5d.game.bvn.fighter.ctrler {
 						else if(_limiteInfinityCombo == 3)fc.hitModel.setPowerRate(0.2);
 						else if(_limiteInfinityCombo == 2)fc.hitModel.setPowerRate(0.1);
 						else if(_limiteInfinityCombo == 1)fc.hitModel.setPowerRate(0);
+						_hasBadAction = false;
 						_limiteInfinityCombo--;
 					}
 					else {
@@ -1714,6 +1724,58 @@ package net.play5d.game.bvn.fighter.ctrler {
 					break;
 			  }
 		}
+		
+		//长幽连惩罚
+		private function longGhostComboPunish(fighter:FighterMain,hitvo:HitVO = null):void {
+			var level:String = GameData.I.config.isLongGhostStep;
+			var fc:FighterCtrler = fighter.getCtrler();
+			trace(_fighter.actionState == 40); 
+			fc.hitModel.addHitVO("longGhostATK",{
+				"power":0,
+				"powerRate":0,
+				"hitType":0,
+				"hurtTime":0,
+				"hitx":-2,
+				"hity":-2,
+				"hurtType":1,
+				"checkDirect":true,
+				"isBreakDef":true
+			});
+			switch (level) {
+				case "true":
+					fighter.beHit(fc.hitModel.getHitVO("longGhostATK"));
+                    break;
+				case "low":
+					fighter.loseHp(50);
+					fighter.beHit(fc.hitModel.getHitVO("longGhostATK"));
+					fighter.addQi(-50);
+					break;
+				case "medium":
+					fighter.loseHp(hitvo.power*2+100);
+					fighter.beHit(fc.hitModel.getHitVO("longGhostATK"));
+					fighter.addQi(-120);
+					fighter.energy = 0;
+					fighter.energyOverLoad = true;
+					break;
+				case "high":
+					if(_maxLongGhostCombo >0) {
+						fighter.loseHp(hitvo.power*2+100);
+						fighter.beHit(fc.hitModel.getHitVO("longGhostATK"));
+						fighter.addQi(-120);
+						fighter.energy = 0;
+						fighter.energyOverLoad = true;
+						if(!GameMode.isTraining())_maxLongGhostCombo--;
+					}
+					else {
+						fighter.loseHp(99999);
+						fighter.beHit(fc.hitModel.getHitVO("longGhostATK"));
+						fighter.addQi(-300);
+						fighter.energy = 0;
+						fighter.energyOverLoad = true;
+						_maxLongGhostCombo = 4;
+					}
+			}
+		}
 			
 		
 		private function hurtActionCheck(hitvo:HitVO):Boolean {
@@ -1721,6 +1783,11 @@ package net.play5d.game.bvn.fighter.ctrler {
 			var target:IGameSprite = hitvo.owner;
 			if(target == null)
 			{
+				return false;
+			}
+			if(longGhostStepState >= 2 && _fighter.actionState == 40)
+			{
+				_hasLongGhostStep = true;
 				return false;
 			}
 			if(beHitActions == null)
@@ -1737,7 +1804,6 @@ package net.play5d.game.bvn.fighter.ctrler {
 				if(target is FighterMain)
 				{
 					targetAction = (target as FighterMain).getDoingAction();
-					trace(targetAction.action);
 				}
 				else if(target is Bullet)
 				{
@@ -1787,6 +1853,8 @@ package net.play5d.game.bvn.fighter.ctrler {
 			_hasBadAction = false;
 			beHitActions = null;
 			_lastHurtActionTimes = 0;
+			_hasLongGhostStep = false;
+			longGhostStepState = 0;
 			if(_fighter.team != null) {
 				 currentFighter = _fighter.team.id == 1?
 					GameCtrl.I.gameRunData.p2FighterGroup.currentFighter:
@@ -1799,7 +1867,6 @@ package net.play5d.game.bvn.fighter.ctrler {
 				if(GameData.I.config.isInfiniteAttack) {
 					
 				}
-				trace(_limiteInfinityCombo);
 			}
 		}
 		
@@ -2141,15 +2208,23 @@ package net.play5d.game.bvn.fighter.ctrler {
 		}
 		
 		private function doGhostStep():void {
+			var _targetfighter:FighterMain = _fighter.team.id == 1?
+				GameCtrl.I.gameRunData.p2FighterGroup.currentFighter:
+				GameCtrl.I.gameRunData.p1FighterGroup.currentFighter;
+			var longGhostComboLevel:String = GameData.I.config.isLongGhostStep; 
 			if (_isContinuousGhostStep && startGhostStep()) {
 				move(8, 0);
-				
 				_mc.goFrame("走", true);
 				_ghostType = 0;
+				if(longGhostComboLevel != "false")_targetfighter.getCtrler().getMcCtrl().longGhostStepState++;
 			}
 		}
 		
 		private function doGhostJump():void {
+			var _targetfighter:FighterMain = _fighter.team.id == 1?
+				GameCtrl.I.gameRunData.p2FighterGroup.currentFighter:
+				GameCtrl.I.gameRunData.p1FighterGroup.currentFighter;
+			var longGhostComboLevel:String = GameData.I.config.isLongGhostStep; 
 			if (startGhostStep()) {
 				move(0, -12);
 				damping(0, 0.1);
@@ -2157,14 +2232,20 @@ package net.play5d.game.bvn.fighter.ctrler {
 				_mc.goFrame("跳", false);
 				_action.jumpTimes--;
 				_ghostType = 1;
+				if(longGhostComboLevel != "false")_targetfighter.getCtrler().getMcCtrl().longGhostStepState++;
 			}
 		}
 		
 		private function doGhostJumpDown():void {
+			var _targetfighter:FighterMain = _fighter.team.id == 1?
+				GameCtrl.I.gameRunData.p2FighterGroup.currentFighter:
+				GameCtrl.I.gameRunData.p1FighterGroup.currentFighter;
+			var longGhostComboLevel:String = GameData.I.config.isLongGhostStep; 
 			if (startGhostStep()) {
 				move(0, 15);
 				_mc.goFrame("落", false);
 				_ghostType = 2;
+				if(longGhostComboLevel != "false")_targetfighter.getCtrler().getMcCtrl().longGhostStepState++;
 			}
 		}
 		
