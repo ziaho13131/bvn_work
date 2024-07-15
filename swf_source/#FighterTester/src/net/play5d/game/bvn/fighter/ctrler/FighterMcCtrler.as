@@ -1643,7 +1643,7 @@ package net.play5d.game.bvn.fighter.ctrler {
 				else if(_hasLongGhostStep && longGhostComboLevel != "false" 
 					&& (lastTargetState == 21||lastTargetState == 40))longGhostComboPunish(GameCtrl.I.gameRunData.p1FighterGroup.currentFighter,hitvo);
 				
-				//如果不等于被打和僵直状态的话则清空长幽连计数和关闭长幽连开光
+				//如果不等于被打和僵直状态的话则清空长幽连计数和关闭长幽连开关
 				else if(_hasLongGhostStep && (lastTargetState != 21||lastTargetState != 40)) {
 					_hasLongGhostStep = false;
 					_fighter.getCtrler().getMcCtrl().longGhostStepState = 0;
