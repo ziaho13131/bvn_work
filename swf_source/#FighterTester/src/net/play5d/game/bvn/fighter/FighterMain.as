@@ -237,6 +237,13 @@ package net.play5d.game.bvn.fighter {
 			}
 		}
 		
+		/**
+		 * 角色是否为初始化
+		 */
+		public function initlized():Boolean {
+			return _fighterCtrl != null;
+		}
+		
 		public function initlize():void {
 			_fighterCtrl = new FighterCtrler();
 			_buffCtrler = new FighterBuffCtrler(this);

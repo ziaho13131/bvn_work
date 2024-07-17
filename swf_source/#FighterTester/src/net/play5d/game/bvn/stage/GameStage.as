@@ -328,6 +328,16 @@ package net.play5d.game.bvn.stage {
 			camera.tweenSpd = 2.5 / GameConfig.SPEED_PLUS_DEFAULT;
 		}
 		
+		/**
+		 * 更新镜头
+		 */
+		public function updateCameraFocus(cameraArray:Array):void {
+			_cameraFocus = cameraArray;
+			camera.focus(cameraArray);
+			camera.setZoom(2);
+			camera.tweenSpd = 2.5 / GameConfig.SPEED_PLUS_DEFAULT;
+		}
+		
 		public function cameraResume():void {
 			camera.focus(_cameraFocus);
 			

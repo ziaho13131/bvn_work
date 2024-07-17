@@ -4,6 +4,7 @@
 package net.play5d.game.bvn.ctrl.game_ctrls {
 	import net.play5d.game.bvn.GameConfig;
 	import net.play5d.game.bvn.ctrl.StateCtrl;
+	import net.play5d.game.bvn.data.GameMode;
 	import net.play5d.game.bvn.data.GameRunFighterGroup;
 	import net.play5d.game.bvn.fighter.Assister;
 	import net.play5d.game.bvn.fighter.FighterActionState;
@@ -81,12 +82,18 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 						var group:GameRunFighterGroup = 
 							GameCtrl.I.gameRunData["p" + teamId + "FighterGroup"] 
 							as GameRunFighterGroup;
-						var assistant:Assister = group.fuzhu;
-						
+						var assistant:Assister;
+						if(!GameMode.isStoryMode()) {
+							assistant = group.fuzhu;
+
 						if (!assistant.isOnStage) {
 							i.fzqi = i.fzqiMax;
 						}
 					}
+				}
+			}
+				else if(GameMode.isStoryMode()) {
+					i.fzqi = i.fzqiMax;
 				}
 				else if (i.fzqi == i.fzqiMax) {
 					_trainAddDelay[fzid] = 0;

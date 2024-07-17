@@ -3,6 +3,7 @@
  */
 package net.play5d.game.bvn.ctrl.game_ctrls {
 	import net.play5d.game.bvn.ctrl.EffectCtrl;
+	import net.play5d.game.bvn.ctrl.game_ctrls.GameCtrl;
 	import net.play5d.game.bvn.ctrl.GameLogic;
 	import net.play5d.game.bvn.data.GameMode;
 	import net.play5d.game.bvn.data.GameRunFighterGroup;
@@ -153,12 +154,16 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 				? GameCtrl.I.gameRunData.p1FighterGroup
 				: GameCtrl.I.gameRunData.p2FighterGroup;
 			var assistant:Assister = group.fuzhu;
+			if(GameMode.isStoryMode())
+			{
+				changeFighter(fighter);
+				return;
+			}
 			assistant.setOwner(fighter);
 			assistant.direct = fighter.direct;
 			assistant.x = fighter.x - 30 * assistant.direct;
 			assistant.y = fighter.y;
 			assistant.onRemove = removeAssister;
-			
 			// 辅助只有可能被主人物发出
 			var p1Id:String = GameCtrl.I.gameRunData.p1FighterGroup.fuzhu.data.id;
 			var p2Id:String = GameCtrl.I.gameRunData.p2FighterGroup.fuzhu.data.id;
@@ -204,6 +209,57 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 			}
 			return null;
 		}
+		
+		/**
+		 * 切换角色
+		 */
+		private static function changeFighter(fighter:FighterMain):void {
+			var lastFighter:FighterMain = fighter;
+			var currentGroup:GameRunFighterGroup = lastFighter.team.id == 1 ? GameCtrl.I.gameRunData.p1FighterGroup : GameCtrl.I.gameRunData.p2FighterGroup;
+			var targetGroup:GameRunFighterGroup = lastFighter.team.id != 1 ? GameCtrl.I.gameRunData.p1FighterGroup : GameCtrl.I.gameRunData.p2FighterGroup;
+			if(lastFighter != currentGroup.currentFighter)
+			{
+				return;
+			}
+			var nextFighter:FighterMain = currentGroup.getNextFighterByMain(lastFighter);
+			if(nextFighter == null)
+			{
+				return;
+			}
+			EffectCtrl.I.slowDownResume();
+			GameCtrl.I.removeFighter(lastFighter);
+			nextFighter.x = lastFighter.x;
+			nextFighter.y = lastFighter.y;
+			nextFighter.fzqi = 0;
+			nextFighter.hpMax = lastFighter.hpMax;
+			nextFighter.hp = lastFighter.hp;
+			nextFighter.qi = lastFighter.qi;
+			nextFighter.energy = nextFighter.energyMax;
+			nextFighter.energyOverLoad = false;
+			nextFighter.direct = lastFighter.direct;
+			if(nextFighter.initlized())
+			{
+				GameCtrl.I.addGameSprite(nextFighter.team.id,nextFighter);
+			}
+			else
+			{
+				GameCtrl.I.addFighter(nextFighter,lastFighter.team.id,false);
+			}
+			currentGroup.currentFighter = nextFighter;
+			EffectCtrl.I.doEffectById("fz_change",nextFighter.x,nextFighter.y);
+			nextFighter.updatePosition();
+			nextFighter.idle();
+			GameCtrl.I.gameState.updateCameraFocus([nextFighter.getDisplay(),targetGroup.currentFighter.getDisplay()]);
+			if(lastFighter.team.id == 1)
+			{
+				GameCtrl.I.gameState.gameUI.initFight(currentGroup,targetGroup);
+			}
+			else
+			{
+				GameCtrl.I.gameState.gameUI.initFight(targetGroup,currentGroup);
+			}
+		}
+		
 		
 		private static function onHitTarget(e:FighterEvent):void {
 			addHits(e.fighter as FighterMain, e.params.target);

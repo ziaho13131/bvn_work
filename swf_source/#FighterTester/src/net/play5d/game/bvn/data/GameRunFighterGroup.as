@@ -3,6 +3,7 @@
  * 2024/6/16 新增了额外的两个当前角色 和修改了删除角色的函数
  */
 package net.play5d.game.bvn.data {
+	import flash.utils.Dictionary;
 	import net.play5d.game.bvn.fighter.Assister;
 	import net.play5d.game.bvn.fighter.FighterMain;
 	
@@ -19,7 +20,7 @@ package net.play5d.game.bvn.data {
 		public var currentFighter:FighterMain;
 		public var currentFighter2:FighterMain;
 		public var currentFighter3:FighterMain;
-		
+        		
 //		public function getFighterDatas():Vector.<FighterVO> {
 //			var vec:Vector.<FighterVO> = new Vector.<FighterVO>();
 //
@@ -35,6 +36,7 @@ package net.play5d.game.bvn.data {
 //
 //			return vec;
 //		}
+		
 		
 		public function getNextFighter():FighterMain {
 			switch (currentFighter) {
@@ -53,10 +55,13 @@ package net.play5d.game.bvn.data {
 					return fighter2;
 				case fighter2:
 					return fighter3;
+				case fighter3:
+					return fighter1;
 					default:
 					return null;
 			}
 		}
+	
 			
 		public function destoryFighters(expect:FighterMain):void {
 			if (fighter1 && fighter1 != expect) {

@@ -291,7 +291,7 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 			GameInterface.instance.afterBuildGame();
 		}
 		
-		private function addFighter(fighter:FighterMain, team:int,isAI:Boolean = false):void {
+		public function addFighter(fighter:FighterMain, team:int,isAI:Boolean = false):void {
 			if (!fighter) {
 				return;
 			}
@@ -330,7 +330,7 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 			addGameSprite(team, fighter);
 		}
 		
-		private function removeFighter(fighter:FighterMain):void {
+		public function removeFighter(fighter:FighterMain):void {
 			if (!fighter) {
 				return;
 			}
