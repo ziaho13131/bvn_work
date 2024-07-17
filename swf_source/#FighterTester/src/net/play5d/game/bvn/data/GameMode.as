@@ -64,7 +64,12 @@ package net.play5d.game.bvn.data {
 				currentMode == PARTNER_2V2WATCH||
 				currentMode == PARTNER_3V3||
 				currentMode == PARTNER_3V3CPU||	
-				currentMode == PARTNER_3V3WATCH;
+				currentMode == PARTNER_3V3WATCH||
+				currentMode == STORY_ARCADE ||
+				currentMode == STORY_VS_PEOPLE||	
+				currentMode == STORY_VS_CPU ||
+				currentMode == STORY_WATCH ||
+				currentMode == STORY_TRAINING;
 		}
 		
 		public static function isSingleMode():Boolean {
@@ -110,10 +115,12 @@ package net.play5d.game.bvn.data {
 				currentMode == PARTNER_3V3CPU ||
 				currentMode == STORY_VS_CPU ||
 				includeTraining && currentMode == TRAINING || 
+				includeTraining && currentMode == STORY_TRAINING || 
 				currentMode == TEAM_WATCH || 
 				currentMode == SINGLE_WATCH ||
 				currentMode == PARTNER_2V2WATCH ||
-				currentMode == PARTNER_3V3WATCH; 
+				currentMode == PARTNER_3V3WATCH||
+				currentMode == STORY_WATCH;
 				
 		}
 		

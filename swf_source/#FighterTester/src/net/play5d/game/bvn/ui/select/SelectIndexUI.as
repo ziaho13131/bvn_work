@@ -119,6 +119,14 @@ package net.play5d.game.bvn.ui.select {
 						initP2Group(GameInputType.P1, false);
 					});
 					break;
+				case GameMode.STORY_VS_CPU:
+				case GameMode.STORY_VS_PEOPLE:
+				case GameMode.SINGLE_WATCH:
+				case GameMode.STORY_TRAINING:
+					initP1Group(function ():void {
+						initP2Group(GameInputType.P1, false);
+					});
+					break;
 				default:
 					_p1Group.isFinish = true;
 					_p2Group.isFinish = true;
