@@ -582,6 +582,32 @@ package net.play5d.game.bvn.ui {
 					}
 					],
 					optoinKey: "isLongGhostStep"
+				},{
+					txt      : "BREAK COMBO",
+					cn       : "断连检测",
+					options  : [{
+						label: "DISABLED",
+						cn   : "禁用",
+						value: "false"
+					},{
+						label: "ENABLE",
+						cn   : "僵直击倒 (原版)",
+						value: "true"
+					},{
+						label: "LOW",
+						cn   : "惩罚:低",
+						value: "low"
+					},{
+						label: "MEDIUM",
+						cn   : "惩罚:中 (推荐)",
+						value: "medium"
+					},{
+						label: "HIGH",
+						cn   : "惩罚:高",
+						value: "high"
+					}
+					],
+					optoinKey: "isBreakCombo"
 				}
 				];
 			}

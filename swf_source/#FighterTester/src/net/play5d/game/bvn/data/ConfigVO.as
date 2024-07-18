@@ -43,6 +43,7 @@ package net.play5d.game.bvn.data {
 		public var catchHitFreeze:int = 250;
 		public var isInfiniteAttack:String = "medium";
 		public var isLongGhostStep:String = "medium";
+		public var isBreakCombo:String = "medium";
 		public var bgmVolume   :Number = 1;
 		public var keyInputMode:int = 1;
 		
@@ -104,6 +105,7 @@ package net.play5d.game.bvn.data {
 			o.catchHitFreeze = catchHitFreeze;
 			o.isInfiniteAttack = isInfiniteAttack;
 			o.isLongGhostStep = isLongGhostStep;
+			o.isBreakCombo = isBreakCombo;
 			o.keyInputMode = keyInputMode;
 			o.soundVolume = soundVolume;
 			o.bgmVolume = bgmVolume;

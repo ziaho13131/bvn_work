@@ -258,6 +258,7 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 			{
 				GameCtrl.I.gameState.gameUI.initFight(targetGroup,currentGroup);
 			}
+			trace("FighterEventCtrl::changeFighter: "+lastFighter.data.name+" to "+nextFighter.data.name);
 		}
 		
 		

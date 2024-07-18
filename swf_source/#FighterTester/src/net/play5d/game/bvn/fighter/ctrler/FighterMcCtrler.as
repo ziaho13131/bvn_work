@@ -57,6 +57,7 @@ package net.play5d.game.bvn.fighter.ctrler {
 		private var _defenseHoldFrame:int = 0;
 		private var _maxInfinityCombo:int = 4;
 		private var _maxLongGhostCombo:int = 4;
+		private var _maxBreakCombo:int = 4;
 		private var _limiteInfinityCombo:int = 6;
 		private var _beHitGap:int;
 		private var _doActionFrame:int;
@@ -1925,12 +1926,17 @@ package net.play5d.game.bvn.fighter.ctrler {
 		}
 		
 		private function renderHurtAnimate():void {
+			var voiceCtrl:FighterVoiceCtrler = _fighter.getCtrler().getVoiceCtrl();
+			var vec:Point = _fighter.getVec2();
+			var _targetFighter:FighterMain = _fighter.team.id == 1?
+				GameCtrl.I.gameRunData.p2FighterGroup.currentFighter:
+				GameCtrl.I.gameRunData.p1FighterGroup.currentFighter;
+			var fc:FighterCtrler = _targetFighter.getCtrler();
 			if (_hurtHoldFrame-- <= 0) {
 				if (!_fighter.isAlive) {
 					_action.clearState();
 					
 					if (_fighter.isInAir) {
-						var vec:Point = _fighter.getVec2();
 						hurtFly(vec.x, vec.y);
 					}
 					else {
@@ -1939,6 +1945,104 @@ package net.play5d.game.bvn.fighter.ctrler {
 					_fighter.getCtrler().getVoiceCtrl().playVoice(FighterVoice.DIE, 1);
 				}
 				else {
+					switch(GameData.I.config.isBreakCombo) {
+						case "true":
+							_action.clearAction();
+							_action.clearState();
+							if(_fighter.isInAir)
+							{
+								hurtFly(vec.x,vec.y);
+							}
+							else
+							{
+								_fighter.actionState = 24;
+								_hurtDownFrame = 0;
+								hurtActionClear();
+								_action.isHurtFlying = true;
+								_mc.playHurtDown();
+							}
+							voiceCtrl.playVoice(1,1);
+							return;
+							break;
+						case "low":
+							fc.hitModel.addHitVO("breakComboATK",{
+								"power":0,
+								"powerRate":0,
+								"hitType":0,
+								"hurtTime":0,
+								"hitx":-2,
+								"hity":-2,
+								"hurtType":1,
+								"checkDirect":true,
+								"isBreakDef":true
+							});	
+							if (!EffectCtrl.I.isBreakComboEffect(_fighter)) {
+								EffectCtrl.I.doBreakComboEffect(_fighter);
+							}
+							else {
+								_targetFighter.loseHp(50);
+								_targetFighter.beHit(fc.hitModel.getHitVO("breakComboATK"));
+								_targetFighter.addQi(-50);
+							}
+							break;
+						case "medium":
+							fc.hitModel.addHitVO("breakComboATK",{
+								"power":0,
+								"powerRate":0,
+								"hitType":0,
+								"hurtTime":0,
+								"hitx":-2,
+								"hity":-2,
+								"hurtType":1,
+								"checkDirect":true,
+								"isBreakDef":true
+							});	
+							if (!EffectCtrl.I.isBreakComboEffect(_fighter)) {
+								EffectCtrl.I.doBreakComboEffect(_fighter);
+							}
+							else {
+								_targetFighter.loseHp(150);
+								_targetFighter.beHit(fc.hitModel.getHitVO("breakComboATK"));
+								_targetFighter.addQi(-120);
+								_targetFighter.energy = 0;
+								_targetFighter.energyOverLoad = true;
+							}
+							break;
+						case "high":
+							fc.hitModel.addHitVO("breakComboATK",{
+								"power":0,
+								"powerRate":0,
+								"hitType":0,
+								"hurtTime":0,
+								"hitx":-2,
+								"hity":-2,
+								"hurtType":1,
+								"checkDirect":true,
+								"isBreakDef":true
+							});	
+							if (!EffectCtrl.I.isBreakComboEffect(_fighter)) {
+								EffectCtrl.I.doBreakComboEffect(_fighter);
+							}
+							else {
+								if(_maxBreakCombo >0) {
+									_targetFighter.loseHp(150);
+									_targetFighter.beHit(fc.hitModel.getHitVO("breakComboATK"));
+									_targetFighter.addQi(-120);
+									_targetFighter.energy = 0;
+									_targetFighter.energyOverLoad = true;	
+									if(!GameMode.isTraining())_maxBreakCombo--;
+								}
+								else {
+									_targetFighter.loseHp(99999);
+									_targetFighter.beHit(fc.hitModel.getHitVO("breakComboATK"));
+									_targetFighter.addQi(-120);
+									_targetFighter.energy = 0;
+									_targetFighter.energyOverLoad = true;
+									_maxBreakCombo = 4;
+								}
+							}
+							break;
+					}
 					hurtResume();
 				}
 			}

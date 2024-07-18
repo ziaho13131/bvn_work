@@ -5,6 +5,7 @@ package net.play5d.game.bvn.ctrl {
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.filters.BitmapFilter;
+	import flash.geom.ColorTransform;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.utils.Dictionary;
@@ -13,6 +14,7 @@ package net.play5d.game.bvn.ctrl {
 	import net.play5d.game.bvn.ctrl.game_ctrls.GameCtrl;
 	import net.play5d.game.bvn.data.EffectModel;
 	import net.play5d.game.bvn.data.EffectVO;
+	import net.play5d.game.bvn.data.GameData;
 	import net.play5d.game.bvn.data.HitType;
 	import net.play5d.game.bvn.fighter.Assister;
 	import net.play5d.game.bvn.fighter.FighterDefenseType;
@@ -22,7 +24,6 @@ package net.play5d.game.bvn.ctrl {
 	import net.play5d.game.bvn.interfaces.BaseGameSprite;
 	import net.play5d.game.bvn.interfaces.IGameSprite;
 	import net.play5d.game.bvn.stage.GameStage;
-	import net.play5d.game.bvn.data.GameData;
 	import net.play5d.game.bvn.utils.EffectManager;
 	import net.play5d.game.bvn.views.effects.BitmapFilterView;
 	import net.play5d.game.bvn.views.effects.BlackBackView;
@@ -86,6 +87,9 @@ package net.play5d.game.bvn.ctrl {
 		private var _replaceSkillPos:Point;
 		private var _explodeSkillFrame:int;
 		private var _explodeEffectPos:Point;
+		
+		private var _breakComboFrame:int;
+		private var _lastBreakComboOwner:FighterMain;
 		
 		private var _onFreezeOver:Vector.<Function> = null;
 		
@@ -154,6 +158,9 @@ package net.play5d.game.bvn.ctrl {
 			}
 			if (_explodeSkillFrame > 0) {
 				renderEnergyExplode();
+			}
+			if (_breakComboFrame > 0) {
+				renderBreakComboEffect();
 			}
 			if (_justRenderTargets && _justRenderTargets.length > 0) {
 				for each(var sp:BaseGameSprite in _justRenderTargets) {
@@ -861,6 +868,37 @@ package net.play5d.game.bvn.ctrl {
 			if (_explodeSkillFrame <= 0) {
 				endEnergyExplode();
 			}
+		}
+		
+		/**
+		 * 断连特效
+		 */
+	    public function doBreakComboEffect(fighter:FighterMain):void {
+			var ct:ColorTransform = new ColorTransform;
+			ct.redOffset = 109;
+			ct.blueOffset = 111;
+			ct.greenOffset = 102;
+			fighter.changeColor(ct);
+			_lastBreakComboOwner = fighter;
+			_breakComboFrame = 0.7 * GameConfig.FPS_GAME;
+		}
+		
+		public function isBreakComboEffect(fighter:FighterMain):Boolean {
+			if(_lastBreakComboOwner != fighter)return false;
+			return _breakComboFrame >= 1;
+		}
+		
+		private function renderBreakComboEffect():void {
+			_breakComboFrame--;
+			if (_breakComboFrame <= 0) {
+				endBreakComboEffect();
+			}
+		}
+		
+		private function endBreakComboEffect():void {
+			_lastBreakComboOwner.resumeColor();
+			_breakComboFrame = 0;
+			_lastBreakComboOwner = null;
 		}
 		
 		public function ghostStep(target:BaseGameSprite):void {
