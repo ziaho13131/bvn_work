@@ -162,11 +162,6 @@ package net.play5d.game.bvn.fighter {
 		}
 		
 		public function getCurrentTarget():IGameSprite {
-			if (_currentTarget) {
-				if (_currentTarget is BaseGameSprite && (_currentTarget as BaseGameSprite).isAlive) {
-					return _currentTarget;
-				}
-			}
 			
 			var targets:Vector.<IGameSprite> = getTargets();
 			var targetsOrder:Array = [];

@@ -10,6 +10,8 @@ package net.play5d.game.bvn.fighter.ctrler.ai {
 	import net.play5d.game.bvn.fighter.FighterMain;
 	import net.play5d.game.bvn.fighter.models.HitVO;
 	import net.play5d.game.bvn.interfaces.IGameSprite;
+	import net.play5d.game.bvn.ctrl.game_ctrls.GameCtrl;
+
 	
 	/**
 	 * 基本AI逻辑类

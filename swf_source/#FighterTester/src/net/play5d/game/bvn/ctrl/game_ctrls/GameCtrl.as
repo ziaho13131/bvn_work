@@ -638,7 +638,7 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 			trace("GameMode.currentMode :: " + GameMode.currentMode);
 			
 			gameRunData.nextRound();
-			if (GameMode.isTeamMode()&&!GameMode.isDuoMode()&&!GameMode.isThreeMode()) {
+			if (GameMode.isTeamMode()&&!GameMode.isDuoMode()&&!GameMode.isThreeMode()&&!GameMode.isStoryMode()) {
 				if (startNextTeamFight()) {
 					buildNextRound(true);
 					gameRunData.lastWinner = null;
@@ -647,6 +647,13 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 			}
 			
 			if (GameMode.isSingleMode()) {
+				if (gameRunData.p1Wins < 2 && gameRunData.p2Wins < 2) {
+					buildNextRound(false);
+					gameRunData.lastWinner = null;
+					return;
+				}
+			}
+			if (GameMode.isStoryMode()) {
 				if (gameRunData.p1Wins < 2 && gameRunData.p2Wins < 2) {
 					buildNextRound(false);
 					gameRunData.lastWinner = null;

@@ -226,6 +226,8 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 			{
 				return;
 			}
+			lastFighter.getCtrler().getMcCtrl().setSteelBody(false);
+			lastFighter.getCtrler().getEffectCtrl().endShadow();
 			EffectCtrl.I.slowDownResume();
 			GameCtrl.I.removeFighter(lastFighter);
 			nextFighter.x = lastFighter.x;
