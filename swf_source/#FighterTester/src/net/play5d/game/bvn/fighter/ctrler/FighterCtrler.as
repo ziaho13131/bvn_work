@@ -246,6 +246,18 @@ package net.play5d.game.bvn.fighter.ctrler {
 			_fighterMcCtrl = new FighterMcCtrler(fighter);
 			_fighterMcCtrl.effectCtrler = _effectCtrl;
 			
+			//老的加载方式
+			if(fighter.mc.setEffectCtrler)
+			{ 
+				fighter.mc.setEffectCtrler(_effectCtrl);
+				if(fighter.mc.setFighterMcCtrler)
+				{
+					fighter.mc.setFighterMcCtrler(_fighterMcCtrl);
+					return;
+				}
+				throw new Error("初始化效果接口失败，SWF未定义setFighterMcCtrler()");
+			}
+			
 			if (fighter.mc.initFighter) {
 				var param:Object = {
 					fighter_ctrler: this,

@@ -58,7 +58,6 @@ package net.play5d.game.bvn.fighter.models {
 			var hv:HitVO = new HitVO(obj);
 			hv.owner = _fighter;
 			hv.id = id;
-			
 			_hitObj[id] = hv;
 		}
 		

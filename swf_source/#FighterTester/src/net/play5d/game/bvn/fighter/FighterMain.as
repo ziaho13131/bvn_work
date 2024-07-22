@@ -241,9 +241,13 @@ package net.play5d.game.bvn.fighter {
 		
 		public function initlize():void {
 			_fighterCtrl = new FighterCtrler();
+			
+			if(_mainMc.setFighterCtrler)
+			{
+				_mainMc.setFighterCtrler(_fighterCtrl);
+			}
 			_buffCtrler = new FighterBuffCtrler(this);
 			_fighterCtrl.initFighter(this);
-			
 			_mainMc.gotoAndStop(data ? data.startFrame + 1 : 2);
 		}
 		
