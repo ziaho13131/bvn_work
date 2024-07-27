@@ -415,41 +415,54 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 				else {
 				 
 				//初始化闯关失败次数	
-				  if (!gameRunData.initArcadeLose) {
-					if (GameData.I.config.arcadeLoseMaxCount == "true") {
+				  if (!gameRunData.initArcadeLose) { 
+					  var arcadeCount:* = GameData.I.config.arcadeLoseMaxCount;
+					if (arcadeCount == "true") {
 						 switch (GameData.I.config.AI_level) {
 							 case 1:
 							 case 2:
 							    gameRunData.maxArcadeLose = 8;
+								gameRunData.addArcadeLifeNumb = 2;
 							 break;	 
 							 case 3:
-								gameRunData.maxArcadeLose = 6; 
+								gameRunData.maxArcadeLose = 6;
+								gameRunData.addArcadeLifeNumb = 2;
 							 break;	
 							 case 4:
 							 case 5:	 
 							   gameRunData.maxArcadeLose = 4; 
+							   gameRunData.addArcadeLifeNumb = 3;
 							 break;	
 							 case 6:
 								gameRunData.maxArcadeLose = 2;	
+								gameRunData.addArcadeLifeNumb = 4;
 						     break;	
 						 }
 					}
-					else if(GameData.I.config.arcadeLoseMaxCount != false)gameRunData.maxArcadeLose = GameData.I.config.arcadeLoseMaxCount;
+					else if(arcadeCount != false) {
+						gameRunData.maxArcadeLose = arcadeCount;	
+					   if(arcadeCount >= 6)gameRunData.addArcadeLifeNumb = 4;
+					   else if(arcadeCount == 4)gameRunData.addArcadeLifeNumb = 3;
+					   else if(arcadeCount == 2)gameRunData.addArcadeLifeNumb = 2;
+					}
 				      gameRunData.initArcadeLose = true;
 				 }	
-				    if (gameRunData.initArcadeLose && gameRunData.maxArcadeLose > 0){
-						trace("go to continue!");
+				    if (gameRunData.maxArcadeLose > 0){
 						
 						gameRunData.maxArcadeLose--;
-						trace(gameRunData.maxArcadeLose);
+						if(gameRunData.initArcadeLose)trace("go to continue!:"+gameRunData.maxArcadeLose);
+						else trace("go to continue!");
+						
 						gameRunData.continueLoser = gameRunData.p1FighterGroup.currentFighter;
 						MainGame.I.goContinue();
 					}
 					else {
-						trace("go to gameover!");
-						
+						if(gameRunData.initArcadeLose)trace("go to gameover!:"+gameRunData.maxArcadeLose);
+						else trace("go to gameover!");
+						gameRunData.maxArcadeLose = -1;
+						gameRunData.clear();
 						gameRunData.continueLoser = gameRunData.p1FighterGroup.currentFighter;
-						MainGame.I.goContinue();
+						MainGame.I.goGameOver();
 					}
 				}
 			}

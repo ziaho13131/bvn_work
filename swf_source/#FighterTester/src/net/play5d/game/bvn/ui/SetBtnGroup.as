@@ -511,7 +511,7 @@ package net.play5d.game.bvn.ui {
 					 },{
 						 label: "2",
 						 cn   : "2次",
-						 value: 4
+						 value: 2
 					 },{
 						 label: "4",
 						 cn   : "4次",
@@ -519,7 +519,7 @@ package net.play5d.game.bvn.ui {
 					 },{
 						 label: "6",
 						 cn   : "6次",
-						 value: 200
+						 value: 6
 					 },{
 						 label: "8次",
 						 cn   : "8次",
