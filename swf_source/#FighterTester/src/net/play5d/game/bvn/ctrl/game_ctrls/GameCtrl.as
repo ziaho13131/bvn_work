@@ -457,9 +457,8 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 						MainGame.I.goContinue();
 					}
 					else {
-						if(gameRunData.initArcadeLose)trace("go to gameover!:"+gameRunData.maxArcadeLose);
-						else trace("go to gameover!");
 						gameRunData.maxArcadeLose = -1;
+						trace("go to gameover!:"+gameRunData.maxArcadeLose);
 						gameRunData.clear();
 						gameRunData.continueLoser = gameRunData.p1FighterGroup.currentFighter;
 						MainGame.I.goGameOver();
