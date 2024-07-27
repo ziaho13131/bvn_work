@@ -44,6 +44,7 @@ package net.play5d.game.bvn.data {
 		public var isInfiniteAttack:String = "medium";
 		public var isLongGhostStep:String = "medium";
 		public var isBreakCombo:String = "medium";
+		public var arcadeLoseMaxCount:* = 4;
 		public var bgmVolume   :Number = 1;
 		public var keyInputMode:int = 1;
 		
@@ -106,6 +107,7 @@ package net.play5d.game.bvn.data {
 			o.isInfiniteAttack = isInfiniteAttack;
 			o.isLongGhostStep = isLongGhostStep;
 			o.isBreakCombo = isBreakCombo;
+			o.arcadeLoseMaxCount = arcadeLoseMaxCount;
 			o.keyInputMode = keyInputMode;
 			o.soundVolume = soundVolume;
 			o.bgmVolume = bgmVolume;

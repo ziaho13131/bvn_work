@@ -1867,10 +1867,11 @@ package net.play5d.game.bvn.fighter.ctrler {
 			_hasLongGhostStep = false;
 			longGhostStepState = 0;
 			if(_fighter.team != null) {
-				 currentFighter = _fighter.team.id == 1?
+				currentFighter = _fighter.team.id == 1?
 					GameCtrl.I.gameRunData.p2FighterGroup.currentFighter:
 					GameCtrl.I.gameRunData.p1FighterGroup.currentFighter;
-				fc = currentFighter.getCtrler();
+				if(!currentFighter)return;
+				 fc = currentFighter.getCtrler();
 				if(GameData.I.config.isInfiniteAttack == "limited"&&_fighter.actionState != 40) {
 					fc.hitModel.setPowerRate(1);
 					_limiteInfinityCombo = 6;

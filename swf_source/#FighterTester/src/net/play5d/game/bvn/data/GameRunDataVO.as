@@ -22,6 +22,8 @@ package net.play5d.game.bvn.data {
 		
 		public var lastWinnerTeam:TeamVO;
 		public var continueLoser:FighterMain;
+		public var maxArcadeLose:int;
+		public var initArcadeLose:Boolean = false;
 		public var lastWinner:FighterMain;
 		public var lastWinnerHp:int = 1000;
 		public var lastLoserData:FighterVO;

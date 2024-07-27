@@ -413,10 +413,44 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 					}
 				}
 				else {
-					trace("go to continue!");
-					
-					gameRunData.continueLoser = gameRunData.p1FighterGroup.currentFighter;
-					MainGame.I.goContinue();
+				 
+				//初始化闯关失败次数	
+				  if (!gameRunData.initArcadeLose) {
+					if (GameData.I.config.arcadeLoseMaxCount == "true") {
+						 switch (GameData.I.config.AI_level) {
+							 case 1:
+							 case 2:
+							    gameRunData.maxArcadeLose = 8;
+							 break;	 
+							 case 3:
+								gameRunData.maxArcadeLose = 6; 
+							 break;	
+							 case 4:
+							 case 5:	 
+							   gameRunData.maxArcadeLose = 4; 
+							 break;	
+							 case 6:
+								gameRunData.maxArcadeLose = 2;	
+						     break;	
+						 }
+					}
+					else if(GameData.I.config.arcadeLoseMaxCount != false)gameRunData.maxArcadeLose = GameData.I.config.arcadeLoseMaxCount;
+				      gameRunData.initArcadeLose = true;
+				 }	
+				    if (gameRunData.initArcadeLose && gameRunData.maxArcadeLose > 0){
+						trace("go to continue!");
+						
+						gameRunData.maxArcadeLose--;
+						trace(gameRunData.maxArcadeLose);
+						gameRunData.continueLoser = gameRunData.p1FighterGroup.currentFighter;
+						MainGame.I.goContinue();
+					}
+					else {
+						trace("go to gameover!");
+						
+						gameRunData.continueLoser = gameRunData.p1FighterGroup.currentFighter;
+						MainGame.I.goContinue();
+					}
 				}
 			}
 			if (GameMode.isVsCPU() || GameMode.isVsPeople()) {

@@ -187,13 +187,13 @@ package net.play5d.game.bvn {
 			setFPS(60);
 		}
 		
-//		public function goGameOver():void {
-//			var stg:GameOverStage = new GameOverStage();
-//			stg.showGameOver();
-//			stageCtrl.goStage(stg);
-//
-//			setFPS(30);
-//		}
+		public function goGameOver():void {
+			var stg:GameOverStage = new GameOverStage();
+			stg.showGameOver();
+			stageCtrl.goStage(stg);
+
+            setFPS(30);
+		}
 		
 		public function goWinner():void {
 			var stg:WinnerStage = new WinnerStage();

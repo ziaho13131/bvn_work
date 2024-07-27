@@ -497,6 +497,36 @@ package net.play5d.game.bvn.ui {
 					 }
 					 ],
 					 optoinKey: "catchHitFreeze"
+				 },{
+					 txt      : "ARCADE FAILED",
+					 cn       : "闯关失败次数",
+					 options  : [{
+						 label: "DISABLED",
+						 cn   : "禁用 (原版)",
+						 value: false
+					 },{
+						 label: "ENABLED",
+						 cn   : "启用-AI难度 (推荐)",
+						 value: "true"
+					 },{
+						 label: "2",
+						 cn   : "2次",
+						 value: 4
+					 },{
+						 label: "4",
+						 cn   : "4次",
+						 value: 4
+					 },{
+						 label: "6",
+						 cn   : "6次",
+						 value: 200
+					 },{
+						 label: "8次",
+						 cn   : "8次",
+						 value: 8
+					 }
+					 ],
+					 optoinKey: "arcadeLoseMaxCount"
 				 }
 				];
 			}
