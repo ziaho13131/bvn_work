@@ -29,7 +29,7 @@ package net.play5d.game.bvn.data {
 		public var lastWinnerHp:int = 1000;
 		public var lastLoserData:FighterVO;
 		public var lastLoserQi:int = 0;
-		
+		public var lastMissionNum:int = 0;
 		public var round:int = 1;
 		public var gameTime:int;
 		public var gameTimeMax:int;
@@ -64,7 +64,10 @@ package net.play5d.game.bvn.data {
 		}
 		
 		public function clear():void {
-			if(maxArcadeLose && maxArcadeLose == -1)initArcadeLose = false;
+			if (maxArcadeLose && maxArcadeLose == -1) {
+				lastMissionNum = 0;
+				initArcadeLose = false;
+			}
 			map = null;
 			lastWinnerTeam = null;
 			lastWinner = null;

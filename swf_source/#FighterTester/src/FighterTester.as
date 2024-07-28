@@ -250,6 +250,10 @@ package {
 			GameData.I.p1Select.fuzhu = _p1FzInputId.text;
 			GameData.I.p2Select.fuzhu = _p2FzInputId.text;
 			GameData.I.selectMap = _mapInputId.text;
+			if (GameCtrl.I.gameRunData.initArcadeLose != false) {
+				GameCtrl.I.gameRunData.maxArcadeLose = -1;
+				GameCtrl.I.gameRunData.clear();
+			}
 			
 			loadGame();
 		}

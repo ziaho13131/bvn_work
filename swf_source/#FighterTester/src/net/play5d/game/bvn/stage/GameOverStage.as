@@ -211,7 +211,10 @@ package net.play5d.game.bvn.stage {
 		
 		private function showContNoComplete(e:Event):void {
 			_ui.removeEventListener(Event.COMPLETE, showContNoComplete);
-			
+			if (GameCtrl.I.gameRunData.initArcadeLose != false) {
+				GameCtrl.I.gameRunData.maxArcadeLose = -1;
+				GameCtrl.I.gameRunData.clear();
+			}
 			showGameOver();
 		}
 		

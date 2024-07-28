@@ -106,6 +106,10 @@ package net.play5d.game.bvn.ui {
 							false,
 							JSON.stringify(["back_title"])
 						));
+						if (GameCtrl.I.gameRunData.initArcadeLose != false) {
+							GameCtrl.I.gameRunData.maxArcadeLose = -1;
+							GameCtrl.I.gameRunData.clear();
+						}
 						MainGame.I.goMenu();
 					}, function ():void {
 						_btnGroup.keyEnable = true;

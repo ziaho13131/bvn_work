@@ -263,7 +263,7 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 			_mainLogicCtrl.initlize(gameState, _teamMap, map);
 			
 			//如果是生存模式 则继承上一局对局血量
-			if(GameMode.currentMode == 30&&MessionModel.I.getCurrentMissionNumb != 0&&gameRunData.lastWinnerHp != 1000) {	
+			if(GameMode.currentMode == 30 && MessionModel.I.getCurrentMissionNumb != 0 && gameRunData.lastWinnerHp != 1000) {	
 			p1.hp = gameRunData.lastWinnerHp;
 			trace("buildGame.survival :: ("+gameRunData.lastWinnerHp+") hp inherit Succeed");
 			}
@@ -406,8 +406,18 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 						MainGame.I.goCongratulations();
 					}
 					else {
-						trace("next battle!");
+						if (gameRunData.initArcadeLose != false)trace("next battle! "+
+						     "Mission:"+MessionModel.I.getCurrentMissionNumb+" : "
+							   +int(gameRunData.lastMissionNum+gameRunData.addArcadeLifeNumb));
+						else trace("next battle!");
 						
+					   //根据闯关数加生命
+						if (gameRunData.initArcadeLose != false)
+						if (gameRunData.maxArcadeLose != GameData.I.config.arcadeLoseMaxCount && gameRunData.initArcadeLose != false)	
+						if (MessionModel.I.getCurrentMissionNumb == gameRunData.lastMissionNum + gameRunData.addArcadeLifeNumb) {
+								gameRunData.maxArcadeLose++;
+								trace("addLife:+1 : "+gameRunData.maxArcadeLose);
+							}
 						GameData.I.winnerId = gameRunData.p1FighterGroup.currentFighter.data.id;
 						MainGame.I.goWinner();
 					}
@@ -415,8 +425,8 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 				else {
 				 
 				//初始化闯关失败次数	
-				  if (!gameRunData.initArcadeLose) { 
-					  var arcadeCount:* = GameData.I.config.arcadeLoseMaxCount;
+					var arcadeCount:* = GameData.I.config.arcadeLoseMaxCount;
+				  if (!gameRunData.initArcadeLose && arcadeCount != false) { 
 					if (arcadeCount == "true") {
 						 switch (GameData.I.config.AI_level) {
 							 case 1:
@@ -439,6 +449,8 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 						     break;	
 						 }
 					}
+					
+				  //根据命数设置恢复需要的闯关数量
 					else if(arcadeCount != false) {
 						gameRunData.maxArcadeLose = arcadeCount;	
 					   if(arcadeCount >= 6)gameRunData.addArcadeLifeNumb = 4;
@@ -447,20 +459,20 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 					}
 				      gameRunData.initArcadeLose = true;
 				 }	
+				  
+				  //判断 如果命数大于0则跳转到继续 : 否则则跳转到失败界面
 				    if (gameRunData.maxArcadeLose > 0){
-						
 						gameRunData.maxArcadeLose--;
-						if(gameRunData.initArcadeLose)trace("go to continue!:"+gameRunData.maxArcadeLose);
+						gameRunData.lastMissionNum = MessionModel.I.getCurrentMissionNumb;
+						if (gameRunData.initArcadeLose != false)trace("go to continue! Life:"+gameRunData.maxArcadeLose+"，Stage:"+gameRunData.lastMissionNum);
 						else trace("go to continue!");
-						
 						gameRunData.continueLoser = gameRunData.p1FighterGroup.currentFighter;
 						MainGame.I.goContinue();
 					}
 					else {
 						gameRunData.maxArcadeLose = -1;
-						trace("go to gameover!:"+gameRunData.maxArcadeLose);
+						trace("go to gameover! Life:"+gameRunData.maxArcadeLose+"，Stage:"+gameRunData.lastMissionNum);
 						gameRunData.clear();
-						gameRunData.continueLoser = gameRunData.p1FighterGroup.currentFighter;
 						MainGame.I.goGameOver();
 					}
 				}
