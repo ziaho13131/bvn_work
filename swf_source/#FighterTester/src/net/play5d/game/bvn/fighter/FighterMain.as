@@ -69,6 +69,7 @@ package net.play5d.game.bvn.fighter {
 			super(mainMc);
 			_area = null;
 			qi = GameData.I.config.initFighterQi;
+			fzqi = GameData.I.config.initFullFzQi ? 100 : 0;
 		}
 		
 //		public function get colorTransform():ColorTransform {
@@ -85,7 +86,11 @@ package net.play5d.game.bvn.fighter {
 		}
 		
 		public function resumeColor():void {
-			_mainMc.transform.colorTransform = _colorTransform ? _colorTransform : new ColorTransform();
+			if (_colorTransform != null) {
+				_mainMc.transform.colorTransform = _colorTransform;
+				return;
+			}
+			_mainMc.transform.colorTransform = new ColorTransform();
 		}
 		
 		override public function destory(dispose:Boolean = true):void {

@@ -34,6 +34,7 @@ package net.play5d.game.bvn.data {
 		public var fightTime   :int = 60;
 		public var quality     :String = GameQuality.LOW;
 		public var cameraMaxSize:Number = 1;
+        public var initFullFzQi:Boolean = true;
 		public var isFullScreen:Boolean = false;
 		public var isSmoothLowQuality:Boolean = true;
 		public var isSteelBodyFreeze:Boolean = true;
@@ -102,6 +103,7 @@ package net.play5d.game.bvn.data {
 			o.fightTime = fightTime;
 			o.quality = quality;
 			o.cameraMaxSize = cameraMaxSize;
+			o.initFullFzQi = initFullFzQi;
 			o.isFullScreen = isFullScreen;
 			o.isSmoothLowQuality = isSmoothLowQuality;
 			o.isSteelBodyFreeze = isSteelBodyFreeze;

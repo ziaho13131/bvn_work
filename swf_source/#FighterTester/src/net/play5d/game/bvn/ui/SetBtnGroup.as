@@ -373,7 +373,21 @@ package net.play5d.game.bvn.ui {
 					}
 					],
 					optoinKey: "isFullScreen"
-		         }, {
+		         },{
+					 txt      : "INIT FULL FZQI",
+					 cn       : "设置初始辅助可用",
+					 options  : [{
+						 label: "ENABLED",
+						 cn   : "启用",
+						 value: true
+					 },{
+						 label: "DISABLED",
+						 cn   : "禁用",
+						 value: false
+					 }
+					 ],
+					 optoinKey: "initFullFzQi"
+				 },{
 					 txt      : "SMOOTHLOW QUALITY",
 					 cn       : "平滑低画质",
 					 options  : [{
