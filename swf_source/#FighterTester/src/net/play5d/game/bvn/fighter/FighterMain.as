@@ -103,7 +103,7 @@ package net.play5d.game.bvn.fighter {
 				_buffCtrler.destory();
 				_buffCtrler = null;
 			}
-			
+			resumeColor();
 			targetTeams = null;
 			_currentTarget = null;
 			_currentHurts = null;
