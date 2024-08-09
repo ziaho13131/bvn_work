@@ -499,7 +499,7 @@ package net.play5d.game.bvn.ui {
 					 optoinKey: "catchHitFreeze"
 				 },{
 					 txt      : "ARCADE FAILED",
-					 cn       : "闯关失败次数 (需重启)",
+					 cn       : "闯关失败次数",
 					 options  : [{
 						 label: "DISABLED",
 						 cn   : "禁用 (原版)",

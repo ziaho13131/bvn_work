@@ -426,6 +426,11 @@ package net.play5d.game.bvn.ctrl.game_ctrls {
 				 
 				//初始化闯关失败次数	
 					var arcadeCount:* = GameData.I.config.arcadeLoseMaxCount;
+					
+				  if (!GameConfig.ArcadeIntSwitch) { 
+					  GameConfig.ArcadeIntSwitch = true;
+					  gameRunData.initArcadeLose = false;
+				  }
 				  if (!gameRunData.initArcadeLose && arcadeCount != false) { 
 					if (arcadeCount == "true") {
 						 switch (GameData.I.config.AI_level) {

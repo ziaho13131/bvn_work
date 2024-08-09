@@ -206,6 +206,9 @@ package net.play5d.game.bvn.data {
 			else {
 				MainGame.I.stage.displayState = "normal";
 			}
+			if (arcadeLoseMaxCount != false) {
+				GameConfig.ArcadeIntSwitch = false;
+			}
 			GameInterface.instance.applyConfig(this);
 			SoundCtrl.I.setBgmVolumn(bgmVolume);
 			SoundCtrl.I.setSoundVolumn(soundVolume);
