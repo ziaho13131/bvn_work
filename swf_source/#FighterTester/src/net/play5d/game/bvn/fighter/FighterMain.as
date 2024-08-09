@@ -6,6 +6,7 @@ package net.play5d.game.bvn.fighter {
 	import flash.geom.ColorTransform;
 	import flash.geom.Rectangle;
 	
+	import net.play5d.game.bvn.data.GameData;
 	import net.play5d.game.bvn.GameConfig;
 	import net.play5d.game.bvn.ctrl.GameLogic;
 	import net.play5d.game.bvn.ctrl.game_ctrls.GameCtrl;
@@ -67,6 +68,7 @@ package net.play5d.game.bvn.fighter {
 		public function FighterMain(mainMc:MovieClip) {
 			super(mainMc);
 			_area = null;
+			qi = GameData.I.config.initFighterQi;
 		}
 		
 //		public function get colorTransform():ColorTransform {

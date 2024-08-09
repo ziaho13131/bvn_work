@@ -22,9 +22,9 @@ package net.play5d.kyo.stage {
 		 */
 		public var changeStateMouseGap:int = 0;
 		
-//		public function get currentStage():IStage {
-//			return _curStage;
-//		}
+		public function get currentStage():IStage {
+			return _curStage;
+		}
 		
 		public function KyoStageCtrl(mainStage:Sprite) {
 			_mainStage = mainStage;

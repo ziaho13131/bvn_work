@@ -30,8 +30,10 @@ package net.play5d.game.bvn.data {
 		public var isFirstRunGame :Boolean = true;
 		public var AI_level    :int = 1;
 		public var fighterHP   :Number = 1;
+		public var initFighterQi:int = 100;
 		public var fightTime   :int = 60;
 		public var quality     :String = GameQuality.LOW;
+		public var cameraMaxSize:Number = 1;
 		public var isFullScreen:Boolean = false;
 		public var isSmoothLowQuality:Boolean = true;
 		public var isSteelBodyFreeze:Boolean = true;
@@ -44,6 +46,8 @@ package net.play5d.game.bvn.data {
 		public var isInfiniteAttack:String = "medium";
 		public var isLongGhostStep:String = "medium";
 		public var isBreakCombo:String = "medium";
+		public var allowWankai:Boolean = true;
+		public var isChangeSpecialKey:Boolean = false;
 		public var arcadeLoseMaxCount:* = 4;
 		public var bgmVolume   :Number = 1;
 		public var keyInputMode:int = 1;
@@ -94,8 +98,10 @@ package net.play5d.game.bvn.data {
 			o.isFirstRunGame = isFirstRunGame;
 			o.AI_level = AI_level;
 			o.fighterHP = fighterHP;
+			o.initFighterQi = initFighterQi;
 			o.fightTime = fightTime;
 			o.quality = quality;
+			o.cameraMaxSize = cameraMaxSize;
 			o.isFullScreen = isFullScreen;
 			o.isSmoothLowQuality = isSmoothLowQuality;
 			o.isSteelBodyFreeze = isSteelBodyFreeze;
@@ -107,6 +113,8 @@ package net.play5d.game.bvn.data {
 			o.isInfiniteAttack = isInfiniteAttack;
 			o.isLongGhostStep = isLongGhostStep;
 			o.isBreakCombo = isBreakCombo;
+			o.allowWankai = allowWankai;
+			o.isChangeSpecialKey = isChangeSpecialKey;
 			o.arcadeLoseMaxCount = arcadeLoseMaxCount;
 			o.keyInputMode = keyInputMode;
 			o.soundVolume = soundVolume;

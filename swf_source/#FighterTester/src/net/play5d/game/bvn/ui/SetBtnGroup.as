@@ -201,7 +201,32 @@ package net.play5d.game.bvn.ui {
 					}
 					],
 					optoinKey: "fighterHP"
-				}, {
+				},{
+					"txt":"INIT QI",
+					"cn":"初始气量",
+					"options":[{
+						"label":"0%",
+						"cn":"0%",
+						"value":"0"
+					},{
+						"label":"50%",
+						"cn":"50%",
+						"value":"50"
+					},{
+						"label":"100%",
+						"cn":"100%",
+						"value":"100"
+					},{
+						"label":"200%",
+						"cn":"200%",
+						"value":"200"
+					},{
+						"label":"300%",
+						"cn":"300%",
+						"value":"300"
+					}],
+					"optoinKey":"initFighterQi"
+				},{
 					txt      : "TIME",
 					cn       : "对战时间",
 					options  : [{
@@ -305,6 +330,35 @@ package net.play5d.game.bvn.ui {
 					}
 					],
 					optoinKey: "quality"
+				},{
+					"txt":"CAMERA MAX SIZE",
+					"cn":"镜头最大大小",
+					"options":[{
+						"label":"50%",
+						"cn":"50%",
+						"value":0.5
+					},{
+						"label":"60%",
+						"cn":"60%",
+						"value":0.6
+					},{
+						"label":"70%",
+						"cn":"70%",
+						"value":0.7
+					},{
+						"label":"80%",
+						"cn":"80%",
+						"value":0.8
+					},{
+						"label":"90%",
+						"cn":"90%",
+						"value":0.9
+					},{
+						"label":"100%",
+						"cn":"100%",
+						"value":1
+					}],
+					"optoinKey":"cameraMaxSize"
 				}, {
 					txt      : "DISPLAY MODE",
 					cn       : "显示模式",
@@ -498,6 +552,19 @@ package net.play5d.game.bvn.ui {
 					 ],
 					 optoinKey: "catchHitFreeze"
 				 },{
+					 "txt":"CHANGE SPECIAL KEY",
+					 "cn":"修改灵替按键为 ↑/↓ + special",
+					 "options":[{
+						 "label":"ENABLED",
+						 "cn":"启用",
+						 "value":true
+					 },{
+						 "label":"DISABLED",
+						 "cn":"禁用",
+						 "value":false
+					 }],
+					 "optoinKey":"isChangeSpecialKey"
+				 },{
 					 txt      : "ARCADE FAILED",
 					 cn       : "闯关失败次数",
 					 options  : [{
@@ -638,6 +705,19 @@ package net.play5d.game.bvn.ui {
 					}
 					],
 					optoinKey: "isBreakCombo"
+				},{
+					"txt":"ALLOW WANKAI",
+					"cn":"允许变身",
+					"options":[{
+						"label":"FALSE",
+						"cn":"否",
+						"value":false
+					},{
+						"label":"TRUE",
+						"cn":"是",
+						"value":true
+					}],
+					"optoinKey":"allowWankai"
 				}
 				];
 			}

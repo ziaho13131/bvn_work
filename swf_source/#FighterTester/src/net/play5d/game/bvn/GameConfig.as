@@ -96,6 +96,7 @@ package net.play5d.game.bvn {
 		public static const CAMERA_TWEEN_SPD:Number = 2.5;
 		
 		public static const FIGHTER_HP_MAX:int = 1000;
+		
 		public static var ArcadeIntSwitch:Boolean = false;
 		
 //		public static var MAP_LOGO_STATE:int = 0;

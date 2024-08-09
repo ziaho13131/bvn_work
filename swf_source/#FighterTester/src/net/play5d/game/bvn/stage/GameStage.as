@@ -381,7 +381,7 @@ package net.play5d.game.bvn.stage {
 			camera.offsetY = _map.getMapBottomDistance();
 			camera.setStageBounds(new Rectangle(0, -1000, stageSize.x, stageSize.y));
 			camera.autoZoom = true;
-			camera.autoZoomMin = 1;
+			camera.autoZoomMin = Number(Math.floor(100 * (1 / GameData.I.config.cameraMaxSize)) / 100);
 			if(!GameMode.isThreeMode())camera.autoZoomMax = 2.5;
 			else camera.autoZoomMax = 1.8;
 			camera.tweenSpd = 2.5 / GameConfig.SPEED_PLUS_DEFAULT;

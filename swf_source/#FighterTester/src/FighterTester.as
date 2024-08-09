@@ -33,6 +33,7 @@ package {
 	import net.play5d.game.bvn.interfaces.GameInterface;
 	import net.play5d.game.bvn.interfaces.GameInterfaceManager;
 	import net.play5d.game.bvn.stage.LoadingStage;
+	import net.play5d.game.bvn.stage.SettingStage;
 	import net.play5d.kyo.display.ui.KyoSimpButton;
 	
 	
@@ -128,7 +129,7 @@ package {
 			
 			addLabel("assistant_id", yy);
 			_p1FzInputId = addInput("kon", yy, 80);
-			yy += 80;
+			yy += 40;
 			
 			addLabel("Player 2", yy);
 			yy += 40;
@@ -143,7 +144,7 @@ package {
 			
 			addLabel("map_id", yy);
 			_mapInputId = addInput(MapModel.I.getAllMaps()[1].id, yy, 80);
-			yy += 60;
+			yy += 40;
 			
 			addLabel("Game FPS", yy);
 			_fpsInput = addInput(GameConfig.FPS_GAME.toString(), yy, 80);
@@ -151,14 +152,15 @@ package {
 			
 			addLabel("Recover", yy);
 			_autoReceiveHp = addInput("1", yy, 80);
-			yy += 60;
+			yy += 85;
 			
 			_debugText = addLabel("Error Message Text", yy, 0);
 			_debugText.width = 190;
-			_debugText.height = 200;
+			_debugText.height = 220;
 			_debugText.textColor = 0xe3f050;
 			_debugText.multiline = true;
 			
+			addButton("Fast Setup", 450, 25, 140, 35, fastSetup);
 			addButton("Start Test", 500, 25, 140, 35, testGame);
 			addButton("Kill P2", 550, 25, 140, 35, killP2);
 		}
@@ -256,6 +258,12 @@ package {
 			}
 			
 			loadGame();
+		}
+		
+		private function fastSetup(...params):void {
+			if (MainGame.stageCtrl.currentStage is SettingStage)MainGame.I.goRuleBook();
+			else MainGame.I.goOption();
+			
 		}
 		
 		private static function loadGame():void {

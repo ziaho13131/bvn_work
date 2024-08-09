@@ -1366,6 +1366,10 @@ package net.play5d.game.bvn.fighter.ctrler {
 		}
 		
 		private function doWaiKaiAction(action:String):void {
+			if(!GameData.I.config.allowWankai)
+			{
+				return;
+			}
 			if (!_mc.checkFrame(action)) {
 				return;
 			}

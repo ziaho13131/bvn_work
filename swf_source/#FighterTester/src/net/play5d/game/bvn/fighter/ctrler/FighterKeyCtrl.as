@@ -2,7 +2,9 @@
  * 已重建完成
  */
 package net.play5d.game.bvn.fighter.ctrler {
+
 	import net.play5d.game.bvn.ctrl.game_ctrls.GameCtrl;
+	import net.play5d.game.bvn.data.GameData;
 	import net.play5d.game.bvn.input.GameInputer;
 	import net.play5d.game.bvn.interfaces.IFighterActionCtrl;
 	
@@ -132,11 +134,17 @@ package net.play5d.game.bvn.fighter.ctrler {
 		}
 		
 		public function assist():Boolean {
-			return GameInputer.special(inputType, 0);
+			if (!GameData.I.config.isChangeSpecialKey) {
+				return GameInputer.special(inputType,0);
+			}
+			return GameInputer.special(inputType,0) && !GameInputer.up(inputType,0);
 		}
 		
 		public function specailSkill():Boolean {
-			return GameInputer.special(inputType, 0);
+			if (!GameData.I.config.isChangeSpecialKey) {
+				return GameInputer.special(inputType,0);
+			}
+			return GameInputer.special(inputType,0) && (GameInputer.up(inputType,0) || GameInputer.down(inputType,0));
 		}
 		
 		public function attackAIR():Boolean {
