@@ -627,6 +627,7 @@ package net.play5d.game.bvn.ui {
 				}
 			}
 			
+			addBtn("RESET DEFAULT", "重置默认设置");
 			addBtn("APPLY", "应用");
 			addBtn("CANCEL", "取消");
 		}
@@ -750,7 +751,7 @@ package net.play5d.game.bvn.ui {
 					btn.setOptionByValue(config.getValueByKey(btn.optionKey));
 				}
 			}
-			
+			addBtn("RESET DEFAULT", "重置默认设置");
 			addBtn("APPLY", "应用");
 			addBtn("CANCEL", "取消");
 		}

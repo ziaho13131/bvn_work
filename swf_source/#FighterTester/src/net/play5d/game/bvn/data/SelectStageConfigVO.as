@@ -63,7 +63,12 @@ package net.play5d.game.bvn.data {
 				
 				for (var x:int = 0; x < row.children().length(); x++) {
 					var item:XML = row.children()[x];
-					
+					var moreFighterArray:Array = null;
+					var moreFighter:String = null;					
+					moreFighter = item.@moreFighter;
+					if (moreFighter && moreFighter.length > 0) {
+						moreFighterArray = moreFighter.split(",");
+					}
 					var fighterID:String = item.toString();
 					if (fighterID && fighterID.length < 1) {
 						fighterID = null;
@@ -83,6 +88,7 @@ package net.play5d.game.bvn.data {
 					}
 					
 					var cv:SelectCharListItemVO = new SelectCharListItemVO(x, y, fighterID, offset);
+					cv.moreFighterIDs = moreFighterArray;
 					sv.list.push(cv);
 				}
 			}

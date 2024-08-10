@@ -40,7 +40,8 @@ package net.play5d.game.bvn.stage {
 	public class LoadingStage implements IStage {
 		
 		public static var AUTO_START_GAME:Boolean = true;
-		
+		public static var loadFighterIng:Boolean = false;
+
 		private var _ui:MovieClip;
 		private var _sltUI:MovieClip;
 		private var _loadQueue:Array;
@@ -50,7 +51,6 @@ package net.play5d.game.bvn.stage {
 		private var _loadFin:Boolean;
 		private var _selectIndexUI:SelectIndexUI;
 		
-		private var _loadFighterIng:Boolean = false;
 		private var _loadedFighterCache:Object = {};
 		private var _currentLoadBack:Function;
 		
@@ -100,7 +100,7 @@ package net.play5d.game.bvn.stage {
 			SoundCtrl.I.BGM(AssetManager.I.getSound("loading"));
 			
 			_ui = ResUtils.I.createDisplayObject(ResUtils.I.fight, "loading_fight_mc");
-			_loadFighterIng = true;
+			loadFighterIng = true;
 			_sltUI = _ui.sltui;
 			_selectIndexUI = new SelectIndexUI();
 			_selectIndexUI.onFinish = finish;
@@ -213,7 +213,7 @@ package net.play5d.game.bvn.stage {
 						function (fighter:Assister, runobj:Object):void {
 							GameCtrl.I.gameRunData[runobj.group][runobj.id] = fighter;
 							loadNext();
-							_loadFighterIng = false;
+							loadFighterIng = false;
 						}, 
 						loadFail, 
 						loadProcess, 
@@ -266,9 +266,9 @@ package net.play5d.game.bvn.stage {
 				if (GameUI.showingDialog()) {
 					GameUI.closeConfrim();
 				}
-				else if(!_loadFighterIng){
+				else if(!loadFighterIng){
 					GameUI.confirm("BACK TITLE?", "返回到主菜单？",function():void {
-					  if(!_loadFighterIng)MainGame.I.goMenu();
+					  if(!loadFighterIng)MainGame.I.goMenu();
 					  }
 					);
 				}

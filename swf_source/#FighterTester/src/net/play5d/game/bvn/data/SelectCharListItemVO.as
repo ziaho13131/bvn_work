@@ -13,12 +13,26 @@ package net.play5d.game.bvn.data {
 		public var y:int;
 		public var fighterID:String;
 		public var offset:Point;
+		public var moreFighterIDs:Array;
 		
 		public function SelectCharListItemVO(x:int, y:int, fighterID:String, offset:Point = null) {
 			this.x = x;
 			this.y = y;
 			this.fighterID = fighterID;
 			this.offset = offset;
+		}
+		
+		public function getAllFighterIDs():Array {
+			var fighterArray:Array = [];
+			if(fighterID)
+			{
+				fighterArray.push(fighterID);
+			}
+			if(moreFighterIDs && moreFighterIDs.length > 0)
+			{
+				fighterArray = fighterArray.concat(moreFighterIDs);
+			}
+			return fighterArray;
 		}
 	}
 }

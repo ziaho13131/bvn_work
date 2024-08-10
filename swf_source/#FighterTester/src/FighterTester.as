@@ -10,6 +10,8 @@ package {
 	import flash.text.TextFieldType;
 	import flash.text.TextFormat;
 	
+	import net.play5d.game.bvn.stage.LoadingStage;
+	import net.play5d.game.bvn.ctrl.SoundCtrl;
 	import net.play5d.game.bvn.Debugger;
 	import net.play5d.game.bvn.GameConfig;
 	import net.play5d.game.bvn.GameQuality;
@@ -238,7 +240,7 @@ package {
 		
 		private function testGame(...params):void {
 //			Debugger.errorMsg("");
-			
+			SoundCtrl.I.sndSelect();
 			changeFPS();
 			
 			GameMode.currentMode = GameMode.TRAINING;
@@ -261,6 +263,10 @@ package {
 		}
 		
 		private function fastSetup(...params):void {
+			if (LoadingStage.loadFighterIng) {
+				Debugger.errorMsg("Fighter is Loading!");
+				return;
+			}
 			if (MainGame.stageCtrl.currentStage is SettingStage)MainGame.I.goRuleBook();
 			else MainGame.I.goOption();
 			
@@ -273,6 +279,7 @@ package {
 		
 		private function killP2(...params):void {
 			var rundata:GameRunDataVO = GameCtrl.I.gameRunData;
+			SoundCtrl.I.sndSelect();
 			if (!rundata) {
 				Debugger.errorMsg("No game data!");
 				return;

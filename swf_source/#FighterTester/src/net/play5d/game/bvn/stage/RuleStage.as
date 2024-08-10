@@ -82,6 +82,13 @@ package net.play5d.game.bvn.stage {
 				case "P2 KEY SET":
 					goKeyConfig(2, GameData.I.config.key_p2);
 					break;
+				case "RESET DEFAULT":
+					GameData.I.config.resetDefaultConfig(true);
+					GameData.I.saveData();
+					GameData.I.config.applyConfig();
+					GameInputer.updateConfig();
+					MainGame.I.goMenu();
+					break;
 				case "APPLY":
 					GameData.I.saveData();
 					GameData.I.config.applyConfig();
@@ -89,7 +96,8 @@ package net.play5d.game.bvn.stage {
 					MainGame.I.goMenu();
 					break;
 				case "CANCEL":
-					MainGame.I.goMenu();	
+					MainGame.I.goMenu();
+					break;
 			}
 		}
 		

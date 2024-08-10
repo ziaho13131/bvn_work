@@ -29,15 +29,15 @@ package net.play5d.game.bvn.data {
 		public var select_config:SelectStageConfigVO;
 		public var isFirstRunGame :Boolean = true;
 		public var AI_level    :int = 1;
-		public var fighterHP   :Number = 1;
+		public var fighterHP   :Number = 2;
 		public var initFighterQi:int = 100;
-		public var fightTime   :int = 60;
-		public var quality     :String = GameQuality.LOW;
+		public var fightTime   :int = -1;
+		public var quality     :String = GameQuality.MEDIUM;
 		public var cameraMaxSize:Number = 1;
         public var initFullFzQi:Boolean = true;
 		public var isFullScreen:Boolean = false;
 		public var isSmoothLowQuality:Boolean = true;
-		public var isSteelBodyFreeze:Boolean = true;
+		public var isSteelBodyFreeze:Boolean = false;
 		public var isSlowDown:Boolean = true;
 		public var shakeLevel:String = "medium";
 		public var soundVolume :Number = 1;
@@ -178,6 +178,37 @@ package net.play5d.game.bvn.data {
 //			}
 		}
 		
+		public function resetDefaultConfig(isRule:Boolean = false):void {
+			if (isRule) {
+				isInfiniteAttack = "medium";
+				isLongGhostStep = "medium";
+				isBreakCombo = "medium";
+				allowWankai = true;
+				isChangeSpecialKey = false;
+				arcadeLoseMaxCount = 4;
+			}
+			 else {
+				AI_level     = 1;
+				fighterHP    = 2;
+				initFighterQi = 100;
+				fightTime    = -1;
+				quality      = GameQuality.MEDIUM;
+				cameraMaxSize = 1;
+				initFullFzQi = true;
+				isFullScreen = false;
+				isSmoothLowQuality = true;
+				isSteelBodyFreeze = false;
+				isSlowDown = true;
+				shakeLevel = "medium";
+				soundVolume  = 1;
+				weakHitFreeze = 0;
+				heavyHitFreeze = 250;
+				catchHitFreeze = 250;
+				bgmVolume    = 1;
+				keyInputMode = 1;
+			}
+		}
+			
 		public function applyConfig():void {
 			switch (quality) {
 				case GameQuality.LOW:
