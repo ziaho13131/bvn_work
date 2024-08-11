@@ -101,9 +101,6 @@ package net.play5d.game.bvn.ctrl {
 				_bgSound = new KyoBGSounder();
 			}
 			
-			if (_bgSound.sound == sound) {
-				return;
-			}
 			if (_bgSound.playing) {
 				_bgSound.stop();
 			}
@@ -113,32 +110,32 @@ package net.play5d.game.bvn.ctrl {
 			}
 		}
 		
-//		public function pauseBGM():void {
-//			if (_bgmPaused) {
-//				return;
-//			}
-//
-//			_bgmPaused = true;
-//			if (_bgSound) {
-//				_bgSound.pause();
-//			}
-//		}
-//
-//		public function resumeBGM():void {
-//			if (!_bgmPaused) {
-//				return;
-//			}
-//
-//			_bgmPaused = false;
-//			if (_waitingSound) {
-//				BGM(_waitingSound);
-//				_waitingSound = null;
-//				return;
-//			}
-//			if (_bgSound) {
-//				_bgSound.resume();
-//			}
-//		}
+		public function pauseBGM():void {
+			if (_bgmPaused) {
+				return;
+			}
+
+			_bgmPaused = true;
+			if (_bgSound) {
+				_bgSound.pause();
+			}
+		}
+
+		public function resumeBGM():void {
+			if (!_bgmPaused) {
+				return;
+			}
+
+			_bgmPaused = false;
+			if (_waitingSound) {
+				BGM(_waitingSound);
+				_waitingSound = null;
+				return;
+			}
+			if (_bgSound) {
+				_bgSound.resume();
+			}
+		}
 		
 		public function loadFightBGM(arr:Array, success:Function, fail:Function = null, process:Function = null):void {
 			var curUrl:String;

@@ -627,7 +627,7 @@ package net.play5d.game.bvn.ui {
 				}
 			}
 			
-			addBtn("RESET DEFAULT", "重置默认设置");
+			addBtn("RESET DEFAULT", "恢复默认设置");
 			addBtn("APPLY", "应用");
 			addBtn("CANCEL", "取消");
 		}
@@ -724,14 +724,27 @@ package net.play5d.game.bvn.ui {
 					"txt":"ALLOW WANKAI",
 					"cn":"允许变身",
 					"options":[{
-						"label":"FALSE",
-						"cn":"否",
+						"label":"DISABLED",
+						"cn":"禁用",
 						"value":false
 					},{
-						"label":"TRUE",
-						"cn":"是",
+						"label":"ENABLE",
+						"cn":"启用",
 						"value":true
-					}],
+					},{
+						"label":"LOW",
+						"cn":"限制:低-60秒",
+						"value":"low"
+					},{
+						"label":"MEDIUM",
+						"cn":"限制:中-30秒 (推荐)",
+						"value":"medium"
+					},{
+						"label":"HIGH",
+						"cn":"限制:高-15秒",
+						"value":"high"
+					}
+					],
 					"optoinKey":"allowWankai"
 				}
 				];
@@ -751,7 +764,7 @@ package net.play5d.game.bvn.ui {
 					btn.setOptionByValue(config.getValueByKey(btn.optionKey));
 				}
 			}
-			addBtn("RESET DEFAULT", "重置默认设置");
+			addBtn("RESET DEFAULT", "恢复默认设置");
 			addBtn("APPLY", "应用");
 			addBtn("CANCEL", "取消");
 		}

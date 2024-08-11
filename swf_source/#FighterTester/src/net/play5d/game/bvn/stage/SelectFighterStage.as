@@ -10,6 +10,8 @@ package net.play5d.game.bvn.stage {
 	import flash.display.MovieClip;
 	import flash.events.DataEvent;
 	import flash.events.MouseEvent;
+	import flash.geom.Point;
+	import flash.utils.Dictionary;
 	import flash.utils.setTimeout;
 	
 	import net.play5d.game.bvn.Debugger;
@@ -71,7 +73,19 @@ package net.play5d.game.bvn.stage {
 		private var _curStep:int = 0;
 		private var _tweenTime:int = 500;
 		private var _twoPlayerSelectFin:Boolean;
+		private var _moreFighterMap:Dictionary;
+		private var _moreFighterCache:Object;
 		private var _closeDelay:int = 0;
+		
+		public function SelectFighterStage() {
+			_moreFighterMap = new Dictionary();
+			_moreFighterCache = {};
+			super();
+		}
+		
+		private function getOtherSlt(slt:SelecterItemUI):SelecterItemUI {
+			return slt == _p1Slt ? _p2Slt : _p1Slt;
+		}
 		
 		public function get display():DisplayObject {
 			return _ui;
@@ -129,6 +143,7 @@ package net.play5d.game.bvn.stage {
 		private function fadOutList(back:Function = null):void {
 			GameInputer.enabled = false;
 			
+			var si:SelectFighterItem = null;
 			var outX:Number = GameConfig.GAME_SIZE.x / 2 - 30;
 			var outY:Number = GameConfig.GAME_SIZE.y / 2 - 30;
 			
@@ -141,6 +156,17 @@ package net.play5d.game.bvn.stage {
 					scaleY: 0,
 					delay : delay
 				});
+			}
+			
+			for each (var f:* in _moreFighterMap) {
+				if (f) {
+					for (var j:* = 0; j < f.length; ) { 
+						si = f.getItemByIndex(j);
+						si.destory();
+						j++;
+					}
+					_moreFighterMap[f] = null;
+				}
 			}
 			
 			if (back != null) {
@@ -524,6 +550,7 @@ package net.play5d.game.bvn.stage {
 			}
 			
 			checkRandom(slt);
+			showMoreFighters(slt,sf)
 		}
 		
 		private function checkRandom(slt:SelecterItemUI):Boolean {
@@ -559,6 +586,133 @@ package net.play5d.game.bvn.stage {
 				return true;
 			}
 			return false;
+		}
+		
+		private function hideMoreFighters(slt:SelecterItemUI):void {
+			var otherSlt:SelecterItemUI = getOtherSlt(slt);
+			var otherFighterItems:Array = null;
+			var i:int = 0;
+			var j:int = 0;
+			var si:SelectFighterItem = null;
+			if(otherSlt != null)
+			{
+				otherFighterItems = _moreFighterMap[otherSlt];
+			}
+			var fighterItems:Array = _moreFighterMap[slt];
+			if (fighterItems != null && fighterItems.length > 0) {
+				for (i = 0; i < fighterItems.length; i++) {
+					si = fighterItems.getItemByIndex(i);
+					if (otherFighterItems && otherFighterItems.length) {
+						j = 0;
+						while (true) {
+							if (j < otherFighterItems.length) {
+								if (si == otherFighterItems.getItemByIndex(j)) {
+									break;
+								}
+								continue;
+							}
+						}
+						continue;
+					}
+					si.hideMore();
+				}
+				_moreFighterMap[slt] = null;
+			}
+			slt.setMoreEnabled(false);
+		}
+		
+		private function showMoreFighters(slt:SelecterItemUI, sf:SelectFighterItem):void {
+			var i:int = 0;
+			var fid:String = null;
+			var fv:FighterVO = null;
+			var unitWidth:* = 0;
+			var unitHeight:* = 0;
+			var morePosition:Point = null;
+			var addN:int = 0;
+			var fighterPos:Point = null;
+			var psn:int = 0;
+			var pos:Point = null;
+			var mmx:Number = NaN;
+			var mmy:Number = NaN;
+			var si:SelectFighterItem = null;
+			var other:SelecterItemUI = getOtherSlt(slt);
+			if (slt.showingMoreSelecter == sf) {
+				return;
+			} 
+	        hideMoreFighters(slt);
+			if (!sf.selectData.moreFighterIDs || sf.selectData.moreFighterIDs.length < 1) {
+				return;
+			}
+			var fighterItems:Array = _moreFighterCache[sf.fighterData.id];
+			if (fighterItems != null && fighterItems.length > 0)
+			{
+				_moreFighterMap[slt] = fighterItems;
+				slt.setMoreEnabled(true,sf);
+				if (other && other.showingMoreSelecter == sf) {
+					return;
+				}
+				for (i = 0; i < fighterItems.length; ) {
+					si = fighterItems.getItemByIndex(i);
+					_ui.addChild(si.ui);
+					si.showMore(i * 0.01);
+					i++;
+				}
+				return;
+			}
+			var fighterIds:Array = sf.selectData.moreFighterIDs;
+			fighterItems = new Array();
+			var posArr:Array = [new Point(0,-1),new Point(0,1),new Point(-1,0),new Point(1,0),new Point(-1,-1),new Point(1,-1),new Point(-1,1),new Point(1,1)];
+			var posSN:int = 0;
+			for (i = 0; i < fighterIds.length; ) {
+				fid = String(fighterIds[i]);
+				trace("额外人物：" + fid);
+				fv = _selectState == 1 ? AssisterModel.I.getAssister(fid) : FighterModel.I.getFighter(fid);
+				if (fv == null) {
+					trace("SelectFighterStage.addFighterItem :: 未找到角色数据：" + fid);
+				}
+				else {
+					unitWidth = 60;
+					unitHeight = 60;
+					morePosition = null;
+					addN = 0;
+					fighterPos = null;
+					while (morePosition == null) {
+						psn = posSN % 8;
+						posSN++;
+						pos = posArr[psn] as Point;
+						if (pos == null) {
+							trace("pos未定义" + psn + " / " + posSN);
+						}
+						 else {
+							mmx = sf.ui.x + pos.x * (unitWidth + 5);
+							mmy = sf.ui.y + pos.y * (unitHeight + 5);
+							if(mmy < 0 || mmy > GameConfig.GAME_SIZE.y)
+							{
+								trace("pos.y 越界 (" + mmy + ")  " + psn + " / " + posSN);
+							}
+							else
+							{
+								fighterPos = pos.clone();
+								morePosition = new Point(mmx,mmy);
+							}
+						}
+					}
+					si = new SelectFighterItem(fv,null,true);
+					trace("posSN",posSN,morePosition,si.fighterData.id);
+					si.addEventListener("mouseOver",selectFighterMouseHandler);
+					si.addEventListener("click",selectFighterMouseHandler);
+		            si.position = fighterPos;
+					si.initMoreTween(new Point(sf.ui.x,sf.ui.y),morePosition);
+					_ui.addChild(si.ui);
+					addN++;
+					si.showMore(addN * 0.01);
+					fighterItems.push(si.positionId, si);
+					_moreFighterMap[slt] = fighterItems;
+					_moreFighterCache[sf.fighterData.id] = fighterItems;
+				}
+				i++;
+			}
+			slt.setMoreEnabled(true,sf);
 		}
 		
 		private function getHLineFighter(startX:int, Y:int):SelectFighterItem {
@@ -617,6 +771,14 @@ package net.play5d.game.bvn.stage {
 				}
 				else {
 					GameUI.confirm("BACK TITLE?", "返回到主菜单？", MainGame.I.goMenu);
+				}
+			}
+			if (GameInputer.jump("P1",1)) {
+				if (GameUI.showingDialog()) {
+					GameUI.closeConfrim();
+				}
+				else {
+					GameUI.confirm("RE SELECT?","重新选择？",MainGame.I.goSelect);
 				}
 			}
 			if (GameUI.showingDialog()) {
@@ -739,6 +901,8 @@ package net.play5d.game.bvn.stage {
 				var move:int = selt == _p1Slt == 1 ? 1 : -1;
 				moveSlt(selt, selt.x + move, selt.y, true);
 			}
+			hideMoreFighters(selt);
+			selt.destory(false);
 		}
 		
 		public function nextStep():void {

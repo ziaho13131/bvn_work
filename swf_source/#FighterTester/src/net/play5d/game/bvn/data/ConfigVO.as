@@ -47,7 +47,7 @@ package net.play5d.game.bvn.data {
 		public var isInfiniteAttack:String = "medium";
 		public var isLongGhostStep:String = "medium";
 		public var isBreakCombo:String = "medium";
-		public var allowWankai:Boolean = true;
+		public var allowWankai:* = true;
 		public var isChangeSpecialKey:Boolean = false;
 		public var arcadeLoseMaxCount:* = 4;
 		public var bgmVolume   :Number = 1;

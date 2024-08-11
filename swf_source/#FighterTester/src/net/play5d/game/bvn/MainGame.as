@@ -150,7 +150,7 @@ package net.play5d.game.bvn {
 		}
 		
 		public function goSelect():void {
-			stageCtrl.goStage(new SelectFighterStage());
+			stageCtrl.goStage(new SelectFighterStage(),true);
 			setFPS(30);
 		}
 		

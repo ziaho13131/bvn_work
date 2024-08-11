@@ -4,6 +4,7 @@
 package net.play5d.game.bvn.ui.select {
 	import flash.display.MovieClip;
 	
+	import com.greensock.TweenLite;
 	import net.play5d.game.bvn.data.AssisterModel;
 	import net.play5d.game.bvn.data.FighterModel;
 	import net.play5d.game.bvn.data.FighterVO;
@@ -27,8 +28,13 @@ package net.play5d.game.bvn.ui.select {
 		
 		public var x:int;
 		public var y:int;
-		
 		public var enabled:Boolean = true;
+		
+		public var moreX:int = 0;
+		public var moreY:int = 0;
+		private var _moreEnable:Boolean = false;
+		public var showingMoreSelecter:SelectFighterItem;
+		
 		public var randoms:Vector.<FighterVO> = null;
 		public var randFrame:int;
 		
@@ -73,6 +79,31 @@ package net.play5d.game.bvn.ui.select {
 //			selectTimes = selectTimesCount;
 //			enabled = false;
 //		}
+		
+		public function moreEnabled():Boolean {
+			return _moreEnable;
+		}
+		
+		public function setMoreEnabled(v:Boolean, slt:SelectFighterItem = null):void {
+			_moreEnable = v;
+			if (v) {
+				moreX = 0;
+				moreY = 0;
+				if (!slt) {
+					throw Error("Need SelectFighterItem !!");
+				}
+				 showingMoreSelecter = slt;
+				if (showingMoreSelecter) {
+					showingMoreSelecter.setMoreNumberVisible(false);
+				}
+			}
+			else {
+				  if (showingMoreSelecter) {
+					  showingMoreSelecter.setMoreNumberVisible(true);
+				}
+				 showingMoreSelecter = null;
+			}
+		}
 		
 		public function isSelected(id:String):Boolean {
 			if (!selectVO) {
@@ -132,10 +163,10 @@ package net.play5d.game.bvn.ui.select {
 			ui.y = y;
 		}
 		
-		public function destory():void {
+		public function destory(isDestory:Boolean = true):void {
 			enabled = false;
 			removeSelecter();
-			removeGroup();
+			removeGroup(isDestory);
 		}
 		
 		public function removeSelecter():void {
@@ -150,15 +181,26 @@ package net.play5d.game.bvn.ui.select {
 			}
 		}
 		
-		public function removeGroup():void {
+		public function removeGroup(isDestory:Boolean = true):void {
+			if (!isDestory) {
+				TweenLite.to(group,0.5,{
+					"alpha":0.5,
+					"y":"5"
+				});
+				return;
+			}
 			if (group && group.parent) {
-				try {
-					group.parent.removeChild(group);
-				}
-				catch (e:Error) {
-				}
-				
-				group = null;
+				TweenLite.to(group,0.5,{
+					"alpha":0,
+					"y":"80",
+					"onComplete":function():void {
+						try {
+							group.parent.removeChild(group);
+						}
+						catch(e:Error) {}
+						group = null;
+					}
+				});
 			}
 		}
 		
