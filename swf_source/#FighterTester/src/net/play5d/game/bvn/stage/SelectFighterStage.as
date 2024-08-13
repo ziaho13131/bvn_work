@@ -19,6 +19,7 @@ package net.play5d.game.bvn.stage {
 	import net.play5d.game.bvn.MainGame;
 	import net.play5d.game.bvn.ctrl.AssetManager;
 	import net.play5d.game.bvn.ctrl.GameLogic;
+	import net.play5d.kyo.utils.ArrayMap;
 	import net.play5d.game.bvn.ctrl.GameRender;
 	import net.play5d.game.bvn.ctrl.SoundCtrl;
 	import net.play5d.game.bvn.ctrl.StateCtrl;
@@ -713,6 +714,40 @@ package net.play5d.game.bvn.stage {
 				i++;
 			}
 			slt.setMoreEnabled(true,sf);
+		}
+		
+		private function moveMoreSlt(param1:SelecterItemUI, param2:int, param3:int):Boolean {
+			var _loc4_:ArrayMap = _moreFighterMap[param1];
+			if (_loc4_ == null || _loc4_.length < 1) {
+				return false;
+			}
+			if (param2 == 0 && param3 == 0 && param1.showingMoreSelecter) {
+				param1.moreX = 0;
+				param1.moreY = 0;
+				param1.moveTo(param1.showingMoreSelecter.ui.x,param1.showingMoreSelecter.ui.y);
+				param1.currentFighter = param1.showingMoreSelecter.fighterData;
+				if (param1.group) {
+					param1.group.updateFighter(param1.currentFighter);
+				}
+				return true;
+			}
+			var _loc5_:String = SelectFighterItem.getIdByPoint(param2,param3);
+			var _loc6_:SelectFighterItem = _loc4_.getItemById(_loc5_);
+			if (_loc6_ == null) {
+				return false;
+			}
+			if (param1.isSelected(_loc6_.fighterData.id)) {
+				return false;
+			}
+			param1.randoms = null;
+			param1.moreX = _loc6_.position.x;
+			param1.moreY = _loc6_.position.y;
+			param1.moveTo(_loc6_.x,_loc6_.y);
+			param1.currentFighter = _loc6_.fighterData;
+			if (param1.group) {
+				param1.group.updateFighter(param1.currentFighter);
+			}
+			return true;
 		}
 		
 		private function getHLineFighter(startX:int, Y:int):SelectFighterItem {
