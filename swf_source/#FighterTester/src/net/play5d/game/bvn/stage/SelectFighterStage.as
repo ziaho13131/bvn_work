@@ -428,6 +428,16 @@ package net.play5d.game.bvn.stage {
 			moveSlt(_p2Slt, 9, 0);
 		}
 		
+		private function moveSelecter(slt:SelecterItemUI, addX:int, addY:int):void {
+			if (slt.moreEnabled()) {
+				if (moveMoreSlt(slt,slt.moreX + addX,slt.moreY + addY)) {
+					return;
+				}
+				slt.setMoreEnabled(false);
+			}
+			moveSlt(slt,slt.x + addX,slt.y + addY);
+		}
+		
 		private function moveSlt(slt:SelecterItemUI, x:int, y:int, fix:Boolean = true):Boolean {
 			var right:Boolean = false;
 			var up:Boolean = false;
@@ -591,15 +601,14 @@ package net.play5d.game.bvn.stage {
 		
 		private function hideMoreFighters(slt:SelecterItemUI):void {
 			var otherSlt:SelecterItemUI = getOtherSlt(slt);
-			var otherFighterItems:Array = null;
+			var otherFighterItems:ArrayMap = null;
 			var i:int = 0;
 			var j:int = 0;
 			var si:SelectFighterItem = null;
-			if(otherSlt != null)
-			{
+			if (otherSlt != null) {
 				otherFighterItems = _moreFighterMap[otherSlt];
 			}
-			var fighterItems:Array = _moreFighterMap[slt];
+			var fighterItems:ArrayMap = _moreFighterMap[slt];
 			if (fighterItems != null && fighterItems.length > 0) {
 				for (i = 0; i < fighterItems.length; i++) {
 					si = fighterItems.getItemByIndex(i);
@@ -644,7 +653,7 @@ package net.play5d.game.bvn.stage {
 			if (!sf.selectData.moreFighterIDs || sf.selectData.moreFighterIDs.length < 1) {
 				return;
 			}
-			var fighterItems:Array = _moreFighterCache[sf.fighterData.id];
+			var fighterItems:ArrayMap = _moreFighterCache[sf.fighterData.id];
 			if (fighterItems != null && fighterItems.length > 0)
 			{
 				_moreFighterMap[slt] = fighterItems;
@@ -661,7 +670,7 @@ package net.play5d.game.bvn.stage {
 				return;
 			}
 			var fighterIds:Array = sf.selectData.moreFighterIDs;
-			fighterItems = new Array();
+			fighterItems = new ArrayMap();
 			var posArr:Array = [new Point(0,-1),new Point(0,1),new Point(-1,0),new Point(1,0),new Point(-1,-1),new Point(1,-1),new Point(-1,1),new Point(1,1)];
 			var posSN:int = 0;
 			for (i = 0; i < fighterIds.length; ) {
@@ -742,7 +751,6 @@ package net.play5d.game.bvn.stage {
 			param1.randoms = null;
 			param1.moreX = _loc6_.position.x;
 			param1.moreY = _loc6_.position.y;
-			param1.moveTo(_loc6_.x,_loc6_.y);
 			param1.currentFighter = _loc6_.fighterData;
 			if (param1.group) {
 				param1.group.updateFighter(param1.currentFighter);
@@ -831,19 +839,19 @@ package net.play5d.game.bvn.stage {
 				
 				type = _p1Slt.inputType;
 				if (GameInputer.up(type, 1)) {
-					moveSlt(_p1Slt, _p1Slt.x, _p1Slt.y - 1);
+					moveSelecter(_p1Slt,0,-1);
 					SoundCtrl.I.sndSelect();
 				}
 				if (GameInputer.down(type, 1)) {
-					moveSlt(_p1Slt, _p1Slt.x, _p1Slt.y + 1);
+					moveSelecter(_p1Slt,0,1);
 					SoundCtrl.I.sndSelect();
 				}
 				if (GameInputer.left(type, 1)) {
-					moveSlt(_p1Slt, _p1Slt.x - 1, _p1Slt.y);
+					moveSelecter(_p1Slt,-1,0);
 					SoundCtrl.I.sndSelect();
 				}
 				if (GameInputer.right(type, 1)) {
-					moveSlt(_p1Slt, _p1Slt.x + 1, _p1Slt.y);
+					moveSelecter(_p1Slt,-1,0);
 					SoundCtrl.I.sndSelect();
 				}
 				if (GameInputer.select(type, 1)) {
@@ -857,19 +865,19 @@ package net.play5d.game.bvn.stage {
 				
 				type = _p2Slt.inputType;
 				if (GameInputer.up(type, 1)) {
-					moveSlt(_p2Slt, _p2Slt.x, _p2Slt.y - 1);
+					moveSelecter(_p2Slt,0,-1);
 					SoundCtrl.I.sndSelect();
 				}
 				if (GameInputer.down(type, 1)) {
-					moveSlt(_p2Slt, _p2Slt.x, _p2Slt.y + 1);
+					moveSelecter(_p2Slt,0,1);
 					SoundCtrl.I.sndSelect();
 				}
 				if (GameInputer.left(type, 1)) {
-					moveSlt(_p2Slt, _p2Slt.x - 1, _p2Slt.y);
+					moveSelecter(_p2Slt,-1,0);
 					SoundCtrl.I.sndSelect();
 				}
 				if (GameInputer.right(type, 1)) {
-					moveSlt(_p2Slt, _p2Slt.x + 1, _p2Slt.y);
+					moveSelecter(_p2Slt,1,0);
 					SoundCtrl.I.sndSelect();
 				}
 				if (GameInputer.select(type, 1)) {

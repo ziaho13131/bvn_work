@@ -4,9 +4,9 @@
 
 package net.play5d.kyo.utils
 {
-	/**
-	 * 数组扩展
-	 */	
+/**
+* 数组扩展
+*/	
    public class ArrayMap {
 	   
     private var _o:Object;

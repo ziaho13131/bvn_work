@@ -240,7 +240,7 @@ package {
 		
 		private function testGame(...params):void {
 //			Debugger.errorMsg("");
-			SoundCtrl.I.sndSelect();
+			SoundCtrl.I.sndConfrim();
 			changeFPS();
 			
 			GameMode.currentMode = GameMode.TRAINING;
@@ -265,8 +265,10 @@ package {
 		private function fastSetup(...params):void {
 			if (LoadingStage.loadFighterIng) {
 				Debugger.errorMsg("Fighter is Loading!");
+				SoundCtrl.I.sndSelect();
 				return;
 			}
+			SoundCtrl.I.sndConfrim();
 			if (MainGame.stageCtrl.currentStage is SettingStage)MainGame.I.goRuleBook();
 			else MainGame.I.goOption();
 			
@@ -279,13 +281,14 @@ package {
 		
 		private function killP2(...params):void {
 			var rundata:GameRunDataVO = GameCtrl.I.gameRunData;
-			SoundCtrl.I.sndSelect();
 			if (!rundata) {
 				Debugger.errorMsg("No game data!");
+				SoundCtrl.I.sndSelect();
 				return;
 			}
 			if (!GameCtrl.I.actionEnable) {
 				Debugger.errorMsg("In system control!");
+				SoundCtrl.I.sndSelect();
 				return;
 			}
 			
@@ -293,12 +296,15 @@ package {
 			var p2:FighterMain = rundata.p2FighterGroup.currentFighter;
 			if (!p1 || !p2) {
 				return;
+				SoundCtrl.I.sndSelect();
 			}
 			if (GameMode.isTraining()) {
 				Debugger.errorMsg("Current mode is TRAINING!");
+				SoundCtrl.I.sndSelect();
 				return;
 			}
 			if (!p1.isAlive || !p2.isAlive) {
+				SoundCtrl.I.sndSelect();
 				return;
 			}
 			
@@ -328,6 +334,7 @@ package {
 				p2.isAlive = false;
 				
 				trace("Kill P2 success!");
+				SoundCtrl.I.sndConfrim();
 			}
 		}
 	}
