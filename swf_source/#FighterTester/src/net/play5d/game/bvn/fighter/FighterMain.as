@@ -86,11 +86,14 @@ package net.play5d.game.bvn.fighter {
 		}
 		
 		public function resumeColor():void {
-			if (_colorTransform != null) {
+			if (_colorTransform != null && _mainMc != null) {
 				_mainMc.transform.colorTransform = _colorTransform;
 				return;
 			}
-			_mainMc.transform.colorTransform = new ColorTransform();
+			if (_mainMc != null) {
+				_mainMc.transform.colorTransform = new ColorTransform();
+			}
+			return;
 		}
 		
 		override public function destory(dispose:Boolean = true):void {
@@ -110,7 +113,6 @@ package net.play5d.game.bvn.fighter {
 				_buffCtrler.destory();
 				_buffCtrler = null;
 			}
-			resumeColor();
 			targetTeams = null;
 			_currentTarget = null;
 			_currentHurts = null;

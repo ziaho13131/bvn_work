@@ -810,7 +810,9 @@ package net.play5d.game.bvn.stage {
 			if (x == 0 && y == 0 && slt.showingMoreSelecter) {
 				slt.moreX = 0;
 				slt.moreY = 0;
-				if (_loc6_.morePosition != null)slt.moveTo(_loc6_.morePosition.x,_loc6_.morePosition.y);
+				if (_loc6_.morePosition != null) {
+					slt.moveTo(_loc6_.morePosition.x,_loc6_.morePosition.y);
+				}
 				slt.currentFighter = _loc6_.fighterData;
 				if (slt.group) {
 					slt.group.updateFighter(slt.currentFighter);
@@ -821,7 +823,9 @@ package net.play5d.game.bvn.stage {
 			slt.randoms = null;
 			slt.moreX = _loc6_.position.x;
 			slt.moreY = _loc6_.position.y;
-			if (_loc6_.morePosition != null)slt.moveTo(_loc6_.morePosition.x,_loc6_.morePosition.y);
+			if (_loc6_.morePosition != null) {
+				slt.moveTo(_loc6_.morePosition.x,_loc6_.morePosition.y);
+			}
 			slt.currentFighter = _loc6_.fighterData;
 			if (slt.group) {
 				slt.group.updateFighter(slt.currentFighter);
