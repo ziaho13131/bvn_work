@@ -4,19 +4,20 @@
 package net.play5d.game.bvn.ui.select {
 	import com.greensock.TweenLite;
 	import com.greensock.easing.Back;
-	import flash.filters.GlowFilter;
+	
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
+	import flash.filters.GlowFilter;
 	import flash.geom.ColorTransform;
-	import net.play5d.kyo.display.BitmapText;
 	import flash.geom.Point;
 	
 	import net.play5d.game.bvn.ctrl.AssetManager;
 	import net.play5d.game.bvn.data.FighterVO;
 	import net.play5d.game.bvn.data.SelectCharListItemVO;
 	import net.play5d.game.bvn.utils.ResUtils;
+	import net.play5d.kyo.display.BitmapText;
 	
 	/**
 	 * 选择角色节点
@@ -33,6 +34,8 @@ package net.play5d.game.bvn.ui.select {
 		private var _tweenTo:Point;
 		
 		public var position:Point = new Point();
+		
+		public var  morePosition:Point;
 		
 		private var faceSize:Point;
 		private var _listeners:Object = {};
@@ -57,7 +60,8 @@ package net.play5d.game.bvn.ui.select {
 				ui.more_bg.mouseChildren = false;
 				ui.more_bg.mouseEnabled = false;
 				ct = new ColorTransform();
-				ct.redOffset = 255;
+				//病毒:byd的这里才是那个框的颜色定义
+				//ct.redOffset = 255;
 				ct.blueOffset = -255;
 				ui.more_bg.transform.colorTransform = ct;
 			}
@@ -142,7 +146,8 @@ package net.play5d.game.bvn.ui.select {
 		}
 		
 		private function initMoreUI():void {
-			var moreTxt:BitmapText = new BitmapText(false,16776960,[new GlowFilter(0,1,5,5,3)]);
+			trace("文字初始化中");
+			var moreTxt:BitmapText = new BitmapText(false,0xFFFF00,[new GlowFilter(0,1,5,5,3)]);
 			moreTxt.width = 50;
 			moreTxt.defaultTextFormat.bold = true;
 			moreTxt.defaultTextFormat.color = 16776960;
@@ -152,6 +157,7 @@ package net.play5d.game.bvn.ui.select {
 			moreTxt.update();
 			ui.addChild(moreTxt);
 			_moreText = moreTxt;
+			trace("初始化成功: " + moreTxt.text);
 		}
 		
 		public function setMoreNumberVisible(v:Boolean):void {

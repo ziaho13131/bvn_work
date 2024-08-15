@@ -278,6 +278,7 @@ package net.play5d.game.bvn.ui.select {
 				return;
 			}
 			
+			
 			_selectItem.setFighterIndex(_currentSelectId);
 			_currentSelectId++;
 			

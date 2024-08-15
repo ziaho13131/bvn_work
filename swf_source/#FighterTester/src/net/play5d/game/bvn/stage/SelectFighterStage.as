@@ -273,7 +273,7 @@ package net.play5d.game.bvn.stage {
 			}
 			
 			var si:SelectFighterItem = new SelectFighterItem(fv, sv);
-			si.addEventListener(MouseEvent.MOUSE_OVER, selectFighterMouseHandler);
+			si.addEventListener(MouseEvent.MOUSE_OVER, selectFighterMouseHandler); 
 			si.addEventListener(MouseEvent.CLICK, selectFighterMouseHandler);
 			
 			_ui.addChild(si.ui);
@@ -283,7 +283,7 @@ package net.play5d.game.bvn.stage {
 		}
 		
 		private function selectFighterMouseHandler(type:String, target:SelectFighterItem):void {
-			if (!target || !target.selectData) {
+			if (!target || !target.selectData && !target.isMore) {
 				return;
 			}
 			
@@ -320,42 +320,89 @@ package net.play5d.game.bvn.stage {
 //			doHover(target);
 //		}
 		
+		/**
+		 * 最难写的一集
+		 * 这个是调整位置的
+		 */
 		private function doHover(target:SelectFighterItem):void {
 			if (_p1Slt && _p1Slt.enabled) {
-				if (_p1Slt.isSelected(target.selectData.fighterID)) {
-					return;
-				}
-				
-				moveToSelectFighter(_p1Slt, target);
-				SoundCtrl.I.sndSelect();
-				return;
+				 if (target.selectData != null) {
+					 if (_p1Slt.isSelected(target.selectData.fighterID)) {
+						 return;
+					 }
+					 moveToSelectFighter(_p1Slt, target);
+					 SoundCtrl.I.sndSelect();
+					 return; 
+				 }
+				 else {
+					 if(_p1Slt.moreEnabled() && !target.isMore) {
+						 return;
+					 }
+					 
+					 moveToSelectFighter(_p1Slt, target);
+					 SoundCtrl.I.sndSelect();
+					 return; 
+				 }
 			}
 			
 			if (_p2Slt && _p2Slt.enabled) {
-				if (_p2Slt.isSelected(target.selectData.fighterID)) {
-					return;
+				if (target.selectData != null) {
+					if (_p2Slt.isSelected(target.selectData.fighterID)) {
+						return;
+					}
+					moveToSelectFighter(_p2Slt, target);
+					SoundCtrl.I.sndSelect();
 				}
-				moveToSelectFighter(_p2Slt, target);
-				SoundCtrl.I.sndSelect();
+				else {
+					if(_p2Slt.moreEnabled() && !target.isMore) {
+						return;
+					}
+					moveToSelectFighter(_p2Slt, target);
+					SoundCtrl.I.sndSelect();
+				}
 			}
 		}
 		
+		/**
+		 * 这个也难写
+		 * 这个是确定选中的
+		 */
 		private function doSelect(target:SelectFighterItem):void {
 			if (_p1Slt && _p1Slt.enabled) {
-				if (_p1Slt.isSelected(target.selectData.fighterID)) {
+				if (target.selectData != null) {
+					if (_p1Slt.isSelected(target.selectData.fighterID)) {
+						return;
+					}
+					_p1Slt.select(playerSeltBack);
+					SoundCtrl.I.sndConfrim();
 					return;
 				}
-				_p1Slt.select(playerSeltBack);
-				SoundCtrl.I.sndConfrim();
-				return;
+				else {
+					if(_p1Slt.moreEnabled() && !target.isMore) {
+						return;
+					}
+					_p1Slt.select(playerSeltBack);
+					SoundCtrl.I.sndConfrim();
+					return;
+				}
 			}
 			
 			if (_p2Slt && _p2Slt.enabled) {
-				if (_p2Slt.isSelected(target.selectData.fighterID)) {
-					return;
+				if (target.selectData != null) {
+					if (_p2Slt.isSelected(target.selectData.fighterID)) {
+						return;
+					}
+					_p2Slt.select(playerSeltBack);
+					SoundCtrl.I.sndConfrim();
 				}
-				_p2Slt.select(playerSeltBack);
-				SoundCtrl.I.sndConfrim();
+				else {
+					if(_p2Slt.moreEnabled() && !target.isMore) {
+						return;
+					}
+					_p2Slt.select(playerSeltBack);
+					SoundCtrl.I.sndConfrim();
+				}
+				
 			}
 		}
 		
@@ -550,18 +597,33 @@ package net.play5d.game.bvn.stage {
 		private function moveToSelectFighter(slt:SelecterItemUI, sf:SelectFighterItem):void {
 			slt.randoms = null;
 			
-			slt.x = sf.selectData.x;
-			slt.y = sf.selectData.y;
-			
+			if(sf && sf.selectData) {
+				slt.x = sf.selectData.x;
+				slt.y = sf.selectData.y;
+			} else {
+				slt.x = sf.morePosition.x;
+				slt.y = sf.morePosition.y;
+			}
 			slt.moveTo(sf.ui.x, sf.ui.y);
+			
+			
 			slt.currentFighter = sf.fighterData;
+			
+			
 			
 			if (slt.group) {
 				slt.group.updateFighter(slt.currentFighter);
 			}
 			
 			checkRandom(slt);
-			showMoreFighters(slt,sf)
+			/**
+			 * 病毒:代码我真草泥马了
+			 */
+			if(!sf || !sf.selectData) {
+				slt.setMoreEnabled(false);
+				return;
+			} 
+			showMoreFighters(slt,sf);
 		}
 		
 		private function checkRandom(slt:SelecterItemUI):Boolean {
@@ -709,9 +771,12 @@ package net.play5d.game.bvn.stage {
 					}
 					si = new SelectFighterItem(fv,null,true);
 					trace("posSN",posSN,morePosition,si.fighterData.id);
-					si.addEventListener("mouseOver",selectFighterMouseHandler);
-					si.addEventListener("click",selectFighterMouseHandler);
+					si.addEventListener(MouseEvent.MOUSE_OVER, selectFighterMouseHandler); 
+					si.addEventListener(MouseEvent.CLICK, selectFighterMouseHandler); 
 		            si.position = fighterPos;
+					
+					si.morePosition = morePosition;
+					
 					si.initMoreTween(new Point(sf.ui.x,sf.ui.y),morePosition);
 					_ui.addChild(si.ui);
 					addN++;
@@ -725,38 +790,46 @@ package net.play5d.game.bvn.stage {
 			slt.setMoreEnabled(true,sf);
 		}
 		
-		private function moveMoreSlt(param1:SelecterItemUI, param2:int, param3:int):Boolean {
-			var _loc4_:ArrayMap = _moreFighterMap[param1];
+		private function moveMoreSlt(slt:SelecterItemUI, x:int, y:int):Boolean {
+			var _loc4_:ArrayMap = _moreFighterMap[slt];
+			var _loc5_:String = SelectFighterItem.getIdByPoint(x,y);
+			var _loc6_:SelectFighterItem = _loc4_.getItemById(_loc5_);
+			
 			if (_loc4_ == null || _loc4_.length < 1) {
 				return false;
 			}
-			if (param2 == 0 && param3 == 0 && param1.showingMoreSelecter) {
-				param1.moreX = 0;
-				param1.moreY = 0;
-				param1.moveTo(param1.showingMoreSelecter.ui.x,param1.showingMoreSelecter.ui.y);
-				param1.currentFighter = param1.showingMoreSelecter.fighterData;
-				if (param1.group) {
-					param1.group.updateFighter(param1.currentFighter);
-				}
-				return true;
-			}
-			var _loc5_:String = SelectFighterItem.getIdByPoint(param2,param3);
-			var _loc6_:SelectFighterItem = _loc4_.getItemById(_loc5_);
+			
 			if (_loc6_ == null) {
 				return false;
 			}
-			if (param1.isSelected(_loc6_.fighterData.id)) {
+			
+			if (slt.isSelected(_loc6_.fighterData.id)) {
 				return false;
 			}
-			param1.randoms = null;
-			param1.moreX = _loc6_.position.x;
-			param1.moreY = _loc6_.position.y;
-			param1.currentFighter = _loc6_.fighterData;
-			if (param1.group) {
-				param1.group.updateFighter(param1.currentFighter);
+			
+			if (x == 0 && y == 0 && slt.showingMoreSelecter) {
+				slt.moreX = 0;
+				slt.moreY = 0;
+				if (_loc6_.morePosition != null)slt.moveTo(_loc6_.morePosition.x,_loc6_.morePosition.y);
+				slt.currentFighter = _loc6_.fighterData;
+				if (slt.group) {
+					slt.group.updateFighter(slt.currentFighter);
+				}
+				checkRandom(slt);
+				return true;
 			}
+			slt.randoms = null;
+			slt.moreX = _loc6_.position.x;
+			slt.moreY = _loc6_.position.y;
+			if (_loc6_.morePosition != null)slt.moveTo(_loc6_.morePosition.x,_loc6_.morePosition.y);
+			slt.currentFighter = _loc6_.fighterData;
+			if (slt.group) {
+				slt.group.updateFighter(slt.currentFighter);
+			}
+			checkRandom(slt);
 			return true;
 		}
+		
 		
 		private function getHLineFighter(startX:int, Y:int):SelectFighterItem {
 			var sf:SelectFighterItem = null;
@@ -851,7 +924,7 @@ package net.play5d.game.bvn.stage {
 					SoundCtrl.I.sndSelect();
 				}
 				if (GameInputer.right(type, 1)) {
-					moveSelecter(_p1Slt,-1,0);
+					moveSelecter(_p1Slt,1,0);
 					SoundCtrl.I.sndSelect();
 				}
 				if (GameInputer.select(type, 1)) {

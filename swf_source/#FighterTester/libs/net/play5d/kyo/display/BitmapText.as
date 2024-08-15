@@ -68,6 +68,8 @@ package net.play5d.kyo.display {
 		
 		public function set color(value:uint):void {
 			defaultTextFormat.color = value;
+			//病毒:这个才是色彩定义
+			this._tf.textColor = value;
 			if (autoUpdate) {
 				update();
 			}
@@ -129,10 +131,11 @@ package net.play5d.kyo.display {
 //			_tf.height = v;
 //		}
 		
-		public function update():void {
+		public function update(a:Boolean = false):void {
 			if (!_tf) {
 				return;
 			}
+
 			
 			_tf.height = _tf.textHeight + 10;
 			_tf.defaultTextFormat = defaultTextFormat;

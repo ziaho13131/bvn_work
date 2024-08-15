@@ -6,7 +6,7 @@
 <char_list>
 
 <row>
-<item moreFighter="ichigo_bankai">ichigo</item>
+<item moreFighter="ichigo_bankai,ichigo_vizored_half">ichigo</item>
 <item offset="-10,0">rukia</item>
 <item offset="-20,0">renji</item>
 <item offset="-5,20">ichigo_bankai</item>
