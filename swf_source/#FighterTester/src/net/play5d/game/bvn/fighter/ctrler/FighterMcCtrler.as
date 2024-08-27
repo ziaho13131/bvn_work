@@ -1366,9 +1366,25 @@ package net.play5d.game.bvn.fighter.ctrler {
 		}
 		
 		private function doWaiKaiAction(action:String):void {
-			if(!GameData.I.config.allowWankai)
-			{
+			
+			if (!GameData.I.config.allowWankai && !GameConfig.isLimitedTimedBankai) {
 				return;
+			}
+			else if (GameConfig.isLimitedTimedBankai) {
+				var BankaiLimiteLevel:String = GameData.I.config.allowWankai;
+				var limiteTime:int;
+				    switch (BankaiLimiteLevel) {
+						case "low":
+							limiteTime = 60 * GameConfig.FPS_GAME;
+							break;
+						case "medium":
+							limiteTime = 30 * GameConfig.FPS_GAME;
+							break;
+						case "high":
+							limiteTime = 15 * GameConfig.FPS_GAME;
+							break;
+					}
+				    EffectCtrl.I.startLimitedBankaiEffect(_fighter,limiteTime);
 			}
 			if (!_mc.checkFrame(action)) {
 				return;

@@ -751,6 +751,7 @@ package net.play5d.game.bvn.stage {
 					while (morePosition == null) {
 						psn = posSN % 8;
 						posSN++;
+						trace(psn);
 						pos = posArr[psn] as Point;
 						if (pos == null) {
 							trace("pos未定义" + psn + " / " + posSN);
@@ -774,9 +775,7 @@ package net.play5d.game.bvn.stage {
 					si.addEventListener(MouseEvent.MOUSE_OVER, selectFighterMouseHandler); 
 					si.addEventListener(MouseEvent.CLICK, selectFighterMouseHandler); 
 		            si.position = fighterPos;
-					
 					si.morePosition = morePosition;
-					
 					si.initMoreTween(new Point(sf.ui.x,sf.ui.y),morePosition);
 					_ui.addChild(si.ui);
 					addN++;
@@ -824,7 +823,10 @@ package net.play5d.game.bvn.stage {
 			slt.moreX = _loc6_.position.x;
 			slt.moreY = _loc6_.position.y;
 			if (_loc6_.morePosition != null) {
+				slt.x = slt.moreX;
+				slt.y = slt.moreY;
 				slt.moveTo(_loc6_.morePosition.x,_loc6_.morePosition.y);
+				trace(slt.x+":"+slt.y);
 			}
 			slt.currentFighter = _loc6_.fighterData;
 			if (slt.group) {

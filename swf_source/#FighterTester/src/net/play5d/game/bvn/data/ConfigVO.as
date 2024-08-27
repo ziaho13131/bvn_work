@@ -47,7 +47,7 @@ package net.play5d.game.bvn.data {
 		public var isInfiniteAttack:String = "medium";
 		public var isLongGhostStep:String = "medium";
 		public var isBreakCombo:String = "medium";
-		public var allowWankai:* = true;
+		public var allowWankai:* = "true";
 		public var isChangeSpecialKey:Boolean = false;
 		public var arcadeLoseMaxCount:* = 4;
 		public var bgmVolume   :Number = 1;
@@ -183,7 +183,7 @@ package net.play5d.game.bvn.data {
 				isInfiniteAttack = "medium";
 				isLongGhostStep = "medium";
 				isBreakCombo = "medium";
-				allowWankai = true;
+				allowWankai = "true";
 				isChangeSpecialKey = false;
 				arcadeLoseMaxCount = 4;
 			}
@@ -249,6 +249,12 @@ package net.play5d.game.bvn.data {
 			}
 			if (arcadeLoseMaxCount != false) {
 				GameConfig.ArcadeIntSwitch = false;
+			}
+			if (allowWankai != false && allowWankai != "true") {
+				GameConfig.isLimitedTimedBankai = true;
+			}
+			else {
+				GameConfig.isLimitedTimedBankai = false;
 			}
 			GameInterface.instance.applyConfig(this);
 			SoundCtrl.I.setBgmVolumn(bgmVolume);

@@ -99,6 +99,8 @@ package net.play5d.game.bvn {
 		
 		public static var ArcadeIntSwitch:Boolean = false;
 		
+		public static var isLimitedTimedBankai:Boolean = false;
+		
 //		public static var MAP_LOGO_STATE:int = 0;
 		
 		/**

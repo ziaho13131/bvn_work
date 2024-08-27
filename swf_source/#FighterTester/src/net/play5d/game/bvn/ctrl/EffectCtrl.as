@@ -91,6 +91,9 @@ package net.play5d.game.bvn.ctrl {
 		private var _breakComboFrame:int;
 		private var _lastBreakComboOwner:FighterMain;
 		
+		private var _limiteBankaiFrame:int;
+		private var _limiteBankaiOwner:FighterMain;
+		
 		private var _onFreezeOver:Vector.<Function> = null;
 		
 		public static function get I():EffectCtrl {
@@ -161,6 +164,9 @@ package net.play5d.game.bvn.ctrl {
 			}
 			if (_breakComboFrame > 0) {
 				renderBreakComboEffect();
+			}
+			if (_limiteBankaiFrame > 0) {
+				renderLimiteBankai();
 			}
 			if (_justRenderTargets && _justRenderTargets.length > 0) {
 				for each(var sp:BaseGameSprite in _justRenderTargets) {
@@ -874,6 +880,7 @@ package net.play5d.game.bvn.ctrl {
 		 * 断连特效
 		 */
 	    public function doBreakComboEffect(fighter:FighterMain):void {
+			if (isBreakComboEffect(fighter))return;
 			var ct:ColorTransform = new ColorTransform;
 			ct.redOffset = 109;
 			ct.blueOffset = 111;
@@ -901,6 +908,33 @@ package net.play5d.game.bvn.ctrl {
 			_lastBreakComboOwner = null;
 		}
 		
+		
+		public function startLimitedBankaiEffect(fighter:FighterMain,time:int):void {
+			_limiteBankaiOwner = fighter;
+			_limiteBankaiFrame = time;
+		}
+		
+		public function endLimiteBankaiEffect():void {
+			 if (_limiteBankaiOwner) {
+				 EffectCtrl.I.doEffectById("fz_change",_limiteBankaiOwner.x,_limiteBankaiOwner.y);
+				 _limiteBankaiOwner.getCtrler().getSelf().mc.gotoAndStop(_limiteBankaiOwner.data.startFrame+1);
+			 }
+			_breakComboFrame = 0;
+			_limiteBankaiOwner = null;
+		}
+		
+		public function isLimitedBankai(fighter:FighterMain):Boolean {
+			if(_limiteBankaiOwner != fighter)return false;
+			return _limiteBankaiFrame >= 1;
+		}
+		
+		private function renderLimiteBankai():void {
+			_limiteBankaiFrame--;
+			if (_limiteBankaiFrame <= 0) {
+				endLimiteBankaiEffect();
+			}
+		}
+			
 		public function ghostStep(target:BaseGameSprite):void {
 			justRender(target);
 			justRenderAnimate(target);
