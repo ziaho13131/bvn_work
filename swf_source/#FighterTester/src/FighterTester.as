@@ -50,6 +50,7 @@ package {
 		private var _mainGame:MainGame;
 		private var _gameSprite:Sprite;
 		private var _testUI:Sprite;
+		private var _isDeactived:Boolean = false;
 		
 		//添加测试机图片
 		[Embed(source="/../res/tester.jpg")]
@@ -92,7 +93,8 @@ package {
 			
 			_mainGame = new MainGame(); 
 			_mainGame.initlize(_gameSprite, stage, initBackHandler, initFailHandler);
-			
+			stage.addEventListener("deactivate",activeHandler);
+			stage.addEventListener("activate",activeHandler);
 			StateCtrl.I.transEnabled = false;
 		}
 		
@@ -337,5 +339,24 @@ package {
 				SoundCtrl.I.sndConfrim();
 			}
 		}
-	}
+		
+		private function activeHandler(e:Event):void {
+			if(e.type == "deactivate" && !_isDeactived)
+			{
+				_isDeactived = true;
+				SoundCtrl.I.setSoundVolumn(0);
+				SoundCtrl.I.setBgmVolumn(0);
+				GameCtrl.I.pause(true);
+				trace("暂停BGM");
+			}
+			else if(e.type == "activate" && _isDeactived)
+			{
+				_isDeactived = false;
+				SoundCtrl.I.setSoundVolumn(GameData.I.config.soundVolume);
+				SoundCtrl.I.setBgmVolumn(GameData.I.config.bgmVolume);
+				GameCtrl.I.resume(true);
+				trace("恢复BGM");
+			}
+		}
+	}	
 }

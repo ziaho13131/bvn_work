@@ -39,7 +39,7 @@ package net.play5d.game.bvn {
 	public class MainGame {
 		
 		public static const VERSION:String = "V3.4 小幻神修改版 基于OpenBVN";			// 版本
-//		public static const VERSION_DATE:String = "2019.3.32";		// 版本日期
+		public static const VERSION_DATE:String = "2024.9.20";		                   // 版本日期
 		public static var UPDATE_INFO:String = "更新记录:"+"\n"+
 		"2024/7/1 新增剧情模式的开关 并修复了主界面按钮的若干BUG";
 		
