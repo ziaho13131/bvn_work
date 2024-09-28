@@ -610,7 +610,7 @@ package net.play5d.game.bvn.ui {
 					 optoinKey: "arcadeLoseMaxCount"
 				 },{
 					 txt      : "BLACK BACK",
-					 cn       : "必杀灰色特写 (灰度越小越深)",
+					 cn       : "必杀后特写(灰度越小越深)",
 					 options  : [{
 						 label: "DISABLED",
 						 cn   : "禁用",
@@ -621,11 +621,11 @@ package net.play5d.game.bvn.ui {
 						 value: "true"
 					 },{
 						 label: "0.3",
-						 cn   : "启用-灰度0.3",
+						 cn   : "灰度0.3",
 						 value: 0.3
 					 },{
 						 label: "0.6",
-						 cn   : "灰度0.6 (原版)",
+						 cn   : "灰度0.6原版",
 						 value: 0.6
 					 },{
 						 label: "0.8",
