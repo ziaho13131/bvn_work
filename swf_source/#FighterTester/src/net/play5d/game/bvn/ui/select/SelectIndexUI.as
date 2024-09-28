@@ -107,22 +107,17 @@ package net.play5d.game.bvn.ui.select {
 			switch (GameMode.currentMode) {
 				case GameMode.TEAM_ACRADE:
 					initP1Group();
-					initP2Group(null, true);
+					initP2Group(null, false);
 					break;
+				case GameMode.STORY_VS_PEOPLE:
 				case GameMode.TEAM_VS_PEOPLE:
 					initP1Group();
 					initP2Group(GameInputType.P2, false);
 					break;
-				case GameMode.TEAM_VS_CPU:
-				case GameMode.TEAM_WATCH:
-					initP1Group(function ():void {
-						initP2Group(GameInputType.P1, false);
-					});
-					break;
 				case GameMode.STORY_VS_CPU:
-				case GameMode.STORY_VS_PEOPLE:
 				case GameMode.SINGLE_WATCH:
 				case GameMode.STORY_TRAINING:
+				case GameMode.TEAM_WATCH:
 					initP1Group(function ():void {
 						initP2Group(GameInputType.P1, false);
 					});

@@ -10,8 +10,8 @@ package net.play5d.game.bvn.fighter.ctrler {
 	import net.play5d.game.bvn.fighter.FighterActionState;
 	import net.play5d.game.bvn.fighter.FighterMC;
 	import net.play5d.game.bvn.fighter.FighterMain;
-	import net.play5d.game.bvn.fighter.models.FighterHitModel;
 	import net.play5d.game.bvn.fighter.events.FighterEventDispatcher;
+	import net.play5d.game.bvn.fighter.models.FighterHitModel;
 	import net.play5d.game.bvn.fighter.models.HitVO;
 	import net.play5d.game.bvn.interfaces.BaseGameSprite;
 	import net.play5d.game.bvn.interfaces.IFighterActionCtrl;
@@ -62,6 +62,11 @@ package net.play5d.game.bvn.fighter.ctrler {
 		
 		public function getVoiceCtrl():FighterVoiceCtrler {
 			return _voiceCtrl;
+		}
+		
+		//获取主体接口
+		public function getMainCtrl():FighterMain {
+			return _fighter;
 		}
 		
 		public function get hp():Number {

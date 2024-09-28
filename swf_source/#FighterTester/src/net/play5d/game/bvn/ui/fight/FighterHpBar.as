@@ -185,7 +185,7 @@ package net.play5d.game.bvn.ui.fight {
 			
 			//角色名称 
 			if (_NameTxt) {
-				_NameTxt.text = _fighter.data.name;
+				_NameTxt.text = _fighter.data.name+String(_fighter.isAiCtrl?" [电脑]":" ["+_fighter.team.name+"玩家]");
 			}
 			
 			//血条数字

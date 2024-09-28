@@ -191,7 +191,7 @@ package net.play5d.game.bvn.ui {
 						}
 						else {
 							_p1AI = false;
-							setPlayerCtrl(true); 
+							setKeyCtrl(true); 
 						}
 						GameCtrl.I.resume(true);	
 					}, function ():void {
@@ -211,7 +211,7 @@ package net.play5d.game.bvn.ui {
 						}
 						else {
 							_p2AI = false;
-							setPlayerCtrl();
+							setKeyCtrl();
 						}
 						GameCtrl.I.resume(true);	
 					},"P1","P2","阵营","阵营");			
@@ -255,13 +255,13 @@ package net.play5d.game.bvn.ui {
 			//trace(this._p1AI);
 		}
 		
-		public function setPlayerCtrl(v:Boolean = false):void {
+		public function setKeyCtrl(v:Boolean = false):void {
 			var Fighter:FighterMain = (!v?GameCtrl.I.gameRunData.p2FighterGroup.currentFighter as FighterMain:GameCtrl.I.gameRunData.p1FighterGroup.currentFighter as FighterMain);
 			var key:FighterKeyCtrl = new FighterKeyCtrl();
 			key.inputType = Fighter.team.name;
 			key.classicMode = GameData.I.config.keyInputMode == 1;
 			Fighter.setActionCtrl(key);
-			trace("PauseDialog.setPlayerCtrl ::  "+Fighter.team.name+" Play Ctrl Start..")
+			trace("PauseDialog.setKeyCtrl ::  "+Fighter.team.name+" Key Ctrl Start..")
 		}
 		
 	}

@@ -347,7 +347,7 @@ package {
 				SoundCtrl.I.setSoundVolumn(0);
 				SoundCtrl.I.setBgmVolumn(0);
 				GameCtrl.I.pause(true);
-				trace("暂停BGM");
+				trace("bgm stop");
 			}
 			else if(e.type == "activate" && _isDeactived)
 			{
@@ -355,7 +355,7 @@ package {
 				SoundCtrl.I.setSoundVolumn(GameData.I.config.soundVolume);
 				SoundCtrl.I.setBgmVolumn(GameData.I.config.bgmVolume);
 				GameCtrl.I.resume(true);
-				trace("恢复BGM");
+				trace("bgm play");
 			}
 		}
 	}	

@@ -6,11 +6,11 @@ package net.play5d.game.bvn.fighter {
 	import flash.geom.ColorTransform;
 	import flash.geom.Rectangle;
 	
-	import net.play5d.game.bvn.data.GameData;
 	import net.play5d.game.bvn.GameConfig;
 	import net.play5d.game.bvn.ctrl.GameLogic;
 	import net.play5d.game.bvn.ctrl.game_ctrls.GameCtrl;
 	import net.play5d.game.bvn.data.FighterVO;
+	import net.play5d.game.bvn.data.GameData;
 	import net.play5d.game.bvn.data.TeamVO;
 	import net.play5d.game.bvn.fighter.ctrler.FighterBuffCtrler;
 	import net.play5d.game.bvn.fighter.ctrler.FighterCtrler;
@@ -43,6 +43,7 @@ package net.play5d.game.bvn.fighter {
 		public var jumpTimes:int = 2;
 		public var actionState:int = 0;
 		public var defenseType:int = 0;
+		public var isAiCtrl:Boolean;
 		public var lastHitVO:HitVO;
 		private var _buffCtrler:FighterBuffCtrler;
 		private var _currentHurts:Vector.<HitVO>;

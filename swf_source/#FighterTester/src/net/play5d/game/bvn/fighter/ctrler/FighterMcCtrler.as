@@ -111,8 +111,16 @@ package net.play5d.game.bvn.fighter.ctrler {
 			return _doingAction;
 		}
 		
+		public function getActionCtrler():IFighterActionCtrl {
+			return _actionCtrler;
+		}
+		
 		public function setActionCtrler(v:IFighterActionCtrl):void {
 			_actionCtrler = v;
+			_fighter.isAiCtrl = v is FighterAICtrl; 
+			if (_fighter.team)trace("setActionCtrler::"+_fighter.team.name+" "+String(_fighter.isAiCtrl?"setAiCtrl":"setKeyCtrl"));
+			else trace("setActionCtrler::"+String(_fighter.isAiCtrl?"setAiCtrl":"setKeyCtrl"));
+		
 		}
 		
 		public function setMc(mc:FighterMC):void {

@@ -429,7 +429,7 @@ package net.play5d.game.bvn.stage {
 		private function initSelecterP1():void {
 			_p1Slt = SelectUIFactory.createSelecter(1);
 			_p1Slt.isSelectAssist = _selectState == SELECT_STATE_ASSIST;
-			if (GameMode.currentMode == 30) {
+			if (GameMode.currentMode == GameMode.SURVIVOR) {
 				_p1Slt.selectTimesCount = GameMode.isTeamMode() && !_p1Slt.isSelectAssist ? 1 : 1;
 			}
 			else if(GameMode.isDuoMode()) {
@@ -463,7 +463,7 @@ package net.play5d.game.bvn.stage {
 				_p2Slt.selectTimesCount = GameMode.isTeamMode() && !_p2Slt.isSelectAssist ? 3 : 1;
 			}
 			else if(GameMode.isStoryMode()) {
-				_p2Slt.selectTimesCount = GameMode.isTeamMode() ? 3 : 1;	
+				_p2Slt.selectTimesCount = GameMode.isTeamMode() && !_p2Slt.isSelectAssist ? 3 : 1;	
 				
 			}
 			else {
