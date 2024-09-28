@@ -50,6 +50,8 @@ package net.play5d.game.bvn.data {
 		public var allowWankai:* = "true";
 		public var isChangeSpecialKey:Boolean = false;
 		public var arcadeLoseMaxCount:* = 4;
+		public var isBlackBack:* = 0.3;
+		public var isSmothingEffect:Boolean = true;
 		public var bgmVolume   :Number = 1;
 		public var keyInputMode:int = 1;
 		
@@ -118,6 +120,8 @@ package net.play5d.game.bvn.data {
 			o.allowWankai = allowWankai;
 			o.isChangeSpecialKey = isChangeSpecialKey;
 			o.arcadeLoseMaxCount = arcadeLoseMaxCount;
+			o.isBlackBack = isBlackBack;
+            o.isSmothingEffect = isSmothingEffect;
 			o.keyInputMode = keyInputMode;
 			o.soundVolume = soundVolume;
 			o.bgmVolume = bgmVolume;
@@ -185,7 +189,6 @@ package net.play5d.game.bvn.data {
 				isBreakCombo = "medium";
 				allowWankai = "true";
 				isChangeSpecialKey = false;
-				arcadeLoseMaxCount = 4;
 			}
 			 else {
 				AI_level     = 1;
@@ -206,6 +209,9 @@ package net.play5d.game.bvn.data {
 				catchHitFreeze = 250;
 				bgmVolume    = 1;
 				keyInputMode = 1;
+				arcadeLoseMaxCount = 4;
+				isBlackBack = 0.3;
+				isSmothingEffect = true;
 			}
 		}
 			

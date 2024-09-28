@@ -23,6 +23,7 @@ package net.play5d.game.bvn.ctrl {
 	import net.play5d.game.bvn.fighter.vos.FighterBuffVO;
 	import net.play5d.game.bvn.interfaces.BaseGameSprite;
 	import net.play5d.game.bvn.interfaces.IGameSprite;
+	import net.play5d.game.bvn.map.MapMain;
 	import net.play5d.game.bvn.stage.GameStage;
 	import net.play5d.game.bvn.utils.EffectManager;
 	import net.play5d.game.bvn.views.effects.BitmapFilterView;
@@ -94,6 +95,9 @@ package net.play5d.game.bvn.ctrl {
 		private var _limiteBankaiFrame:int;
 		private var _limiteBankaiOwner:FighterMain;
 		
+		private var _renderBlackBack:Boolean = false;
+		private var _isRenderBlackBack:Boolean = false;
+		
 		private var _onFreezeOver:Vector.<Function> = null;
 		
 		public static function get I():EffectCtrl {
@@ -148,7 +152,9 @@ package net.play5d.game.bvn.ctrl {
 			}
 			renderSlowDown();
 			renderShine();
-			
+			if (_renderBlackBack) {
+				renderBlackBack();
+			}
 			for each (var effect:EffectView in _effects) {
 				effect.render();
 			}
@@ -174,6 +180,42 @@ package net.play5d.game.bvn.ctrl {
 					GameLogic.fixGameSpritePosition(sp);
 				}
 			}
+		}
+		private function renderBlackBack():void {
+			var rate:Number = 0.03;
+			var gdepth:Number = GameData.I.config.isBlackBack == "true"?0.15 : GameData.I.config.isBlackBack;
+			var mapLayer:MapMain = _gameStage.getMap();
+			var p1Fighter:FighterMain = GameCtrl.I.gameRunData.p1FighterGroup.currentFighter;
+			var p2Fighter:FighterMain = GameCtrl.I.gameRunData.p2FighterGroup.currentFighter;
+			if (p1Fighter == null || p2Fighter == null) {
+				return;
+			}
+			var p1IsBishaIng:Boolean = p1Fighter && p1Fighter.actionState == 12 || p1Fighter && p1Fighter.actionState == 13;
+			var p2IsBishaIng:Boolean = p2Fighter && p2Fighter.actionState == 12 || p2Fighter && p2Fighter.actionState == 13;
+			var mapCt:ColorTransform = mapLayer.getColorTransform();
+			if (p1IsBishaIng == p2IsBishaIng && p1IsBishaIng == false) {
+				if (mapCt && mapCt.redMultiplier + 0.03 > 1) {
+					mapLayer.resetColorTransform();
+					_isRenderBlackBack = false;
+					_renderBlackBack = false;
+					return;
+				}
+				mapCt.redMultiplier += 0.03;
+				mapCt.greenMultiplier = mapCt.blueMultiplier = mapCt.redMultiplier;
+				mapLayer.setColorTransform(mapCt);
+				return;
+			}
+			if (mapCt && mapCt.redMultiplier == gdepth) {
+				return;
+			}
+			var ct:ColorTransform = new ColorTransform();
+			ct.redMultiplier = ct.greenMultiplier = ct.blueMultiplier = gdepth;
+			mapLayer.setColorTransform(ct);
+		}
+		
+		public function startRenderBlackBack():void {
+			_renderBlackBack = true;
+			_isRenderBlackBack = false;
 		}
 		
 		private function renderShine():void {

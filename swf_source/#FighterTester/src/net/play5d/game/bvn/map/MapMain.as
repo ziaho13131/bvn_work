@@ -6,6 +6,7 @@ package net.play5d.game.bvn.map {
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
+	import flash.geom.ColorTransform;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	
@@ -44,6 +45,8 @@ package net.play5d.game.bvn.map {
 		
 		private var _defaultFrontPos:Point;
 		private var _floors:Array;
+		
+		private var _colorTransform:ColorTransform;
 		
 		public function MapMain(mapMc:Sprite) {
 			this.mapMc = mapMc;
@@ -89,6 +92,31 @@ package net.play5d.game.bvn.map {
 			if (bgLayer) {
 				bgLayer.visible = v;
 			}
+		}
+		
+		public function setColorTransform(colorTransform:ColorTransform):void {
+			_colorTransform = colorTransform;
+			if (mapLayer) {
+				mapLayer.transform.colorTransform = _colorTransform;
+			}
+			if (frontLayer) {
+				frontLayer.transform.colorTransform = _colorTransform;
+			}
+			if (frontFixLayer ) {
+				frontFixLayer.transform.colorTransform = _colorTransform;
+			}
+			if (bgLayer) {
+				bgLayer.transform.colorTransform = _colorTransform;
+			}
+		}
+		
+		public function getColorTransform():ColorTransform {
+			return _colorTransform;
+		}
+		
+		public function resetColorTransform():void {
+			_colorTransform = new ColorTransform();
+			setColorTransform(_colorTransform);
 		}
 		
 		public function initlize():void {

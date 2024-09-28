@@ -10,6 +10,7 @@ package net.play5d.game.bvn.fighter.ctrler {
 	
 	import net.play5d.game.bvn.Debugger;
 	import net.play5d.game.bvn.ctrl.EffectCtrl;
+	import net.play5d.game.bvn.data.GameData;
 	import net.play5d.game.bvn.ctrl.SoundCtrl;
 	import net.play5d.game.bvn.fighter.FighterActionState;
 	import net.play5d.game.bvn.fighter.FighterMain;
@@ -107,6 +108,7 @@ package net.play5d.game.bvn.fighter.ctrler {
 		public function bisha(isSuper:Boolean = false, face:String = null):void {
 			var faceDisplay:DisplayObject = getFace(face);
 			EffectCtrl.I.bisha(_target, isSuper, faceDisplay);
+			if (GameData.I.config.isBlackBack != "false")EffectCtrl.I.startRenderBlackBack();
 		}
 		
 		public function endBisha():void {

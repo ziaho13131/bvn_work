@@ -608,6 +608,36 @@ package net.play5d.game.bvn.ui {
 					 }
 					 ],
 					 optoinKey: "arcadeLoseMaxCount"
+				 },{
+					 txt      : "BLACK BACK",
+					 cn       : "必杀灰色特写 (灰度越小越深)",
+					 options  : [{
+						 label: "DISABLED",
+						 cn   : "禁用",
+						 value: "false"
+					 },{
+						 label: "ENABLED",
+						 cn   : "启用-灰度0.15",
+						 value: "true"
+					 },{
+						 label: "0.3",
+						 cn   : "启用-灰度0.3",
+						 value: 0.3
+					 },{
+						 label: "0.6",
+						 cn   : "灰度0.6 (原版)",
+						 value: 0.6
+					 },{
+						 label: "0.8",
+						 cn   : "灰度0.8",
+						 value: 0.8
+					 },{
+						 label: "0.9",
+						 cn   : "灰度0.9",
+						 value: 0.9
+					 }
+					 ],
+					 optoinKey: "isBlackBack"
 				 }
 				];
 			}
