@@ -599,7 +599,6 @@ package net.play5d.game.bvn.fighter.ctrler {
 			if (_justDefenseFrame > 0) {
 				_justDefenseFrame--;
 			}
-			
 			_action.render();
 			
 			if (_moveTargetParam) {
@@ -2390,6 +2389,13 @@ package net.play5d.game.bvn.fighter.ctrler {
 				_ghostType = 2;
 				if(longGhostComboLevel != "false")_targetfighter.getCtrler().getMcCtrl().longGhostStepState++;
 			}
+		}
+		
+		public function get isGhostStep():int {
+		        if (EffectCtrl.I.isBlackCurtain && _ghostStepIng) {
+					return _ghostType;
+				}
+				return -1;
 		}
 		
 		private function startGhostStep():Boolean {

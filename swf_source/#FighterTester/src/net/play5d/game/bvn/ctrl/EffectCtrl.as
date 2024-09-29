@@ -181,18 +181,29 @@ package net.play5d.game.bvn.ctrl {
 				}
 			}
 		}
+		
+		public function get isBlackCurtain():Boolean {
+			return Boolean(_gameStage.getChildAt(0) is BlackBackView);
+		}
+		
 		private function renderBlackBack():void {
 			var rate:Number = 0.03;
 			var gdepth:Number = GameData.I.config.isBlackBack == "true"?0.15 : GameData.I.config.isBlackBack;
 			var mapLayer:MapMain = _gameStage.getMap();
-			var p1Fighter:FighterMain = GameCtrl.I.gameRunData.p1FighterGroup.currentFighter;
-			var p2Fighter:FighterMain = GameCtrl.I.gameRunData.p2FighterGroup.currentFighter;
+			var p1Fighter:FighterMain = GameCtrl.I.gameRunData.p1FighterGroup.currentFighter || 
+				GameCtrl.I.gameRunData.p1FighterGroup.currentFighter2 || GameCtrl.I.gameRunData.p1FighterGroup.currentFighter3;
+			var p2Fighter:FighterMain = GameCtrl.I.gameRunData.p2FighterGroup.currentFighter || 
+				GameCtrl.I.gameRunData.p2FighterGroup.currentFighter2 || GameCtrl.I.gameRunData.p2FighterGroup.currentFighter3;
+			
 			if (p1Fighter == null || p2Fighter == null) {
 				return;
 			}
-			var p1IsBishaIng:Boolean = p1Fighter && p1Fighter.actionState == 12 || p1Fighter && p1Fighter.actionState == 13;
-			var p2IsBishaIng:Boolean = p2Fighter && p2Fighter.actionState == 12 || p2Fighter && p2Fighter.actionState == 13;
+			var p1IsBishaIng:Boolean = p1Fighter.actionState && p1Fighter.actionState == 12 || p1Fighter && p1Fighter.actionState == 13 && !isBlackCurtain;
+			var p2IsBishaIng:Boolean = p2Fighter.actionState && p2Fighter.actionState == 12 || p2Fighter && p2Fighter.actionState == 13 && !isBlackCurtain;
 			var mapCt:ColorTransform = mapLayer.getColorTransform();
+			if (p1Fighter == null || p2Fighter == null) {
+				return;
+			}
 			if (p1IsBishaIng == p2IsBishaIng && p1IsBishaIng == false) {
 				if (mapCt && mapCt.redMultiplier + 0.03 > 1) {
 					mapLayer.resetColorTransform();
