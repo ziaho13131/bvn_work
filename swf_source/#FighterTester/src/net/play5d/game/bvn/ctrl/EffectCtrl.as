@@ -2,6 +2,7 @@
  * 已重建完成
  */
 package net.play5d.game.bvn.ctrl {
+	import flash.display.ColorCorrection;
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.filters.BitmapFilter;
@@ -15,6 +16,7 @@ package net.play5d.game.bvn.ctrl {
 	import net.play5d.game.bvn.data.EffectModel;
 	import net.play5d.game.bvn.data.EffectVO;
 	import net.play5d.game.bvn.data.GameData;
+	import net.play5d.game.bvn.data.GameRunFighterGroup;
 	import net.play5d.game.bvn.data.HitType;
 	import net.play5d.game.bvn.fighter.Assister;
 	import net.play5d.game.bvn.fighter.FighterDefenseType;
@@ -190,23 +192,27 @@ package net.play5d.game.bvn.ctrl {
 			var rate:Number = 0.03;
 			var gdepth:Number = GameData.I.config.isBlackBack == "true"?0.15 : GameData.I.config.isBlackBack;
 			var mapLayer:MapMain = _gameStage.getMap();
-			var p1Fighter:FighterMain = GameCtrl.I.gameRunData.p1FighterGroup.currentFighter || 
-				GameCtrl.I.gameRunData.p1FighterGroup.currentFighter2 || GameCtrl.I.gameRunData.p1FighterGroup.currentFighter3;
-			var p2Fighter:FighterMain = GameCtrl.I.gameRunData.p2FighterGroup.currentFighter || 
-				GameCtrl.I.gameRunData.p2FighterGroup.currentFighter2 || GameCtrl.I.gameRunData.p2FighterGroup.currentFighter3;
-			
+			var p1Group:GameRunFighterGroup = GameCtrl.I.gameRunData.p1FighterGroup;
+			var p2Group:GameRunFighterGroup = GameCtrl.I.gameRunData.p2FighterGroup;
+			if (p1Group == null || p2Group == null) {
+				return;
+			}
+			var p1Fighter:FighterMain =  p1Group.currentFighter || p1Group.currentFighter2 || p1Group.currentFighter3;
+			var p2Fighter:FighterMain =  p2Group.currentFighter || p2Group.currentFighter2 || p2Group.currentFighter3;
+
+			var isOnFuzhu:Boolean = (p1Group.fuzhu && p2Group.fuzhu) && (p1Group.fuzhu.isOnStage || p2Group.fuzhu.isOnStage); 
 			if (p1Fighter == null || p2Fighter == null) {
 				return;
 			}
-			var p1IsBishaIng:Boolean = p1Fighter.actionState && p1Fighter.actionState == 12 || p1Fighter && p1Fighter.actionState == 13 && !isBlackCurtain;
-			var p2IsBishaIng:Boolean = p2Fighter.actionState && p2Fighter.actionState == 12 || p2Fighter && p2Fighter.actionState == 13 && !isBlackCurtain;
+			var p1IsBishaIng:Boolean = p1Fighter.actionState == 12 || p1Fighter.actionState == 13;
+			var p2IsBishaIng:Boolean = p2Fighter.actionState == 12 || p2Fighter.actionState == 13; 
 			var mapCt:ColorTransform = mapLayer.getColorTransform();
 			if (p1Fighter == null || p2Fighter == null) {
 				return;
 			}
-			if (p1IsBishaIng == p2IsBishaIng && p1IsBishaIng == false) {
+			if (p1IsBishaIng == p2IsBishaIng && p1IsBishaIng == false && !isBlackCurtain) {
 				if (mapCt && mapCt.redMultiplier + 0.03 > 1) {
-					mapLayer.resetColorTransform();
+					 mapLayer.resetColorTransform();
 					_isRenderBlackBack = false;
 					_renderBlackBack = false;
 					return;

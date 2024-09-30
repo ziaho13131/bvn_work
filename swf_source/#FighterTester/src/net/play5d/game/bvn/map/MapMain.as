@@ -102,7 +102,7 @@ package net.play5d.game.bvn.map {
 			if (frontLayer) {
 				frontLayer.transform.colorTransform = _colorTransform;
 			}
-			if (frontFixLayer ) {
+			if (frontFixLayer) {
 				frontFixLayer.transform.colorTransform = _colorTransform;
 			}
 			if (bgLayer) {
@@ -111,11 +111,11 @@ package net.play5d.game.bvn.map {
 		}
 		
 		public function getColorTransform():ColorTransform {
-			return _colorTransform;
+			return _colorTransform ||= new ColorTransform();
 		}
 		
 		public function resetColorTransform():void {
-			_colorTransform = new ColorTransform();
+			if (_colorTransform != null)_colorTransform = new ColorTransform();
 			setColorTransform(_colorTransform);
 		}
 		
