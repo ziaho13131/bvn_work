@@ -99,7 +99,7 @@ package {
 		}
 		
 		private function initBackHandler():void {
-			//自动进入主界面
+			//自动进入LOGO
 			_mainGame.goLogo();
 			if(Debugger.MODE_DEBUG)buildTestUI();
 		}

@@ -207,9 +207,6 @@ package net.play5d.game.bvn.ctrl {
 			var p1IsBishaIng:Boolean = p1Fighter.actionState == 12 || p1Fighter.actionState == 13;
 			var p2IsBishaIng:Boolean = p2Fighter.actionState == 12 || p2Fighter.actionState == 13; 
 			var mapCt:ColorTransform = mapLayer.getColorTransform();
-			if (p1Fighter == null || p2Fighter == null) {
-				return;
-			}
 			if (p1IsBishaIng == p2IsBishaIng && p1IsBishaIng == false && !isBlackCurtain) {
 				if (mapCt && mapCt.redMultiplier + 0.03 > 1) {
 					 mapLayer.resetColorTransform();
